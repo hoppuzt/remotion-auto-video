@@ -1,0 +1,40 @@
+{
+  "fps": 30,
+  "theme": {
+    "background": "#FFF7ED",
+    "primary": "#F97316",
+    "accent": "#0EA5E9",
+    "text": "#1F2937",
+    "font": "Poppins"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "title": "Remotion Auto Video",
+      "subtitle": "Dirender otomatis lewat GitHub Actions",
+      "durationInSeconds": 3
+    },
+    {
+      "type": "bullets",
+      "title": "Cara kerjanya",
+      "items": [
+        "Claude menyusun input.json",
+        "Commit ke repo GitHub",
+        "GitHub Actions merender MP4"
+      ],
+      "durationInSeconds": 5
+    },
+    {
+      "type": "stat",
+      "value": "9:16",
+      "label": "Siap untuk TikTok & Reels",
+      "durationInSeconds": 3
+    },
+    {
+      "type": "text",
+      "title": "Selesai!",
+      "text": "Unduh videonya dari tab Artifacts di GitHub Actions",
+      "durationInSeconds": 4
+    }
+  ]
+}
