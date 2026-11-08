@@ -1,5 +1,12 @@
 {
   "fps": 30,
+  "subtitles": true,
+  "voice": {
+    "id": "fpsPI3vlnQ0anCTPiHk5",
+    "model": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarityBoost": 0.75
+  },
   "theme": {
     "background": "#FFF7ED",
     "primary": "#F97316",
@@ -12,6 +19,7 @@
       "type": "title",
       "title": "Remotion Auto Video",
       "subtitle": "Dirender otomatis lewat GitHub Actions",
+      "narration": "Halo! Ini video yang dibuat otomatis dengan Remotion, lengkap dengan suara dan subtitle.",
       "durationInSeconds": 3
     },
     {
@@ -22,18 +30,21 @@
         "Commit ke repo GitHub",
         "GitHub Actions merender MP4"
       ],
+      "narration": "Caranya mudah. Pertama, Claude menyusun file input JSON. Kedua, hasilnya di-commit ke repo GitHub. Ketiga, GitHub Actions merender videonya menjadi MP4.",
       "durationInSeconds": 5
     },
     {
       "type": "stat",
       "value": "9:16",
       "label": "Siap untuk TikTok & Reels",
+      "narration": "Formatnya sembilan banding enam belas, pas untuk TikTok dan Reels.",
       "durationInSeconds": 3
     },
     {
       "type": "text",
       "title": "Selesai!",
       "text": "Unduh videonya dari tab Artifacts di GitHub Actions",
+      "narration": "Selesai! Unduh videonya dari tab Artifacts di GitHub Actions.",
       "durationInSeconds": 4
     }
   ]

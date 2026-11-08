@@ -8,6 +8,15 @@ on:
   # Bisa juga dijalankan manual dari tab Actions.
   workflow_dispatch:
 
+# contents: write dibutuhkan untuk meng-commit cache audio (public/audio) kembali ke repo.
+permissions:
+  contents: write
+
+# Satu render pada satu waktu; run berikutnya menunggu supaya push cache audio tidak bentrok.
+concurrency:
+  group: render-video
+  cancel-in-progress: false
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -24,8 +33,28 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Generate Voiceover & Captions
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: node scripts/generate-voiceover.mjs input.json resolved.json
+
+      - name: Commit New Audio Cache
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ -n "$(git status --porcelain -- public/audio)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/audio
+            git commit -m "chore: cache voiceover audio"
+            git pull --rebase origin "$REF_NAME"
+            git push origin "HEAD:$REF_NAME"
+          else
+            echo "Tidak ada file audio baru."
+          fi
+
       - name: Render Video via Remotion
-        run: npx remotion render src/index.ts my-video out/video.mp4 --props=input.json
+        run: npx remotion render src/index.ts my-video out/video.mp4 --props=resolved.json
 
       - name: Upload Video Artifact
         uses: actions/upload-artifact@v4

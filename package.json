@@ -5,7 +5,8 @@
   "description": "Automated motion video rendering cloud using Claude and Remotion",
   "scripts": {
     "dev": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts my-video out/video.mp4 --props=input.json",
+    "voiceover": "node scripts/generate-voiceover.mjs input.json resolved.json",
+    "render": "npm run voiceover && remotion render src/index.ts my-video out/video.mp4 --props=resolved.json",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
