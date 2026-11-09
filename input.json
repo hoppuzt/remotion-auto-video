@@ -2,7 +2,7 @@
   "fps": 30,
   "subtitles": true,
   "voice": {
-    "id": "fpsPI3vlnQ0anCTPiHk5",
+    "id": "Xb7hH8MSUJpSbSDYk0k2",
     "model": "eleven_multilingual_v2",
     "stability": 0.5,
     "similarityBoost": 0.75
