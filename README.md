@@ -7,7 +7,7 @@ Automated motion video rendering cloud using Claude and Remotion
 2. GitHub Actions (`.github/workflows/render.yml`) terpicu oleh perubahan `input.json`.
 3. `scripts/generate-voiceover.mjs` membuat suara ElevenLabs + subtitle -> `resolved.json`.
 4. Audio baru di-commit ke `public/audio/` sebagai cache, lalu video dirender dari `resolved.json`.
-5. Hasilnya ada di tab **Actions > run > Artifacts > finished-video**.
+5. Hasilnya dipublikasikan sebagai **GitHub Release** (`video-<nomor run>`) dengan link langsung ke `video.mp4`, bisa dibuka di HP tanpa unzip. Salinan zip juga ada di **Actions > run > Artifacts > finished-video**.
 
 ## Voice-over & subtitle
 

@@ -19,13 +19,14 @@ concurrency:
 
 jobs:
   render:
-    runs-on: ubuntu-latest
+    # Dikunci ke versi tertentu supaya tidak ikut berpindah saat ubuntu-latest naik versi.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "20"
           cache: npm
@@ -57,7 +58,27 @@ jobs:
         run: npx remotion render src/index.ts my-video out/video.mp4 --props=resolved.json
 
       - name: Upload Video Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: finished-video
           path: out/video.mp4
+
+      # Link langsung ke MP4 (bisa dibuka di HP tanpa unzip), tersimpan di tab Releases.
+      - name: Publish Video to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: video-${{ github.run_number }}
+        run: |
+          gh release create "$TAG" out/video.mp4 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$(git rev-parse HEAD)" \
+            --title "Video #${{ github.run_number }}" \
+            --notes "Dirender otomatis dari input.json (run #${{ github.run_number }}, commit ${GITHUB_SHA::7})."
+          URL="https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/video.mp4"
+          echo "Video: $URL"
+          {
+            echo "### Video siap"
+            echo "[Buka / unduh video.mp4]($URL)"
+            echo ""
+            echo "Semua video: https://github.com/$GITHUB_REPOSITORY/releases"
+          } >> "$GITHUB_STEP_SUMMARY"
