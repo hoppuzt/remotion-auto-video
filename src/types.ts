@@ -10,7 +10,18 @@ export type Theme = {
   /** Warna teks */
   text: string;
   font: FontName;
+  /** Gaya latar bergerak (opsional, default "shapes"). */
+  bgStyle?: BgStyle;
+  /** Warna kedua untuk gradasi latar (opsional). */
+  background2?: string;
+  /** Ikon besar transparan yang melayang di latar, sesuai topik video (opsional, maks 6). */
+  decor?: IconName[];
 };
+
+export const BG_STYLES = [
+  "shapes", "bubbles", "grid", "waves", "rays", "stripes", "confetti", "blobs",
+] as const;
+export type BgStyle = (typeof BG_STYLES)[number];
 
 /** Satu potongan subtitle; waktu dalam detik, relatif terhadap awal scene. */
 export type Caption = {
