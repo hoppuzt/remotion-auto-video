@@ -14,7 +14,10 @@
     "primary": "#F97316",
     "accent": "#0EA5E9",
     "text": "#0F172A",
-    "font": "Poppins"
+    "font": "Poppins",
+    "bgStyle": "bubbles",
+    "background2": "#DBEAFE",
+    "decor": ["drop", "candy", "heart", "apple"]
   },
   "scenes": [
     {
