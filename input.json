@@ -7,68 +7,68 @@
     "stability": 0.5,
     "similarityBoost": 0.75
   },
-  "music": { "track": "upbeat" },
+  "music": { "track": "curious" },
   "defaultSfx": "whoosh",
   "theme": {
-    "background": "#FFF7ED",
+    "background": "#F0F9FF",
     "primary": "#F97316",
     "accent": "#0EA5E9",
-    "text": "#1F2937",
+    "text": "#0F172A",
     "font": "Poppins"
   },
   "scenes": [
     {
       "type": "title",
-      "icon": "bolt",
-      "title": "Video Otomatis",
-      "subtitle": "Cukup dari satu file JSON",
-      "narration": "Halo! Bikin video otomatis sekarang cukup dari satu file JSON.",
-      "durationInSeconds": 3
-    },
-    {
-      "type": "icons",
-      "title": "Alurnya",
-      "items": [
-        { "icon": "bulb", "label": "Tulis ide" },
-        { "icon": "book", "label": "Susun scene" },
-        { "icon": "clock", "label": "Tunggu render" },
-        { "icon": "check", "label": "Video siap" }
-      ],
-      "narration": "Alurnya empat langkah. Tulis ide, susun scene, tunggu render sebentar, lalu videonya siap.",
-      "durationInSeconds": 5
-    },
-    {
-      "type": "compare",
-      "title": "Manual vs otomatis",
-      "left": {
-        "title": "Manual",
-        "icon": "clock",
-        "tone": "bad",
-        "items": ["Edit satu per satu", "Rekam suara sendiri", "Ketik subtitle manual"]
-      },
-      "right": {
-        "title": "Otomatis",
-        "icon": "bolt",
-        "tone": "good",
-        "items": ["Scene dari JSON", "Suara dibuat otomatis", "Subtitle langsung jadi"]
-      },
-      "narration": "Dulu semuanya manual. Sekarang scene, suara, dan subtitle dibuat otomatis.",
-      "durationInSeconds": 6
+      "icon": "drop",
+      "title": "Fakta Diabetes",
+      "subtitle": "Yang sering dianggap sepele",
+      "narration": "Diabetes sering dianggap sepele. Padahal faktanya mengejutkan.",
+      "durationInSeconds": 4
     },
     {
       "type": "stat",
-      "value": "9:16",
-      "label": "Siap untuk TikTok & Reels",
-      "narration": "Formatnya sembilan banding enam belas, pas untuk TikTok dan Reels.",
-      "durationInSeconds": 3
+      "value": "589 jt",
+      "label": "orang dewasa hidup dengan diabetes",
+      "narration": "Satu dari sembilan orang dewasa di dunia hidup dengan diabetes.",
+      "sfx": "ding",
+      "durationInSeconds": 5
     },
     {
       "type": "text",
-      "icon": "smile",
-      "title": "Selesai!",
-      "text": "Unduh videonya dari tab Releases di GitHub",
-      "narration": "Selesai! Unduh videonya dari tab Releases di GitHub.",
-      "durationInSeconds": 4
+      "icon": "question",
+      "title": "Tanpa Disadari",
+      "text": "Lebih dari 4 dari 10 penderita belum tahu dirinya diabetes",
+      "narration": "Dan lebih dari empat dari sepuluh belum tahu dirinya diabetes.",
+      "durationInSeconds": 5
+    },
+    {
+      "type": "stat",
+      "value": "20 jt",
+      "label": "dewasa di Indonesia, peringkat 5 dunia",
+      "narration": "Indonesia peringkat kelima dunia, sekitar dua puluh juta orang.",
+      "sfx": "ding",
+      "durationInSeconds": 5
+    },
+    {
+      "type": "icons",
+      "title": "Pemicu yang sepele",
+      "items": [
+        { "icon": "candy", "label": "Gula berlebih" },
+        { "icon": "laptop", "label": "Kurang gerak" },
+        { "icon": "burger", "label": "Berat badan naik" }
+      ],
+      "narration": "Pemicunya sepele: gula berlebih, kurang gerak, berat badan naik.",
+      "sfx": "pop",
+      "durationInSeconds": 5
+    },
+    {
+      "type": "text",
+      "icon": "check",
+      "title": "Mulai Sekarang",
+      "text": "Cek gula darah sejak dini, mulai dari kebiasaan kecil",
+      "narration": "Yuk, cek gula darah sejak dini, mulai dari kebiasaan kecil.",
+      "sfx": "ding",
+      "durationInSeconds": 5
     }
   ]
 }
