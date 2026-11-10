@@ -59,7 +59,20 @@ Semua scene: `durationInSeconds`, `narration?`, `sfx?`.
 | `compare` | `title?`, `left`, `right` | panel `{title, items[<=4], icon?, tone?}`; `tone`: `good` (centang) / `bad` (silang) / `neutral` |
 | `bars` | `title`, `items[{label,value,display?}]`, `unit?` | 2-5 bar horizontal, nilai dianimasikan |
 
-Ikon bawaan: `tooth sugar candy drop heart apple water clock check cross star bolt sun moon book bulb phone shield warning smile`.
+Ikon bawaan (88, flat vector, warnanya mengikuti `theme`). Tulis nama persis seperti di bawah di field `icon`:
+
+- **Umum:** `tooth sugar candy drop heart apple water clock check cross star bolt sun moon book bulb phone shield warning smile`
+- **Makanan & minuman:** `burger pizza coffee egg carrot fish bread cake milk`
+- **Uang:** `coin wallet chart-up chart-down piggy bank`
+- **Transportasi:** `car bike plane bus rocket boat`
+- **Alam & cuaca:** `tree leaf flower cloud rain mountain fire snowflake globe`
+- **Teknologi:** `laptop wifi gear lock mail camera chat search battery code`
+- **Orang & pendidikan:** `user users graduation briefcase thumbsup`
+- **Benda & lainnya:** `home flag trophy gift key pin bell music clipboard megaphone eye target calendar video mic`
+- **Kesehatan & olahraga:** `pill medkit dumbbell thermometer`
+- **Simbol:** `question info arrow-right hourglass`
+
+Ikon baru ditambahkan di `src/iconSet.tsx` (dan namanya di `src/types.ts`).
 
 ## Tes lokal tanpa internet
 

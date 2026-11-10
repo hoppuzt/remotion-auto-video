@@ -1,4 +1,5 @@
 import React from "react";
+import { EXTRA_ICONS, IconColors } from "./iconSet";
 import { IconName, Theme } from "./types";
 
 const GREEN = "#22C55E";
@@ -232,8 +233,11 @@ export const Icon: React.FC<IconProps> = ({ name, size = 160, theme }) => {
         </>
       );
       break;
-    default:
-      shapes = <circle cx="50" cy="50" r="30" fill={P} />;
+    default: {
+      // Ikon tambahan per kategori ada di src/iconSet.tsx
+      const draw = (EXTRA_ICONS as Record<string, ((c: IconColors) => React.ReactNode) | undefined>)[name];
+      shapes = draw ? draw({ P, A, I, W: WHITE }) : <circle cx="50" cy="50" r="30" fill={P} />;
+    }
   }
 
   return (

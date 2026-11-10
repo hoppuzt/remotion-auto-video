@@ -29,29 +29,37 @@ export type VoiceConfig =
       similarityBoost?: number;
     };
 
-/** Nama ikon flat vector bawaan (lihat src/Icons.tsx). */
-export const ICON_NAMES = [
-  "tooth",
-  "sugar",
-  "candy",
-  "drop",
-  "heart",
-  "apple",
-  "water",
-  "clock",
-  "check",
-  "cross",
-  "star",
-  "bolt",
-  "sun",
-  "moon",
-  "book",
-  "bulb",
-  "phone",
-  "shield",
-  "warning",
-  "smile",
+/** Ikon inti (digambar di src/Icons.tsx). */
+export const CORE_ICON_NAMES = [
+  "tooth", "sugar", "candy", "drop", "heart", "apple", "water", "clock", "check", "cross",
+  "star", "bolt", "sun", "moon", "book", "bulb", "phone", "shield", "warning", "smile",
 ] as const;
+
+/** Ikon tambahan per kategori (digambar di src/iconSet.tsx). */
+export const EXTRA_ICON_NAMES = [
+  // makanan & minuman
+  "burger", "pizza", "coffee", "egg", "carrot", "fish", "bread", "cake", "milk",
+  // uang
+  "coin", "wallet", "chart-up", "chart-down", "piggy", "bank",
+  // transportasi
+  "car", "bike", "plane", "bus", "rocket", "boat",
+  // alam & cuaca
+  "tree", "leaf", "flower", "cloud", "rain", "mountain", "fire", "snowflake", "globe",
+  // teknologi
+  "laptop", "wifi", "gear", "lock", "mail", "camera", "chat", "search", "battery", "code",
+  // orang & pendidikan
+  "user", "users", "graduation", "briefcase", "thumbsup",
+  // benda & lainnya
+  "home", "flag", "trophy", "gift", "key", "pin", "bell", "music", "clipboard", "megaphone",
+  "eye", "target", "calendar", "video", "mic",
+  // kesehatan & olahraga
+  "pill", "medkit", "dumbbell", "thermometer",
+  // simbol
+  "question", "info", "arrow-right", "hourglass",
+] as const;
+
+export const ICON_NAMES = [...CORE_ICON_NAMES, ...EXTRA_ICON_NAMES] as const;
+export type ExtraIconName = (typeof EXTRA_ICON_NAMES)[number];
 export type IconName = (typeof ICON_NAMES)[number];
 
 /** Musik latar. String = nama track bawaan ("upbeat" | "calm" | "curious") atau path di public/. */
