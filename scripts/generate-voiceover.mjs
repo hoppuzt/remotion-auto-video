@@ -240,6 +240,7 @@ async function main() {
       narration,
       audio: relative,
       audioDelaySeconds: AUDIO_DELAY,
+      audioDurationSeconds: Math.round(audioDuration * 1000) / 1000,
       captions: buildCaptions(narration, AUDIO_DELAY, audioDuration),
       durationInSeconds,
     });

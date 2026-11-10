@@ -7,6 +7,8 @@
     "stability": 0.5,
     "similarityBoost": 0.75
   },
+  "music": { "track": "upbeat" },
+  "defaultSfx": "whoosh",
   "theme": {
     "background": "#FFF7ED",
     "primary": "#F97316",
@@ -17,21 +19,41 @@
   "scenes": [
     {
       "type": "title",
-      "title": "Remotion Auto Video",
-      "subtitle": "Dirender otomatis lewat GitHub Actions",
-      "narration": "Halo! Ini video yang dibuat otomatis dengan Remotion, lengkap dengan suara dan subtitle.",
+      "icon": "bolt",
+      "title": "Video Otomatis",
+      "subtitle": "Cukup dari satu file JSON",
+      "narration": "Halo! Bikin video otomatis sekarang cukup dari satu file JSON.",
       "durationInSeconds": 3
     },
     {
-      "type": "bullets",
-      "title": "Cara kerjanya",
+      "type": "icons",
+      "title": "Alurnya",
       "items": [
-        "Claude menyusun input.json",
-        "Commit ke repo GitHub",
-        "GitHub Actions merender MP4"
+        { "icon": "bulb", "label": "Tulis ide" },
+        { "icon": "book", "label": "Susun scene" },
+        { "icon": "clock", "label": "Tunggu render" },
+        { "icon": "check", "label": "Video siap" }
       ],
-      "narration": "Caranya mudah. Pertama, Claude menyusun file input JSON. Kedua, hasilnya di-commit ke repo GitHub. Ketiga, GitHub Actions merender videonya menjadi MP4.",
+      "narration": "Alurnya empat langkah. Tulis ide, susun scene, tunggu render sebentar, lalu videonya siap.",
       "durationInSeconds": 5
+    },
+    {
+      "type": "compare",
+      "title": "Manual vs otomatis",
+      "left": {
+        "title": "Manual",
+        "icon": "clock",
+        "tone": "bad",
+        "items": ["Edit satu per satu", "Rekam suara sendiri", "Ketik subtitle manual"]
+      },
+      "right": {
+        "title": "Otomatis",
+        "icon": "bolt",
+        "tone": "good",
+        "items": ["Scene dari JSON", "Suara dibuat otomatis", "Subtitle langsung jadi"]
+      },
+      "narration": "Dulu semuanya manual. Sekarang scene, suara, dan subtitle dibuat otomatis.",
+      "durationInSeconds": 6
     },
     {
       "type": "stat",
@@ -42,9 +64,10 @@
     },
     {
       "type": "text",
+      "icon": "smile",
       "title": "Selesai!",
-      "text": "Unduh videonya dari tab Artifacts di GitHub Actions",
-      "narration": "Selesai! Unduh videonya dari tab Artifacts di GitHub Actions.",
+      "text": "Unduh videonya dari tab Releases di GitHub",
+      "narration": "Selesai! Unduh videonya dari tab Releases di GitHub.",
       "durationInSeconds": 4
     }
   ]

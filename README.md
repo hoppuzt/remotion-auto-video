@@ -13,7 +13,7 @@ Automated motion video rendering cloud using Claude and Remotion
 
 - Tambahkan `"narration": "..."` di scene mana pun yang ingin dibacakan.
 - Suara dibuat lewat ElevenLabs. Secret `ELEVENLABS_API_KEY` dibaca dari GitHub Secrets / environment, tidak pernah ditulis ke file.
-- Default voice: Serena (`fpsPI3vlnQ0anCTPiHk5`), model `eleven_multilingual_v2`. Ganti lewat field `voice` di `input.json`:
+- Voice yang dipakai: Bella (`hpp4J3VqNfWAUOO0d1Us`), model `eleven_multilingual_v2`. Paket ElevenLabs free hanya boleh voice premade lewat API (voice Library seperti Serena memberi error 402). Ganti lewat field `voice` di `input.json`:
 
   ```json
   "voice": { "id": "<voice_id>", "model": "eleven_multilingual_v2", "stability": 0.5, "similarityBoost": 0.75 }
@@ -31,3 +31,37 @@ npm install
 ELEVENLABS_API_KEY=... npm run render   # voiceover + render ke out/video.mp4
 npm run dev                             # Remotion Studio
 ```
+
+## Musik latar & SFX
+
+```json
+"music": { "track": "upbeat", "volume": 0.22, "duck": 0.35, "fadeInSeconds": 1, "fadeOutSeconds": 1.5 },
+"defaultSfx": "whoosh",
+"sfxVolume": 0.5
+```
+
+- `music.track`: `upbeat` | `calm` | `curious` (loop 32 detik, otomatis diulang), atau path file di `public/` (mis. `music/lagu.mp3`). `"music": "calm"` juga boleh. Hapus field `music` untuk video tanpa musik.
+- **Ducking**: volume musik otomatis turun (dikali `duck`) selama narasi bicara, lalu naik lagi.
+- `defaultSfx` (default `none`) dan `sfx` per scene: `whoosh` | `pop` | `ding` | `click` | `none`, diputar di awal scene.
+- Aset dibuat dengan `python3 scripts/synth-audio.py` (sintesis sendiri, bebas lisensi).
+
+## Tipe scene
+
+Semua scene: `durationInSeconds`, `narration?`, `sfx?`.
+
+| type | field | catatan |
+|---|---|---|
+| `title` | `title`, `subtitle?`, `icon?` | `icon` = ikon besar di atas judul |
+| `text` | `title?`, `text`, `icon?` | |
+| `bullets` | `title`, `items[]` | 2-4 item |
+| `stat` | `value`, `label` | angka besar dalam lingkaran |
+| `icons` | `title?`, `items[{icon,label}]` | 2-6 kartu ikon, grid 2 kolom |
+| `compare` | `title?`, `left`, `right` | panel `{title, items[<=4], icon?, tone?}`; `tone`: `good` (centang) / `bad` (silang) / `neutral` |
+| `bars` | `title`, `items[{label,value,display?}]`, `unit?` | 2-5 bar horizontal, nilai dianimasikan |
+
+Ikon bawaan: `tooth sugar candy drop heart apple water clock check cross star bolt sun moon book bulb phone shield warning smile`.
+
+## Tes lokal tanpa internet
+
+`REMOTION_SKIP_FONTS=1` melewati pengunduhan font Google dan memakai font sistem (hanya untuk tes lokal).
+

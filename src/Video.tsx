@@ -1,24 +1,119 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, Series, staticFile, useVideoConfig } from "remotion";
+import {
+  AbsoluteFill,
+  Audio,
+  interpolate,
+  Sequence,
+  Series,
+  staticFile,
+  useVideoConfig,
+} from "remotion";
 import { Background } from "./Background";
 import { Captions } from "./Captions";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
-import { VideoProps } from "./types";
+import { MusicConfig, VideoProps } from "./types";
 
-export const Video: React.FC<VideoProps> = ({ theme, scenes, subtitles = true }) => {
-  const { fps } = useVideoConfig();
+const DEFAULT_MUSIC_VOLUME = 0.22;
+const DEFAULT_DUCK = 0.35;
+const DEFAULT_FADE_IN = 1;
+const DEFAULT_FADE_OUT = 1.5;
+const DEFAULT_SFX_VOLUME = 0.5;
+const DUCK_RAMP_DOWN_FRAMES = 8;
+const DUCK_RAMP_UP_FRAMES = 14;
+
+const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+
+/** Nama bawaan ("upbeat") atau path di public/ ("music/lagu-saya.mp3"). */
+const audioPath = (value: string, folder: "music" | "sfx"): string =>
+  value.includes("/") || value.includes(".") ? value : `${folder}/${value}.mp3`;
+
+const normalizeMusic = (music?: MusicConfig) => {
+  if (!music) return null;
+  const cfg = typeof music === "string" ? { track: music } : music;
+  if (!cfg.track || cfg.track === "none") return null;
+  return {
+    src: audioPath(cfg.track, "music"),
+    volume: cfg.volume ?? DEFAULT_MUSIC_VOLUME,
+    duck: cfg.duck ?? DEFAULT_DUCK,
+    fadeIn: cfg.fadeInSeconds ?? DEFAULT_FADE_IN,
+    fadeOut: cfg.fadeOutSeconds ?? DEFAULT_FADE_OUT,
+  };
+};
+
+export const Video: React.FC<VideoProps> = ({
+  theme,
+  scenes,
+  subtitles = true,
+  music,
+  defaultSfx = "none",
+  sfxVolume = DEFAULT_SFX_VOLUME,
+}) => {
+  const { fps, durationInFrames: totalFrames } = useVideoConfig();
   const fontFamily = loadThemeFont(theme.font);
+
+  // Garis waktu: awal & durasi tiap scene (dalam frame), dan rentang narasi untuk ducking musik.
+  let cursor = 0;
+  const timeline = scenes.map((scene) => {
+    const durationInFrames = Math.max(1, Math.round(scene.durationInSeconds * fps));
+    const start = cursor;
+    cursor += durationInFrames;
+    return { scene, start, durationInFrames };
+  });
+
+  const narration = timeline
+    .filter(({ scene }) => scene.audio)
+    .map(({ scene, start, durationInFrames }) => {
+      const from = start + Math.round((scene.audioDelaySeconds ?? 0) * fps);
+      const length =
+        scene.audioDurationSeconds !== undefined
+          ? Math.ceil(scene.audioDurationSeconds * fps)
+          : Math.max(1, start + durationInFrames - from);
+      return { from, to: from + Math.max(1, length) };
+    });
+
+  const musicCfg = normalizeMusic(music);
+  const musicVolume = (frame: number): number => {
+    if (!musicCfg) return 0;
+    const fadeIn = musicCfg.fadeIn > 0
+      ? interpolate(frame, [0, musicCfg.fadeIn * fps], [0, 1], clamp)
+      : 1;
+    const fadeOut = musicCfg.fadeOut > 0
+      ? interpolate(frame, [totalFrames - musicCfg.fadeOut * fps, totalFrames], [1, 0], clamp)
+      : 1;
+    let ducking = 1;
+    for (const { from, to } of narration) {
+      const d = interpolate(
+        frame,
+        [from - DUCK_RAMP_DOWN_FRAMES, from, to, to + DUCK_RAMP_UP_FRAMES],
+        [1, musicCfg.duck, musicCfg.duck, 1],
+        clamp
+      );
+      ducking = Math.min(ducking, d);
+    }
+    return musicCfg.volume * fadeIn * fadeOut * ducking;
+  };
 
   return (
     <AbsoluteFill style={{ fontFamily }}>
       <Background theme={theme} />
+      {musicCfg ? (
+        <Audio
+          src={staticFile(musicCfg.src)}
+          loop
+          loopVolumeCurveBehavior="extend"
+          volume={musicVolume}
+        />
+      ) : null}
       <Series>
-        {scenes.map((scene, i) => {
-          const durationInFrames = Math.max(1, Math.round(scene.durationInSeconds * fps));
+        {timeline.map(({ scene, durationInFrames }, i) => {
+          const sfx = scene.sfx ?? defaultSfx;
           return (
             <Series.Sequence key={i} durationInFrames={durationInFrames}>
               <SceneView scene={scene} theme={theme} durationInFrames={durationInFrames} />
+              {sfx && sfx !== "none" ? (
+                <Audio src={staticFile(audioPath(sfx, "sfx"))} volume={sfxVolume} />
+              ) : null}
               {scene.audio ? (
                 <Sequence from={Math.round((scene.audioDelaySeconds ?? 0) * fps)}>
                   <Audio src={staticFile(scene.audio)} />

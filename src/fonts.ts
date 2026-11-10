@@ -11,6 +11,10 @@ const options = {
 
 /** Memuat font Google yang dipilih di input.json dan mengembalikan nama font-family-nya. */
 export const loadThemeFont = (font: FontName): string => {
+  // Hanya untuk tes lokal tanpa internet: REMOTION_SKIP_FONTS=1 memakai font sistem.
+  if (process.env.REMOTION_SKIP_FONTS === "1") {
+    return `${font === "Baloo2" ? "Baloo 2" : font}, sans-serif`;
+  }
   switch (font) {
     case "Montserrat":
       return loadMontserrat("normal", options).fontFamily;

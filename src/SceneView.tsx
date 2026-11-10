@@ -1,25 +1,28 @@
 import React from "react";
-import {
-  AbsoluteFill,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
-import { Scene, Theme } from "./types";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { useEnter } from "./anim";
+import { BarsScene, CompareScene, IconsScene } from "./ExtraScenes";
+import { Icon } from "./Icons";
+import { IconName, Scene, Theme } from "./types";
 
 const PADDING = 90;
 const FADE_FRAMES = 8;
 
-/** Animasi masuk berbasis spring: mengembalikan progres 0..1. */
-const useEnter = (delay = 0) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  return spring({
-    frame: frame - delay,
-    fps,
-    config: { damping: 14, stiffness: 120 },
-  });
+/** Ikon besar di atas judul/teks (opsional). */
+const HeroIcon: React.FC<{ name?: IconName; theme: Theme }> = ({ name, theme }) => {
+  const p = useEnter(2, { damping: 11, stiffness: 150 });
+  if (!name) return null;
+  return (
+    <div
+      style={{
+        marginBottom: 44,
+        opacity: p,
+        transform: `scale(${interpolate(p, [0, 1], [0.5, 1])})`,
+      }}
+    >
+      <Icon name={name} size={240} theme={theme} />
+    </div>
+  );
 };
 
 const Title: React.FC<{ children: React.ReactNode; theme: Theme; size?: number }> = ({
@@ -55,6 +58,7 @@ const TitleScene: React.FC<{
     <AbsoluteFill
       style={{ justifyContent: "center", alignItems: "center", padding: PADDING }}
     >
+      <HeroIcon name={scene.icon} theme={theme} />
       <Title theme={theme}>{scene.title}</Title>
       <div
         style={{
@@ -93,6 +97,7 @@ const TextScene: React.FC<{
     <AbsoluteFill
       style={{ justifyContent: "center", alignItems: "center", padding: PADDING }}
     >
+      <HeroIcon name={scene.icon} theme={theme} />
       {scene.title ? (
         <div style={{ marginBottom: 56 }}>
           <Title theme={theme} size={72}>
@@ -174,7 +179,12 @@ const StatScene: React.FC<{
   const label = useEnter(10);
   return (
     <AbsoluteFill
-      style={{ justifyContent: "center", alignItems: "center", padding: PADDING }}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        padding: PADDING,
+        paddingBottom: 360, // sisakan ruang untuk subtitle
+      }}
     >
       <div
         style={{
@@ -245,6 +255,15 @@ export const SceneView: React.FC<{
       break;
     case "stat":
       content = <StatScene scene={scene} theme={theme} />;
+      break;
+    case "icons":
+      content = <IconsScene scene={scene} theme={theme} />;
+      break;
+    case "compare":
+      content = <CompareScene scene={scene} theme={theme} />;
+      break;
+    case "bars":
+      content = <BarsScene scene={scene} theme={theme} />;
       break;
   }
 

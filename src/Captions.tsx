@@ -49,6 +49,7 @@ export const Captions: React.FC<{ captions?: Caption[]; theme: Theme }> = ({
           fontWeight: 700,
           lineHeight: 1.25,
           textAlign: "center",
+          textWrap: "balance",
           boxShadow: `0 8px 0 ${theme.primary}`,
           opacity,
           transform: `translateY(${lift}px)`,
