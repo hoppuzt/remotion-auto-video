@@ -43,56 +43,95 @@ export const FlowStage: React.FC<{ durationInFrames: number; children: React.Rea
   );
 };
 
-/** Siku sudut bingkai yang tetap sepanjang video. */
-export const FrameCorners: React.FC<{ theme: Theme; animate?: boolean }> = ({ theme, animate = false }) => {
+/**
+ * Rel progres bersegmen di atas layar: satu segmen per scene, lebarnya sebanding durasi,
+ * terisi mulus sepanjang video. Segmen yang sedang jalan sedikit lebih tebal.
+ */
+export const ChapterRail: React.FC<{
+  starts: number[];
+  total: number;
+  colors: string[];
+  track: string;
+}> = ({ starts, total, colors, track }) => {
   const frame = useCurrentFrame();
-  const grow = animate ? interpolate(frame, [0, 18], [0, 1], clamp) : 1;
-  const len = 64 * grow;
-  const common: React.CSSProperties = {
-    position: "absolute",
-    width: len,
-    height: len,
-    borderColor: theme.text,
-    borderStyle: "solid",
-    opacity: 0.35,
-  };
-  const inset = 52;
-  return (
-    <AbsoluteFill style={{ pointerEvents: "none" }}>
-      <div style={{ ...common, top: inset, left: inset, borderWidth: "4px 0 0 4px" }} />
-      <div style={{ ...common, top: inset, right: inset, borderWidth: "4px 4px 0 0" }} />
-      <div style={{ ...common, bottom: inset, left: inset, borderWidth: "0 0 4px 4px" }} />
-      <div style={{ ...common, bottom: inset, right: inset, borderWidth: "0 4px 4px 0" }} />
-    </AbsoluteFill>
-  );
-};
-
-/** Penanda "FIG. 03" + kicker di pojok kiri atas; berganti per scene. */
-export const FigLabel: React.FC<{ index: number; kicker?: string; theme: Theme }> = ({
-  index,
-  kicker,
-  theme,
-}) => {
-  const frame = useCurrentFrame();
-  const p = interpolate(frame, [4, 18], [0, 1], clamp);
+  const intro = interpolate(frame, [0, 20], [0, 1], clamp);
   return (
     <div
       style={{
         position: "absolute",
-        top: 86,
+        top: 64,
         left: 96,
         right: 96,
-        color: theme.text,
-        opacity: p * 0.7,
-        transform: `translateY(${interpolate(p, [0, 1], [-10, 0])}px)`,
-        letterSpacing: 5,
-        fontWeight: 800,
-        fontSize: 26,
-        lineHeight: 1.5,
+        display: "flex",
+        gap: 10,
+        alignItems: "center",
+        opacity: intro,
+        pointerEvents: "none",
       }}
     >
-      <div>{`FIG. ${String(index + 1).padStart(2, "0")}`}</div>
-      {kicker ? <div style={{ fontWeight: 600, fontSize: 22, opacity: 0.85 }}>{kicker}</div> : null}
+      {starts.map((s, i) => {
+        const e = i < starts.length - 1 ? starts[i + 1] : total;
+        const fill = interpolate(frame, [s, e], [0, 1], clamp);
+        const live = frame >= s && frame < e;
+        return (
+          <div
+            key={i}
+            style={{
+              flex: e - s,
+              height: live ? 14 : 8,
+              borderRadius: 7,
+              backgroundColor: `${track}26`,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${fill * 100}%`,
+                height: "100%",
+                borderRadius: 7,
+                backgroundColor: colors[i],
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/** Penanda bab kecil di bawah rel: titik warna, "2 dari 5", dan kicker. Masuk dengan geser halus. */
+export const ChapterChip: React.FC<{
+  index: number;
+  count: number;
+  kicker?: string;
+  theme: Theme;
+  /** Lama sequence (frame), untuk fade-out saat scene berganti. */
+  duration: number;
+}> = ({ index, count, kicker, theme, duration }) => {
+  const frame = useCurrentFrame();
+  const inP = interpolate(frame, [6, 22], [0, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  const p = inP * interpolate(frame, [duration - 12, duration - 2], [1, 0], clamp);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 108,
+        left: 96,
+        right: 96,
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+        color: theme.text,
+        opacity: p * 0.82,
+        transform: `translateX(${interpolate(p, [0, 1], [-24, 0])}px)`,
+        fontSize: 28,
+        fontWeight: 700,
+        pointerEvents: "none",
+      }}
+    >
+      <div style={{ width: 18, height: 18, borderRadius: 9, backgroundColor: theme.primary }} />
+      <span style={{ opacity: 0.7 }}>{`${index + 1} dari ${count}`}</span>
+      {kicker ? <span>{`· ${kicker}`}</span> : null}
     </div>
   );
 };
@@ -128,34 +167,20 @@ export const FlowCaptions: React.FC<{
     return t * fps;
   });
 
-  const startFrame = active.startSeconds * fps;
-  const barGrow = interpolate(frame, [startFrame, startFrame + 8], [0, 1], clamp);
-
   return (
-    <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 300, paddingLeft: 96, paddingRight: 96 }}>
-      <div
-        style={{
-          position: "relative",
-          alignSelf: "flex-start",
-          maxWidth: 880,
-          padding: "18px 30px 20px 34px",
-          borderRadius: 20,
-          backgroundColor: `${theme.background}D9`,
-          backdropFilter: "blur(2px)",
-        }}
-      >
+    <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 72, paddingLeft: 96, paddingRight: 96 }}>
+      <div style={{ alignSelf: "center", maxWidth: 888, textAlign: "center" }}>
         <div
           style={{
-            position: "absolute",
-            left: 0,
-            top: 14,
-            width: 8,
-            height: `calc(${barGrow * 100}% - 28px)`,
-            borderRadius: 4,
-            backgroundColor: theme.accent,
+            fontSize: 56,
+            fontWeight: 800,
+            lineHeight: 1.3,
+            color: theme.text,
+            WebkitTextStroke: `14px ${theme.background}`,
+            paintOrder: "stroke fill",
+            strokeLinejoin: "round",
           }}
-        />
-        <div style={{ fontSize: 54, fontWeight: 800, lineHeight: 1.22, color: theme.text }}>
+        >
           {words.map((w, i) => {
             const p = spring({
               frame: frame - appear[i],
@@ -163,20 +188,35 @@ export const FlowCaptions: React.FC<{
               config: { damping: 16, stiffness: 190 },
             });
             const hot = keys.has(normalize(w));
+            const sweep = interpolate(frame, [appear[i] + 3, appear[i] + 15], [0, 1], clamp);
             return (
               <span
                 key={i}
                 style={{
+                  position: "relative",
                   display: "inline-block",
                   marginRight: "0.26em",
-                  opacity: frame >= appear[i] ? interpolate(p, [0, 1], [0, 1], clamp) : 0,
-                  transform: `translateY(${interpolate(p, [0, 1], [16, 0])}px) scale(${
-                    hot ? interpolate(p, [0, 1], [1.18, 1]) : 1
-                  })`,
-                  color: hot ? theme.primary : theme.text,
+                  opacity: frame >= appear[i] ? p : 0,
+                  transform: `translateY(${interpolate(p, [0, 1], [16, 0])}px)`,
                 }}
               >
-                {w}
+                {hot ? (
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: -6,
+                      right: -6,
+                      bottom: 4,
+                      height: "46%",
+                      borderRadius: 8,
+                      backgroundColor: theme.accent,
+                      opacity: 0.38,
+                      transformOrigin: "left center",
+                      transform: `scaleX(${sweep})`,
+                    }}
+                  />
+                ) : null}
+                <span style={{ position: "relative" }}>{w}</span>
               </span>
             );
           })}
@@ -215,6 +255,19 @@ export const Callouts: React.FC<{ items: string[]; theme: Theme; size: number }>
         const anchor = side === 1 ? size * 0.82 : size * 0.18;
         return (
           <React.Fragment key={i}>
+            <div
+              style={{
+                position: "absolute",
+                top: top - 9,
+                left: anchor - 9,
+                width: 18,
+                height: 18,
+                borderRadius: 9,
+                backgroundColor: theme.primary,
+                boxShadow: `0 0 0 ${6 + 6 * Math.sin(frame / 8 + i)}px ${theme.primary}33`,
+                opacity: draw > 0 ? 1 : 0,
+              }}
+            />
             <div
               style={{
                 position: "absolute",

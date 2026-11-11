@@ -97,9 +97,9 @@ Ikon baru ditambahkan di `src/iconSet.tsx` (dan namanya di `src/types.ts`).
 
 ## Mode flow (gerak menyambung)
 
-Tambahkan `"motion": "flow"` di input.json untuk: transisi tumpang tindih antar scene (zoom + crossfade), gerak melayang halus, subtitle kata demi kata dengan kata kunci berwarna, bingkai sudut + penanda "FIG. 03", dan label bergaris penunjuk.
+Tambahkan `"motion": "flow"` di input.json untuk: transisi tumpang tindih antar scene (zoom + crossfade), gerak melayang halus, subtitle kata demi kata dengan stabilo menyapu di kata kunci, rel progres bersegmen di atas layar + penanda bab ("2 dari 5 · kicker"), dan label bergaris penunjuk.
 
 Field per scene (semuanya opsional):
-- `kicker`: teks kecil di bawah "FIG. xx" (default: judul scene).
+- `kicker`: teks di penanda bab (default: judul scene).
 - `highlight`: daftar kata di narasi yang diberi warna aksen, mis. `["Manhattan"]`.
 - `callouts`: maks 3 label pendek (sekitar 18 huruf) yang menempel pada ikon scene `title`/`text`.

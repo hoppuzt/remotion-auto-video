@@ -138,7 +138,7 @@ type SceneBase = {
   captions?: Caption[];
   /** Mode "flow": kata yang diberi warna aksen di subtitle (mis. ["Manhattan"]). */
   highlight?: string[];
-  /** Mode "flow": teks pendek di sudut atas bingkai, di samping "FIG. 03". */
+  /** Mode "flow": teks pendek di penanda bab, di samping "2 dari 5". */
   kicker?: string;
   /** Label bergaris penunjuk yang menempel pada ikon utama scene (title/text), maks 3. */
   callouts?: string[];
@@ -218,7 +218,7 @@ export type VideoProps = {
   defaultSfx?: string;
   /** Volume SFX 0..1 (default 0.5). */
   sfxVolume?: number;
-  /** "flow" = transisi menyambung antar scene, subtitle kata demi kata, bingkai FIG, gerak halus. */
+  /** "flow" = transisi menyambung antar scene, subtitle kata demi kata, rel progres bab, gerak halus. */
   motion?: "flow";
 };
 

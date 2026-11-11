@@ -11,7 +11,7 @@ import {
 import { Background } from "./Background";
 import { resolveTheme } from "./eras";
 import { Captions } from "./Captions";
-import { FLOW_OVERLAP, FigLabel, FlowCaptions, FlowStage, FrameCorners } from "./Flow";
+import { ChapterChip, ChapterRail, FLOW_OVERLAP, FlowCaptions, FlowStage } from "./Flow";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
 import { ArtName, MusicConfig, Theme, VideoProps } from "./types";
@@ -139,6 +139,12 @@ export const Video: React.FC<VideoProps> = ({
       ) : null}
       {flow ? (
         <>
+          <ChapterRail
+            starts={timeline.map((x) => x.start)}
+            total={timeline.reduce((m, x) => Math.max(m, x.start + x.durationInFrames), 0)}
+            colors={sceneThemes.map((th) => th.primary)}
+            track={sceneThemes[0].text}
+          />
           {timeline.map(({ scene, start, durationInFrames }, i) => {
             const sceneTheme = sceneThemes[i];
             const sfx = scene.sfx ?? defaultSfx;
@@ -155,8 +161,7 @@ export const Video: React.FC<VideoProps> = ({
                     <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} fade={false} />
                   </div>
                 </FlowStage>
-                <FrameCorners theme={sceneTheme} animate={i === 0} />
-                <FigLabel index={i} kicker={kicker} theme={sceneTheme} />
+                <ChapterChip index={i} count={timeline.length} kicker={kicker} theme={sceneTheme} duration={durationInFrames + (i < timeline.length - 1 ? FLOW_OVERLAP : 0)} />
                 {sfx && sfx !== "none" ? <Audio src={staticFile(audioPath(sfx, "sfx"))} volume={sfxVolume} /> : null}
                 {scene.audio ? (
                   <Sequence from={Math.round((scene.audioDelaySeconds ?? 0) * fps)}>
