@@ -33,7 +33,15 @@
         ]
       },
       "narration": "Pulau Run di Maluku cuma tiga kilometer panjangnya. Tapi pernah ditukar dengan Manhattan.",
-      "durationInSeconds": 5
+      "durationInSeconds": 5,
+      "kicker": "Maluku, abad ke-17",
+      "highlight": [
+        "Manhattan"
+      ],
+      "callouts": [
+        "3 km panjangnya",
+        "Penghasil pala"
+      ]
     },
     {
       "type": "text",
@@ -49,7 +57,14 @@
         ]
       },
       "narration": "Pala dari pulau ini diperebutkan. Tahun seribu enam ratus enam belas, Inggris menguasainya.",
-      "durationInSeconds": 5
+      "durationInSeconds": 5,
+      "kicker": "Perebutan pala",
+      "highlight": [
+        "Inggris"
+      ],
+      "callouts": [
+        "Inggris menang"
+      ]
     },
     {
       "type": "text",
@@ -65,7 +80,15 @@
         ]
       },
       "narration": "Tahun seribu enam ratus enam puluh empat, Inggris merebut New Amsterdam, kini bernama New York.",
-      "durationInSeconds": 5
+      "durationInSeconds": 5,
+      "kicker": "New Amsterdam",
+      "highlight": [
+        "New",
+        "York"
+      ],
+      "callouts": [
+        "Jadi New York"
+      ]
     },
     {
       "type": "text",
@@ -82,7 +105,16 @@
       },
       "narration": "Perjanjian Breda tahun seribu enam ratus enam puluh tujuh mengakhiri perang. Belanda mendapat Run, Inggris memegang Manhattan.",
       "sfx": "ding",
-      "durationInSeconds": 6
+      "durationInSeconds": 6,
+      "kicker": "Perjanjian Breda",
+      "highlight": [
+        "Run",
+        "Manhattan"
+      ],
+      "callouts": [
+        "Belanda: Run",
+        "Inggris: Manhattan"
+      ]
     },
     {
       "type": "text",
@@ -99,7 +131,13 @@
       },
       "narration": "Belanda memegang monopoli pala. Inggris mempertahankan kota yang kelak jadi New York.",
       "sfx": "ding",
-      "durationInSeconds": 5
+      "durationInSeconds": 5,
+      "kicker": "Akibatnya",
+      "highlight": [
+        "monopoli",
+        "pala"
+      ]
     }
-  ]
+  ],
+  "motion": "flow"
 }

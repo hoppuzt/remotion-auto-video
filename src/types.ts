@@ -136,6 +136,12 @@ type SceneBase = {
   audioDurationSeconds?: number;
   /** Subtitle hasil pecahan narration (diisi otomatis). */
   captions?: Caption[];
+  /** Mode "flow": kata yang diberi warna aksen di subtitle (mis. ["Manhattan"]). */
+  highlight?: string[];
+  /** Mode "flow": teks pendek di sudut atas bingkai, di samping "FIG. 03". */
+  kicker?: string;
+  /** Label bergaris penunjuk yang menempel pada ikon utama scene (title/text), maks 3. */
+  callouts?: string[];
 };
 
 export type IconItem = { icon: IconName; label: string };
@@ -212,6 +218,8 @@ export type VideoProps = {
   defaultSfx?: string;
   /** Volume SFX 0..1 (default 0.5). */
   sfxVolume?: number;
+  /** "flow" = transisi menyambung antar scene, subtitle kata demi kata, bingkai FIG, gerak halus. */
+  motion?: "flow";
 };
 
 export const defaultProps: VideoProps = {

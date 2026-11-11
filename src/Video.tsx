@@ -11,6 +11,7 @@ import {
 import { Background } from "./Background";
 import { resolveTheme } from "./eras";
 import { Captions } from "./Captions";
+import { FLOW_OVERLAP, FigLabel, FlowCaptions, FlowStage, FrameCorners } from "./Flow";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
 import { ArtName, MusicConfig, Theme, VideoProps } from "./types";
@@ -53,7 +54,9 @@ export const Video: React.FC<VideoProps> = ({
   music,
   defaultSfx = "none",
   sfxVolume = DEFAULT_SFX_VOLUME,
+  motion,
 }) => {
+  const flow = motion === "flow";
   const { fps, durationInFrames: totalFrames } = useVideoConfig();
   const fontFamily = loadThemeFont(theme.font);
 
@@ -134,13 +137,44 @@ export const Video: React.FC<VideoProps> = ({
           volume={musicVolume}
         />
       ) : null}
+      {flow ? (
+        <>
+          {timeline.map(({ scene, start, durationInFrames }, i) => {
+            const sceneTheme = sceneThemes[i];
+            const sfx = scene.sfx ?? defaultSfx;
+            const kicker = scene.kicker ?? ("title" in scene ? scene.title : undefined);
+            return (
+              <Sequence
+                key={i}
+                from={start}
+                durationInFrames={durationInFrames + (i < timeline.length - 1 ? FLOW_OVERLAP : 0)}
+                layout="none"
+              >
+                <FlowStage durationInFrames={durationInFrames}>
+                  <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: sceneArt[i] ? ART_CLEARANCE : 0 }}>
+                    <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} fade={false} />
+                  </div>
+                </FlowStage>
+                <FrameCorners theme={sceneTheme} animate={i === 0} />
+                <FigLabel index={i} kicker={kicker} theme={sceneTheme} />
+                {sfx && sfx !== "none" ? <Audio src={staticFile(audioPath(sfx, "sfx"))} volume={sfxVolume} /> : null}
+                {scene.audio ? (
+                  <Sequence from={Math.round((scene.audioDelaySeconds ?? 0) * fps)}>
+                    <Audio src={staticFile(scene.audio)} />
+                  </Sequence>
+                ) : null}
+                {subtitles ? <FlowCaptions captions={scene.captions} highlight={scene.highlight} theme={sceneTheme} /> : null}
+              </Sequence>
+            );
+          })}
+        </>
+      ) : (
       <Series>
         {timeline.map(({ scene, durationInFrames }, i) => {
           const sceneTheme = sceneThemes[i];
           const sfx = scene.sfx ?? defaultSfx;
           return (
             <Series.Sequence key={i} durationInFrames={durationInFrames}>
-              {/* Saat ada ilustrasi di dasar layar, isi scene dinaikkan supaya tidak menabraknya. */}
               <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: sceneArt[i] ? ART_CLEARANCE : 0 }}>
                 <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} />
               </div>
@@ -157,6 +191,7 @@ export const Video: React.FC<VideoProps> = ({
           );
         })}
       </Series>
+      )}
     </AbsoluteFill>
   );
 };

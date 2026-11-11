@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { useEnter } from "./anim";
 import { BarsScene, CompareScene, IconsScene } from "./ExtraScenes";
+import { Callouts } from "./Flow";
 import { Icon } from "./Icons";
 import { IconName, Scene, Theme } from "./types";
 
@@ -9,7 +10,11 @@ const PADDING = 90;
 const FADE_FRAMES = 8;
 
 /** Ikon besar di atas judul/teks (opsional). */
-const HeroIcon: React.FC<{ name?: IconName; theme: Theme }> = ({ name, theme }) => {
+const HeroIcon: React.FC<{ name?: IconName; theme: Theme; callouts?: string[] }> = ({
+  name,
+  theme,
+  callouts,
+}) => {
   const p = useEnter(2, { damping: 11, stiffness: 150 });
   if (!name) return null;
   return (
@@ -20,7 +25,10 @@ const HeroIcon: React.FC<{ name?: IconName; theme: Theme }> = ({ name, theme }) 
         transform: `scale(${interpolate(p, [0, 1], [0.5, 1])})`,
       }}
     >
-      <Icon name={name} size={240} theme={theme} />
+      <div style={{ position: "relative", width: 240, height: 240 }}>
+        <Icon name={name} size={240} theme={theme} />
+        {callouts && callouts.length > 0 ? <Callouts items={callouts} theme={theme} size={240} /> : null}
+      </div>
     </div>
   );
 };
@@ -58,7 +66,7 @@ const TitleScene: React.FC<{
     <AbsoluteFill
       style={{ justifyContent: "center", alignItems: "center", padding: PADDING }}
     >
-      <HeroIcon name={scene.icon} theme={theme} />
+      <HeroIcon name={scene.icon} theme={theme} callouts={scene.callouts} />
       <Title theme={theme}>{scene.title}</Title>
       <div
         style={{
@@ -97,7 +105,7 @@ const TextScene: React.FC<{
     <AbsoluteFill
       style={{ justifyContent: "center", alignItems: "center", padding: PADDING }}
     >
-      <HeroIcon name={scene.icon} theme={theme} />
+      <HeroIcon name={scene.icon} theme={theme} callouts={scene.callouts} />
       {scene.title ? (
         <div style={{ marginBottom: 56 }}>
           <Title theme={theme} size={72}>
@@ -233,9 +241,11 @@ export const SceneView: React.FC<{
   scene: Scene;
   theme: Theme;
   durationInFrames: number;
-}> = ({ scene, theme, durationInFrames }) => {
+  /** false pada mode flow: fade ditangani FlowStage. */
+  fade?: boolean;
+}> = ({ scene, theme, durationInFrames, fade = true }) => {
   const frame = useCurrentFrame();
-  const opacity = interpolate(
+  const opacity = !fade ? 1 : interpolate(
     frame,
     [0, FADE_FRAMES, durationInFrames - FADE_FRAMES, durationInFrames],
     [0, 1, 1, 0],
