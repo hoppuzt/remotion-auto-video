@@ -24,6 +24,22 @@ Automated motion video rendering cloud using Claude and Remotion
 - Durasi scene otomatis diperpanjang: `max(durationInSeconds, 0.25 + durasi suara + 0.45)`.
 - Subtitle dipecah maksimal ~36 karakter (juga di akhir kalimat/koma). Matikan dengan `"subtitles": false`.
 
+## Latar per scene, zaman, dan ilustrasi (video bercerita)
+
+Tiap scene boleh punya `bg`. Latar berganti halus (crossfade) mulai scene itu dan berlanjut sampai scene berikutnya yang punya `bg`. Palet warna, warna teks, dan subtitle ikut menyesuaikan.
+
+```json
+{ "type": "title", "title": "...", "bg": { "era": "maritim", "art": "kapal", "decor": ["globe", "star"] }, "durationInSeconds": 5 }
+```
+
+- `era` (palet + gaya siap pakai): `kuno`, `klasik`, `pertengahan`, `maritim`, `perang`, `kolonial`, `nusantara`, `revolusi`, `malam`.
+- `style` (menimpa gaya era): `shapes`, `bubbles`, `grid`, `waves`, `rays`, `stripes`, `confetti`, `blobs`, `parchment`, `desert`, `mountains`, `night`, `embers`, `city`.
+- `background`, `background2`, `primary`, `accent`, `text`: menimpa warna era.
+- `art` (ilustrasi vektor di dasar layar): `kapal`, `benteng`, `piramida`, `kuil`, `candi`, `gulungan`, `mahkota`, `pedang`, `meriam`, `peta`, `mercusuar`, `kota`.
+- `decor`: ikon transparan yang melayang (maks 6).
+
+Tanpa `bg`, latar memakai `theme` video seperti biasa (`bgStyle`, `background2`, `decor` juga bisa diisi di `theme`).
+
 ## Jalankan lokal
 
 ```bash

@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { Art } from "./Art";
 import { Icon } from "./Icons";
-import { Theme } from "./types";
+import { ArtName, Theme } from "./types";
 
 /** Latar flat vector bergerak pelan. Gaya dipilih lewat theme.bgStyle; ikon topik lewat theme.decor. */
 
@@ -192,6 +193,169 @@ const Blobs: React.FC<Ctx> = ({ theme, t, width, height }) => (
   </>
 );
 
+
+/** Perkamen / peta tua: garis peta, mawar angin berputar pelan, tepi menggelap. */
+const Parchment: React.FC<Ctx> = ({ theme, t, width, height }) => {
+  const cx = width - 230;
+  const cy = 430;
+  return (
+    <>
+      <defs>
+        <radialGradient id="vig-parch" cx="50%" cy="50%" r="75%">
+          <stop offset="55%" stopColor={theme.text} stopOpacity={0} />
+          <stop offset="100%" stopColor={theme.text} stopOpacity={0.22} />
+        </radialGradient>
+      </defs>
+      {Array.from({ length: 9 }, (_, i) => (
+        <path key={`m${i}`} d={`M0,${180 + i * 190} Q${width / 2},${120 + i * 190 + float(t, 0.4, 20, i)} ${width},${180 + i * 190}`} fill="none" stroke={theme.text} strokeWidth={2} strokeDasharray="10 14" opacity={0.12} />
+      ))}
+      {Array.from({ length: 6 }, (_, i) => (
+        <path key={`p${i}`} d={`M${120 + i * 170},0 Q${60 + i * 170},${height / 2} ${120 + i * 170},${height}`} fill="none" stroke={theme.text} strokeWidth={2} strokeDasharray="10 14" opacity={0.1} />
+      ))}
+      <g transform={`translate(${cx} ${cy}) rotate(${t * 3})`} opacity={0.2}>
+        <circle r={150} fill="none" stroke={theme.primary} strokeWidth={6} />
+        <circle r={110} fill="none" stroke={theme.primary} strokeWidth={3} />
+        <polygon points="0,-190 28,-28 190,0 28,28 0,190 -28,28 -190,0 -28,-28" fill={theme.primary} />
+        <polygon points="0,-120 18,-18 120,0 18,18 0,120 -18,18 -120,0 -18,-18" fill={theme.accent} transform="rotate(45)" />
+      </g>
+      <rect width={width} height={height} fill="url(#vig-parch)" />
+    </>
+  );
+};
+
+const dune = (t: number, width: number, baseY: number, amp: number, len: number, speed: number, phase: number) => {
+  const pts: string[] = [];
+  for (let x = 0; x <= width + 20; x += 20) {
+    pts.push(`${x},${baseY + Math.sin((x / len) * Math.PI * 2 + t * speed + phase) * amp}`);
+  }
+  return `M0,4000 L${pts.join(" L")} L${width + 20},4000 Z`;
+};
+
+/** Gurun: matahari besar dan bukit pasir berlapis. */
+const Desert: React.FC<Ctx> = ({ theme, t, width, height }) => (
+  <>
+    <circle cx={width * 0.74} cy={420} r={190 + float(t, 1, 6)} fill={theme.accent} opacity={0.14} />
+    <circle cx={width * 0.74} cy={420} r={130} fill={theme.accent} opacity={0.3} />
+    <path d={dune(t, width, height - 620, 40, 900, 0.15, 0)} fill={theme.primary} opacity={0.14} />
+    <path d={dune(t, width, height - 480, 55, 780, -0.2, 2)} fill={theme.primary} opacity={0.2} />
+    <path d={dune(t, width, height - 340, 45, 700, 0.25, 4)} fill={theme.primary} opacity={0.28} />
+  </>
+);
+
+const ridge = (width: number, baseY: number, amp: number, seed: number, shift: number) => {
+  const pts: string[] = [];
+  for (let x = -40; x <= width + 40; x += 30) {
+    const y = baseY - amp * (0.55 + 0.3 * Math.sin((x + shift) / 170 + seed) + 0.2 * Math.sin((x + shift) / 67 + seed * 2.3) + 0.1 * Math.sin((x + shift) / 29 + seed * 4.1));
+    pts.push(`${x},${y}`);
+  }
+  return `M-40,4000 L${pts.join(" L")} L${width + 40},4000 Z`;
+};
+
+/** Pegunungan berlapis dengan matahari dan awan yang bergeser pelan. */
+const Mountains: React.FC<Ctx> = ({ theme, t, width, height }) => (
+  <>
+    <circle cx={width * 0.28} cy={430} r={150} fill={theme.accent} opacity={0.28} />
+    <circle cx={width * 0.28} cy={430} r={210} fill={theme.accent} opacity={0.12} />
+    {[0, 1, 2, 3].map((i) => {
+      const span = width + 500;
+      const x = ((i * 380 + t * (14 + i * 5)) % span) - 250;
+      const y = 230 + i * 150;
+      return (
+        <g key={i} transform={`translate(${x} ${y})`} opacity={0.3}>
+          <ellipse cx={0} cy={0} rx={130} ry={36} fill={theme.background} />
+          <ellipse cx={-60} cy={-18} rx={70} ry={34} fill={theme.background} />
+          <ellipse cx={50} cy={-24} rx={80} ry={38} fill={theme.background} />
+        </g>
+      );
+    })}
+    <path d={ridge(width, height - 560, 420, 1, 0)} fill={theme.accent} opacity={0.2} />
+    <path d={ridge(width, height - 430, 380, 2.4, 300)} fill={theme.primary} opacity={0.22} />
+    <path d={ridge(width, height - 300, 320, 4.1, 700)} fill={theme.text} opacity={0.16} />
+  </>
+);
+
+/** Langit malam: bintang berkelip, bulan besar, bukit gelap. */
+const Night: React.FC<Ctx> = ({ theme, t, width, height }) => (
+  <>
+    {Array.from({ length: 70 }, (_, i) => (
+      <circle
+        key={i}
+        cx={rnd(i, 1) * width}
+        cy={rnd(i, 2) * height * 0.75}
+        r={2 + rnd(i, 3) * 4}
+        fill={i % 5 === 0 ? theme.accent : theme.text}
+        opacity={0.25 + 0.6 * Math.abs(Math.sin(t * (0.6 + rnd(i, 4) * 1.6) + i))}
+      />
+    ))}
+    <circle cx={width * 0.76} cy={360} r={230} fill={theme.primary} opacity={0.08} />
+    <circle cx={width * 0.76} cy={360} r={160} fill={theme.primary} opacity={0.12} />
+    <circle cx={width * 0.76} cy={360} r={120} fill={theme.primary} opacity={0.92} />
+    <circle cx={width * 0.76 - 34} cy={335} r={22} fill={theme.background} opacity={0.18} />
+    <circle cx={width * 0.76 + 38} cy={392} r={16} fill={theme.background} opacity={0.18} />
+    <circle cx={width * 0.76 + 10} cy={318} r={10} fill={theme.background} opacity={0.18} />
+    <path d={ridge(width, height - 330, 260, 0.7, 0)} fill="#000000" opacity={0.28} />
+    <path d={ridge(width, height - 200, 220, 3.3, 500)} fill="#000000" opacity={0.34} />
+  </>
+);
+
+/** Bara api naik dengan cahaya dari bawah (perang, kebakaran). */
+const Embers: React.FC<Ctx> = ({ theme, t, width, height }) => (
+  <>
+    <defs>
+      <linearGradient id="glow-emb" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stopColor={theme.primary} stopOpacity={0.55} />
+        <stop offset="60%" stopColor={theme.primary} stopOpacity={0} />
+      </linearGradient>
+    </defs>
+    <rect width={width} height={height} fill="url(#glow-emb)" />
+    {Array.from({ length: 4 }, (_, i) => {
+      const span = height + 400;
+      const k = ((t * (30 + i * 12) + i * 500) % span);
+      return <ellipse key={`s${i}`} cx={160 + i * 270 + float(t, 0.5, 40, i)} cy={height - k + 100} rx={170} ry={90} fill={theme.text} opacity={0.05} />;
+    })}
+    {Array.from({ length: 46 }, (_, i) => {
+      const size = 5 + rnd(i, 1) * 12;
+      const speed = 80 + rnd(i, 2) * 170;
+      const span = height + 100;
+      const y = height + 50 - ((t * speed + rnd(i, 3) * span) % span);
+      const x = rnd(i, 4) * width + float(t, 1.3, 40, i);
+      return (
+        <rect
+          key={i}
+          x={x}
+          y={y}
+          width={size}
+          height={size}
+          transform={`rotate(${45 + t * 60 * (i % 2 ? 1 : -1)} ${x} ${y})`}
+          fill={i % 3 === 0 ? theme.accent : theme.primary}
+          opacity={0.35 + 0.5 * rnd(i, 5)}
+        />
+      );
+    })}
+  </>
+);
+
+/** Siluet kota berlapis dengan matahari terbit di belakangnya. */
+const City: React.FC<Ctx> = ({ theme, t, width, height }) => {
+  const layer = (seed: number, baseY: number, maxH: number, opacity: number, count: number) =>
+    Array.from({ length: count }, (_, i) => {
+      const w = width / count;
+      const h = 80 + rnd(i, seed) * maxH;
+      return (
+        <rect key={`${seed}-${i}`} x={i * w} y={baseY - h} width={w - 6} height={h + 2000} fill={theme.text} opacity={opacity} />
+      );
+    });
+  return (
+    <>
+      <circle cx={width * 0.5} cy={height - 700} r={210 + float(t, 1, 5)} fill={theme.primary} opacity={0.2} />
+      <circle cx={width * 0.5} cy={height - 700} r={140} fill={theme.primary} opacity={0.32} />
+      {layer(11, height - 400, 280, 0.08, 9)}
+      {layer(22, height - 300, 240, 0.12, 12)}
+      {layer(33, height - 200, 200, 0.18, 8)}
+    </>
+  );
+};
+
 const STYLES: Record<string, React.FC<Ctx>> = {
   shapes: Shapes,
   bubbles: Bubbles,
@@ -201,6 +365,12 @@ const STYLES: Record<string, React.FC<Ctx>> = {
   stripes: Stripes,
   confetti: Confetti,
   blobs: Blobs,
+  parchment: Parchment,
+  desert: Desert,
+  mountains: Mountains,
+  night: Night,
+  embers: Embers,
+  city: City,
 };
 
 /** Slot ikon topik: x,y sebagai pecahan lebar/tinggi layar, ukuran px, rotasi dasar. */
@@ -213,7 +383,13 @@ const DECOR_SLOTS = [
   { x: 0.2, y: 0.9, size: 210, rot: -8 },
 ];
 
-export const Background: React.FC<{ theme: Theme }> = ({ theme }) => {
+export const Background: React.FC<{
+  theme: Theme;
+  /** Ilustrasi vektor di dasar layar (opsional). */
+  art?: ArtName;
+  /** Lama fade-in dalam frame saat layer ini muncul di atas latar sebelumnya (0 = langsung). */
+  fadeInFrames?: number;
+}> = ({ theme, art, fadeInFrames = 0 }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
   const t = frame / fps;
@@ -223,8 +399,12 @@ export const Background: React.FC<{ theme: Theme }> = ({ theme }) => {
     ? `linear-gradient(165deg, ${theme.background} 0%, ${theme.background2} 100%)`
     : theme.background;
 
+  const layerOpacity = fadeInFrames > 0
+    ? interpolate(frame, [0, fadeInFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+    : 1;
+
   return (
-    <AbsoluteFill style={{ background: bg }}>
+    <AbsoluteFill style={{ background: bg, opacity: layerOpacity }}>
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ position: "absolute", inset: 0 }}>
         <Style theme={theme} t={t} width={width} height={height} />
       </svg>
@@ -248,6 +428,7 @@ export const Background: React.FC<{ theme: Theme }> = ({ theme }) => {
           </div>
         );
       })}
+      {art ? <Art name={art} theme={theme} /> : null}
     </AbsoluteFill>
   );
 };

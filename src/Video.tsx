@@ -9,10 +9,11 @@ import {
   useVideoConfig,
 } from "remotion";
 import { Background } from "./Background";
+import { resolveTheme } from "./eras";
 import { Captions } from "./Captions";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
-import { MusicConfig, VideoProps } from "./types";
+import { ArtName, MusicConfig, Theme, VideoProps } from "./types";
 
 const DEFAULT_MUSIC_VOLUME = 0.22;
 const DEFAULT_DUCK = 0.35;
@@ -21,6 +22,10 @@ const DEFAULT_FADE_OUT = 1.5;
 const DEFAULT_SFX_VOLUME = 0.5;
 const DUCK_RAMP_DOWN_FRAMES = 8;
 const DUCK_RAMP_UP_FRAMES = 14;
+/** Lama crossfade antar latar scene (frame). */
+const BG_FADE_FRAMES = 14;
+/** Ruang (px) di dasar layar yang disisakan untuk ilustrasi latar. */
+const ART_CLEARANCE = 380;
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -61,6 +66,21 @@ export const Video: React.FC<VideoProps> = ({
     return { scene, start, durationInFrames };
   });
 
+  // Latar per scene: scene yang punya `bg` memulai segmen baru; scene tanpa `bg` melanjutkan segmen sebelumnya.
+  type Segment = { theme: Theme; art?: ArtName; from: number; to: number };
+  const segments: Segment[] = [];
+  const sceneArt: boolean[] = [];
+  const sceneThemes: Theme[] = timeline.map(({ scene, start, durationInFrames }) => {
+    if (scene.bg) {
+      segments.push({ theme: resolveTheme(theme, scene.bg), art: scene.bg.art, from: start, to: start + durationInFrames });
+    } else if (segments.length > 0) {
+      segments[segments.length - 1].to = start + durationInFrames;
+    }
+    const current = segments.length > 0 ? segments[segments.length - 1] : undefined;
+    sceneArt.push(Boolean(current?.art));
+    return current ? current.theme : theme;
+  });
+
   const narration = timeline
     .filter(({ scene }) => scene.audio)
     .map(({ scene, start, durationInFrames }) => {
@@ -97,6 +117,15 @@ export const Video: React.FC<VideoProps> = ({
   return (
     <AbsoluteFill style={{ fontFamily }}>
       <Background theme={theme} />
+      {segments.map((seg, i) => {
+        const fade = seg.from > 0 ? BG_FADE_FRAMES : 0;
+        const from = Math.max(0, seg.from - fade);
+        return (
+          <Sequence key={`bg-${i}`} from={from} durationInFrames={Math.max(1, seg.to - from)} layout="none">
+            <Background theme={seg.theme} art={seg.art} fadeInFrames={fade} />
+          </Sequence>
+        );
+      })}
       {musicCfg ? (
         <Audio
           src={staticFile(musicCfg.src)}
@@ -107,10 +136,14 @@ export const Video: React.FC<VideoProps> = ({
       ) : null}
       <Series>
         {timeline.map(({ scene, durationInFrames }, i) => {
+          const sceneTheme = sceneThemes[i];
           const sfx = scene.sfx ?? defaultSfx;
           return (
             <Series.Sequence key={i} durationInFrames={durationInFrames}>
-              <SceneView scene={scene} theme={theme} durationInFrames={durationInFrames} />
+              {/* Saat ada ilustrasi di dasar layar, isi scene dinaikkan supaya tidak menabraknya. */}
+              <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: sceneArt[i] ? ART_CLEARANCE : 0 }}>
+                <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} />
+              </div>
               {sfx && sfx !== "none" ? (
                 <Audio src={staticFile(audioPath(sfx, "sfx"))} volume={sfxVolume} />
               ) : null}
@@ -119,7 +152,7 @@ export const Video: React.FC<VideoProps> = ({
                   <Audio src={staticFile(scene.audio)} />
                 </Sequence>
               ) : null}
-              {subtitles ? <Captions captions={scene.captions} theme={theme} /> : null}
+              {subtitles ? <Captions captions={scene.captions} theme={sceneTheme} /> : null}
             </Series.Sequence>
           );
         })}

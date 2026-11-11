@@ -20,8 +20,39 @@ export type Theme = {
 
 export const BG_STYLES = [
   "shapes", "bubbles", "grid", "waves", "rays", "stripes", "confetti", "blobs",
+  // gaya bertema cerita/sejarah
+  "parchment", "desert", "mountains", "night", "embers", "city",
 ] as const;
 export type BgStyle = (typeof BG_STYLES)[number];
+
+/** Palet + gaya latar siap pakai per zaman/suasana cerita (didefinisikan di src/eras.ts). */
+export const ERA_NAMES = [
+  "kuno", "klasik", "pertengahan", "maritim", "perang", "kolonial", "nusantara", "revolusi", "malam",
+] as const;
+export type EraName = (typeof ERA_NAMES)[number];
+
+/** Ilustrasi vektor besar di bagian bawah layar (digambar di src/Art.tsx). */
+export const ART_NAMES = [
+  "kapal", "benteng", "piramida", "kuil", "candi", "gulungan",
+  "mahkota", "pedang", "meriam", "peta", "mercusuar", "kota",
+] as const;
+export type ArtName = (typeof ART_NAMES)[number];
+
+/** Latar khusus untuk satu scene; berlaku sampai scene berikutnya yang punya `bg`. */
+export type SceneBg = {
+  /** Palet + gaya siap pakai. Field lain di bawah menimpa isinya. */
+  era?: EraName;
+  style?: BgStyle;
+  background?: string;
+  background2?: string;
+  primary?: string;
+  accent?: string;
+  text?: string;
+  /** Ikon transparan yang melayang di latar. */
+  decor?: IconName[];
+  /** Ilustrasi vektor di bagian bawah layar. */
+  art?: ArtName;
+};
 
 /** Satu potongan subtitle; waktu dalam detik, relatif terhadap awal scene. */
 export type Caption = {
@@ -91,6 +122,8 @@ export const BUILTIN_SFX = ["whoosh", "pop", "ding", "click"] as const;
 /** Field yang dimiliki semua tipe scene. */
 type SceneBase = {
   durationInSeconds: number;
+  /** Latar khusus mulai scene ini (palet, gaya, ikon, ilustrasi). Tanpa ini, latar scene sebelumnya berlanjut. */
+  bg?: SceneBg;
   /** Teks yang dibacakan; diisi oleh kamu di input.json. */
   narration?: string;
   /** SFX saat scene mulai: "whoosh" | "pop" | "ding" | "click" | "none". Default: defaultSfx video. */
