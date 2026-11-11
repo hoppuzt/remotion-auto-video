@@ -7,69 +7,97 @@
     "stability": 0.5,
     "similarityBoost": 0.75
   },
-  "music": { "track": "curious" },
+  "music": {
+    "track": "curious"
+  },
   "defaultSfx": "whoosh",
   "theme": {
-    "background": "#F0F9FF",
-    "primary": "#F97316",
-    "accent": "#0EA5E9",
-    "text": "#0F172A",
-    "font": "Poppins",
-    "bgStyle": "bubbles",
-    "background2": "#DBEAFE",
-    "decor": ["drop", "candy", "heart", "apple"]
+    "background": "#ECFDF5",
+    "primary": "#B45309",
+    "accent": "#047857",
+    "text": "#1F2D1F",
+    "font": "Montserrat"
   },
   "scenes": [
     {
       "type": "title",
-      "icon": "drop",
-      "title": "Fakta Diabetes",
-      "subtitle": "Yang sering dianggap sepele",
-      "narration": "Diabetes sering dianggap sepele. Padahal faktanya mengejutkan.",
-      "durationInSeconds": 4
-    },
-    {
-      "type": "stat",
-      "value": "589 jt",
-      "label": "orang dewasa hidup dengan diabetes",
-      "narration": "Satu dari sembilan orang dewasa di dunia hidup dengan diabetes.",
-      "sfx": "ding",
+      "icon": "globe",
+      "title": "Pulau Run",
+      "subtitle": "Ditukar dengan Manhattan",
+      "bg": {
+        "era": "nusantara",
+        "art": "peta",
+        "decor": [
+          "leaf",
+          "tree"
+        ]
+      },
+      "narration": "Pulau Run di Maluku cuma tiga kilometer panjangnya. Tapi pernah ditukar dengan Manhattan.",
       "durationInSeconds": 5
     },
     {
       "type": "text",
-      "icon": "question",
-      "title": "Tanpa Disadari",
-      "text": "Lebih dari 4 dari 10 penderita belum tahu dirinya diabetes",
-      "narration": "Dan lebih dari empat dari sepuluh belum tahu dirinya diabetes.",
-      "durationInSeconds": 5
-    },
-    {
-      "type": "stat",
-      "value": "20 jt",
-      "label": "dewasa di Indonesia, peringkat 5 dunia",
-      "narration": "Indonesia peringkat kelima dunia, sekitar dua puluh juta orang.",
-      "sfx": "ding",
-      "durationInSeconds": 5
-    },
-    {
-      "type": "icons",
-      "title": "Pemicu yang sepele",
-      "items": [
-        { "icon": "candy", "label": "Gula berlebih" },
-        { "icon": "laptop", "label": "Kurang gerak" },
-        { "icon": "burger", "label": "Berat badan naik" }
-      ],
-      "narration": "Pemicunya sepele: gula berlebih, kurang gerak, berat badan naik.",
-      "sfx": "pop",
+      "icon": "flag",
+      "title": "1616",
+      "text": "Inggris menguasai Pulau Run",
+      "bg": {
+        "era": "maritim",
+        "art": "kapal",
+        "decor": [
+          "globe",
+          "star"
+        ]
+      },
+      "narration": "Pala dari pulau ini diperebutkan. Tahun seribu enam ratus enam belas, Inggris menguasainya.",
       "durationInSeconds": 5
     },
     {
       "type": "text",
-      "icon": "check",
-      "title": "Mulai Sekarang",
-      "text": "Cek gula darah sejak dini, mulai dari kebiasaan kecil",
-      "narration": "Yuk, cek gula darah sejak dini, mulai dari kebiasaan kecil.",
+      "icon": "fire",
+      "title": "1664",
+      "text": "Inggris merebut New Amsterdam",
+      "bg": {
+        "era": "perang",
+        "art": "meriam",
+        "decor": [
+          "fire",
+          "shield"
+        ]
+      },
+      "narration": "Tahun seribu enam ratus enam puluh empat, Inggris merebut New Amsterdam, kini bernama New York.",
+      "durationInSeconds": 5
+    },
+    {
+      "type": "text",
+      "icon": "clipboard",
+      "title": "31 Juli 1667",
+      "text": "Belanda mendapat Run, Inggris memegang Manhattan",
+      "bg": {
+        "era": "kolonial",
+        "art": "gulungan",
+        "decor": [
+          "key",
+          "globe"
+        ]
+      },
+      "narration": "Perjanjian Breda tahun seribu enam ratus enam puluh tujuh mengakhiri perang. Belanda mendapat Run, Inggris memegang Manhattan.",
+      "sfx": "ding",
+      "durationInSeconds": 6
+    },
+    {
+      "type": "text",
+      "icon": "coin",
+      "title": "Hasilnya",
+      "text": "Monopoli pala di Banda, dan kota yang kelak jadi New York",
+      "bg": {
+        "era": "malam",
+        "art": "kota",
+        "decor": [
+          "star",
+          "moon"
+        ]
+      },
+      "narration": "Belanda memegang monopoli pala. Inggris mempertahankan kota yang kelak jadi New York.",
       "sfx": "ding",
       "durationInSeconds": 5
     }
