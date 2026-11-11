@@ -35,6 +35,7 @@ export type EraName = (typeof ERA_NAMES)[number];
 export const ART_NAMES = [
   "kapal", "benteng", "piramida", "kuil", "candi", "gulungan",
   "mahkota", "pedang", "meriam", "peta", "mercusuar", "kota",
+  "mie", "wajan", "kemasan", "panci",
 ] as const;
 export type ArtName = (typeof ART_NAMES)[number];
 

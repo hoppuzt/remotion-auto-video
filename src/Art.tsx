@@ -377,6 +377,131 @@ const Kota: React.FC<Pal> = ({ P, A, I, t }) => {
   );
 };
 
+
+// ---------- ilustrasi makanan (seri asal-usul) ----------
+const NOODLE = "#F6C453";
+const NOODLE_D = "#D9961C";
+
+/** Satu helai mi bergelombang dari x1 sampai x2 di sekitar garis y. */
+const wavyPath = (x1: number, x2: number, y: number, amp: number, len: number, phase: number) => {
+  const pts: string[] = [];
+  for (let x = x1; x <= x2; x += 10) pts.push(`${x},${y + Math.sin(((x - x1) / len) * Math.PI * 2 + phase) * amp}`);
+  return `M${pts.join(" L")}`;
+};
+
+const Steam: React.FC<{ x: number; y: number; t: number; I: string; n?: number }> = ({ x, y, t, I, n = 3 }) => (
+  <>
+    {Array.from({ length: n }).map((_, i) => {
+      const k = (t * 0.55 + i / n) % 1;
+      return (
+        <path
+          key={i}
+          d={`M${x + i * 70},${y - k * 120} q-22,-30 0,-60 t0,-60`}
+          fill="none"
+          stroke={I}
+          strokeWidth={9}
+          strokeLinecap="round"
+          opacity={0.28 * (1 - k)}
+        />
+      );
+    })}
+  </>
+);
+
+const Mie: React.FC<Pal> = ({ P, A, I, t }) => (
+  <>
+    <Steam x={420} y={330} t={t} I={I} />
+    <g transform={`translate(0 ${sway(t, 1.4, 4)})`}>
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <path
+          key={i}
+          d={wavyPath(300 + i * 6, 780 - i * 6, 360 + i * 20, 16, 80 + i * 6, i * 1.3 + t * 1.2)}
+          fill="none"
+          stroke={i % 2 ? NOODLE : NOODLE_D}
+          strokeWidth={16}
+          strokeLinecap="round"
+        />
+      ))}
+      <path d="M250,430 H830 Q830,640 540,640 Q250,640 250,430 Z" fill={P} />
+      <path d="M250,430 H830 Q830,640 540,640 Q250,640 250,430 Z" fill={I} opacity={0.1} />
+      <rect x={236} y={414} width={608} height={30} rx={15} fill={A} />
+      <path d="M330,500 Q540,540 750,500" fill="none" stroke={W} strokeWidth={10} strokeLinecap="round" opacity={0.55} />
+      <rect x={620} y={180} width={14} height={300} rx={7} fill={I} transform="rotate(14 627 330)" />
+      <rect x={660} y={180} width={14} height={300} rx={7} fill={I} transform="rotate(20 667 330)" />
+    </g>
+    <Ground I={I} />
+  </>
+);
+
+const Wajan: React.FC<Pal> = ({ P, A, I, t }) => (
+  <>
+    <rect x={820} y={520} width={230} height={34} rx={17} fill={I} />
+    <ellipse cx={500} cy={540} rx={400} ry={88} fill={I} />
+    <ellipse cx={500} cy={528} rx={372} ry={70} fill={P} opacity={0.9} />
+    <ellipse cx={500} cy={530} rx={340} ry={56} fill={NOODLE} opacity={0.55} />
+    {/* blok mi bergelombang */}
+    <g transform={`translate(0 ${sway(t, 2, 4)})`}>
+      <rect x={340} y={430} width={320} height={110} rx={26} fill={NOODLE} />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path key={i} d={wavyPath(352, 648, 452 + i * 20, 8, 44, i)} fill="none" stroke={NOODLE_D} strokeWidth={7} strokeLinecap="round" />
+      ))}
+    </g>
+    {/* gelembung minyak */}
+    {[0, 1, 2, 3, 4, 5].map((i) => {
+      const k = (t * 0.9 + i * 0.17) % 1;
+      const x = 280 + i * 100 + Math.sin(i * 3) * 18;
+      return <circle key={i} cx={x} cy={520 - k * 150} r={10 + (i % 3) * 4} fill={W} opacity={0.75 * (1 - k)} />;
+    })}
+    <Steam x={330} y={400} t={t} I={I} />
+    <Ground I={I} />
+  </>
+);
+
+const Kemasan: React.FC<Pal> = ({ P, A, I, t }) => (
+  <>
+    {/* kiri: mi lurus, makan tempat */}
+    <g>
+      <rect x={110} y={170} width={300} height={470} rx={14} fill="none" stroke={I} strokeWidth={6} strokeDasharray="14 12" opacity={0.5} />
+      {Array.from({ length: 9 }).map((_, i) => (
+        <rect key={i} x={140 + i * 29} y={200} width={13} height={420} rx={6} fill={NOODLE} />
+      ))}
+      <text x={260} y={150} textAnchor="middle" fontSize={50} fontWeight={800} fill={I} opacity={0.75} style={{ fontFamily: "inherit" }}>lurus</text>
+    </g>
+    {/* kanan: mi keriting, padat */}
+    <g transform={`translate(0 ${sway(t, 1.8, 3)})`}>
+      <rect x={560} y={400} width={400} height={240} rx={14} fill="none" stroke={A} strokeWidth={6} strokeDasharray="14 12" />
+      <rect x={580} y={420} width={360} height={200} rx={26} fill={NOODLE} />
+      {Array.from({ length: 8 }).map((_, i) => (
+        <path key={i} d={wavyPath(594, 926, 438 + i * 24, 9, 48, i * 0.9)} fill="none" stroke={NOODLE_D} strokeWidth={8} strokeLinecap="round" />
+      ))}
+      <text x={760} y={380} textAnchor="middle" fontSize={50} fontWeight={800} fill={I} opacity={0.75} style={{ fontFamily: "inherit" }}>keriting</text>
+    </g>
+    <path d="M440,420 L520,420" stroke={P} strokeWidth={10} strokeLinecap="round" />
+    <polygon points="520,396 566,420 520,444" fill={P} />
+    <Ground I={I} />
+  </>
+);
+
+const Panci: React.FC<Pal> = ({ P, A, I, t }) => (
+  <>
+    <Steam x={380} y={330} t={t} I={I} n={4} />
+    <rect x={210} y={370} width={90} height={26} rx={13} fill={I} />
+    <rect x={780} y={370} width={90} height={26} rx={13} fill={I} />
+    <path d="M250,360 H830 V600 Q830,640 790,640 H290 Q250,640 250,600 Z" fill={P} />
+    <path d="M250,360 H830 V600 Q830,640 790,640 H290 Q250,640 250,600 Z" fill={I} opacity={0.1} />
+    <rect x={236} y={344} width={608} height={30} rx={15} fill={A} />
+    <rect x={276} y={400} width={528} height={210} rx={20} fill={A} opacity={0.55} />
+    {[0, 1, 2, 3].map((i) => (
+      <path key={i} d={wavyPath(300, 780, 450 + i * 36, 14, 96, i * 1.7 - t * 2)} fill="none" stroke={NOODLE} strokeWidth={14} strokeLinecap="round" />
+    ))}
+    {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+      const k = (t * 0.8 + i * 0.15) % 1;
+      return <circle key={i} cx={320 + i * 75} cy={600 - k * 190} r={9 + (i % 3) * 4} fill={W} opacity={0.8 * (1 - k)} />;
+    })}
+    <Ground I={I} />
+  </>
+);
+
 const ARTS: Record<ArtName, React.FC<Pal>> = {
   kapal: Kapal,
   benteng: Benteng,
@@ -389,6 +514,10 @@ const ARTS: Record<ArtName, React.FC<Pal>> = {
   meriam: Meriam,
   peta: Peta,
   mercusuar: Mercusuar,
+  mie: Mie,
+  wajan: Wajan,
+  kemasan: Kemasan,
+  panci: Panci,
   kota: Kota,
 };
 

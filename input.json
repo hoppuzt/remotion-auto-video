@@ -1,6 +1,7 @@
 {
   "fps": 30,
   "subtitles": true,
+  "motion": "flow",
   "voice": {
     "id": "hpp4J3VqNfWAUOO0d1Us",
     "model": "eleven_multilingual_v2",
@@ -8,136 +9,191 @@
     "similarityBoost": 0.75
   },
   "music": {
-    "track": "curious"
+    "track": "upbeat"
   },
   "defaultSfx": "whoosh",
   "theme": {
-    "background": "#ECFDF5",
-    "primary": "#B45309",
-    "accent": "#047857",
-    "text": "#1F2D1F",
-    "font": "Montserrat"
+    "background": "#FFF4CC",
+    "primary": "#DC2626",
+    "accent": "#F59E0B",
+    "text": "#3A1F0B",
+    "font": "Nunito"
   },
   "scenes": [
     {
       "type": "title",
-      "icon": "globe",
-      "title": "Pulau Run",
-      "subtitle": "Ditukar dengan Manhattan",
+      "title": "Kenapa Mie Instan Keriting?",
+      "subtitle": "Ternyata begini asalnya",
+      "icon": "question",
       "bg": {
-        "era": "nusantara",
-        "art": "peta",
+        "background": "#FFF4CC",
+        "background2": "#FFE08A",
+        "primary": "#DC2626",
+        "accent": "#F59E0B",
+        "text": "#3A1F0B",
+        "style": "rays",
         "decor": [
-          "leaf",
-          "tree"
-        ]
+          "star",
+          "fire"
+        ],
+        "art": "mie"
       },
-      "narration": "Pulau Run di Maluku cuma tiga kilometer panjangnya. Tapi pernah ditukar dengan Manhattan.",
-      "durationInSeconds": 5,
-      "kicker": "Maluku, abad ke-17",
+      "narration": "Pernah penasaran, kenapa mie instan selalu keriting? Ternyata begini asalnya.",
+      "kicker": "Ternyata Begini Asalnya",
       "highlight": [
-        "Manhattan"
+        "keriting"
       ],
       "callouts": [
-        "3 km panjangnya",
-        "Penghasil pala"
-      ]
+        "Kenapa?"
+      ],
+      "durationInSeconds": 4.5
     },
     {
       "type": "text",
-      "icon": "flag",
-      "title": "1616",
-      "text": "Inggris menguasai Pulau Run",
+      "title": "1958",
+      "text": "Chicken Ramen, mie instan pertama",
+      "icon": "calendar",
       "bg": {
-        "era": "maritim",
-        "art": "kapal",
+        "style": "blobs",
+        "background": "#FFF1E6",
+        "background2": "#FFD9B8",
+        "primary": "#C2410C",
+        "accent": "#0F766E",
+        "text": "#3A1F0B",
         "decor": [
-          "globe",
+          "calendar",
           "star"
         ]
       },
-      "narration": "Pala dari pulau ini diperebutkan. Tahun seribu enam ratus enam belas, Inggris menguasainya.",
-      "durationInSeconds": 5,
-      "kicker": "Perebutan pala",
+      "narration": "Mie instan pertama, Chicken Ramen, dibuat Momofuku Ando tahun seribu sembilan ratus lima puluh delapan.",
+      "kicker": "Awal mulanya",
       "highlight": [
-        "Inggris"
+        "Chicken",
+        "Ramen",
+        "Momofuku",
+        "Ando"
       ],
       "callouts": [
-        "Inggris menang"
-      ]
+        "Momofuku Ando"
+      ],
+      "sfx": "ding",
+      "durationInSeconds": 6
     },
     {
       "type": "text",
+      "title": "Digoreng kilat",
+      "text": "Gelombang menyisakan celah",
       "icon": "fire",
-      "title": "1664",
-      "text": "Inggris merebut New Amsterdam",
       "bg": {
-        "era": "perang",
-        "art": "meriam",
+        "style": "embers",
+        "background": "#3B1A0A",
+        "background2": "#7C2D12",
+        "primary": "#F59E0B",
+        "accent": "#EF4444",
+        "text": "#FFF3D6",
         "decor": [
-          "fire",
-          "shield"
-        ]
+          "fire"
+        ],
+        "art": "wajan"
       },
-      "narration": "Tahun seribu enam ratus enam puluh empat, Inggris merebut New Amsterdam, kini bernama New York.",
-      "durationInSeconds": 5,
-      "kicker": "New Amsterdam",
+      "narration": "Mienya digoreng kilat. Kalau lurus, helainya menempel. Gelombang menyisakan celah, jadi gorengnya merata.",
+      "kicker": "Alasan pertama",
       "highlight": [
-        "New",
-        "York"
+        "celah",
+        "merata"
       ],
       "callouts": [
-        "Jadi New York"
-      ]
+        "Tidak menempel",
+        "Matang merata"
+      ],
+      "durationInSeconds": 5.5
     },
     {
       "type": "text",
-      "icon": "clipboard",
-      "title": "31 Juli 1667",
-      "text": "Belanda mendapat Run, Inggris memegang Manhattan",
+      "title": "Padat",
+      "text": "Satu blok, hemat bungkus",
+      "icon": "gift",
       "bg": {
-        "era": "kolonial",
-        "art": "gulungan",
+        "style": "grid",
+        "background": "#E0F2FE",
+        "background2": "#BAE6FD",
+        "primary": "#0369A1",
+        "accent": "#F59E0B",
+        "text": "#0C2A3F",
         "decor": [
-          "key",
-          "globe"
-        ]
+          "gift",
+          "briefcase"
+        ],
+        "art": "kemasan"
       },
-      "narration": "Perjanjian Breda tahun seribu enam ratus enam puluh tujuh mengakhiri perang. Belanda mendapat Run, Inggris memegang Manhattan.",
-      "sfx": "ding",
-      "durationInSeconds": 6,
-      "kicker": "Perjanjian Breda",
+      "narration": "Kata produsen mesin mie, keriting juga bikin mie padat, hemat bungkus, dan tahan patah.",
+      "kicker": "Alasan kedua",
       "highlight": [
-        "Run",
-        "Manhattan"
+        "padat",
+        "hemat",
+        "bungkus"
       ],
       "callouts": [
-        "Belanda: Run",
-        "Inggris: Manhattan"
-      ]
+        "Muat bungkus kecil"
+      ],
+      "durationInSeconds": 5.5
     },
     {
       "type": "text",
-      "icon": "coin",
-      "title": "Hasilnya",
-      "text": "Monopoli pala di Banda, dan kota yang kelak jadi New York",
+      "title": "Direbus",
+      "text": "Air mengalir, tidak lengket",
+      "icon": "water",
       "bg": {
-        "era": "malam",
-        "art": "kota",
+        "style": "bubbles",
+        "background": "#CCFBF1",
+        "background2": "#99F6E4",
+        "primary": "#0F766E",
+        "accent": "#F59E0B",
+        "text": "#073B36",
         "decor": [
-          "star",
-          "moon"
-        ]
+          "water",
+          "clock"
+        ],
+        "art": "panci"
       },
-      "narration": "Belanda memegang monopoli pala. Inggris mempertahankan kota yang kelak jadi New York.",
-      "sfx": "ding",
-      "durationInSeconds": 5,
-      "kicker": "Akibatnya",
+      "narration": "Saat direbus, kerutan memberi ruang bagi air untuk mengalir, jadi helainya tidak lengket.",
+      "kicker": "Alasan ketiga",
       "highlight": [
-        "monopoli",
-        "pala"
-      ]
+        "mengalir",
+        "lengket"
+      ],
+      "callouts": [
+        "Air mengalir"
+      ],
+      "durationInSeconds": 4.5
+    },
+    {
+      "type": "text",
+      "title": "Jadi",
+      "text": "Keriting itu fungsi, bukan hiasan",
+      "icon": "check",
+      "bg": {
+        "background": "#FFF4CC",
+        "background2": "#FFE08A",
+        "primary": "#DC2626",
+        "accent": "#F59E0B",
+        "text": "#3A1F0B",
+        "style": "rays",
+        "decor": [
+          "check",
+          "star"
+        ],
+        "art": "mie"
+      },
+      "narration": "Jadi kerutan itu bukan hiasan. Itu cara supaya mie matang rata.",
+      "kicker": "Kesimpulan",
+      "highlight": [
+        "hiasan",
+        "matang",
+        "rata"
+      ],
+      "sfx": "ding",
+      "durationInSeconds": 4.5
     }
-  ],
-  "motion": "flow"
+  ]
 }
