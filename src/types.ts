@@ -37,6 +37,10 @@ export const ART_NAMES = [
   "mahkota", "pedang", "meriam", "peta", "mercusuar", "kota",
   "mie", "wajan", "kemasan", "panci",
 ] as const;
+/** Adegan bercerita (scene "stage"), digambar di src/Stage.tsx. */
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang"] as const;
+export type StageName = (typeof STAGE_NAMES)[number];
+
 export type ArtName = (typeof ART_NAMES)[number];
 
 /** Latar khusus untuk satu scene; berlaku sampai scene berikutnya yang punya `bg`. */
@@ -198,6 +202,13 @@ export type Scene =
       right: ComparePanel;
     })
   | (SceneBase & {
+      type: "stage";
+      /** Adegan vektor bergerak yang menjelaskan proses (lihat STAGE_NAMES). */
+      stage: StageName;
+      /** Label kecil bergaris penunjuk, berurutan sesuai adegan (sekitar 20 huruf). */
+      labels?: string[];
+    })
+  | (SceneBase & {
       type: "bars";
       title: string;
       /** 2-5 bar horizontal. */
@@ -221,6 +232,8 @@ export type VideoProps = {
   sfxVolume?: number;
   /** "flow" = transisi menyambung antar scene, subtitle kata demi kata, rel progres bab, gerak halus. */
   motion?: "flow";
+  /** true: latar satu warna polos (theme.background) di seluruh video; `bg` per scene diabaikan. */
+  plainBackground?: boolean;
 };
 
 export const defaultProps: VideoProps = {

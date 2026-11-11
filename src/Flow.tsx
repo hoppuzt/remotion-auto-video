@@ -12,8 +12,9 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
  * dan selama tampil melayang pelan + zoom lambat sehingga layar tidak pernah benar-benar diam.
  * `durationInFrames` = durasi scene tanpa bagian tumpang tindih.
  */
-export const FlowStage: React.FC<{ durationInFrames: number; children: React.ReactNode }> = ({
+export const FlowStage: React.FC<{ durationInFrames: number; calm?: boolean; children: React.ReactNode }> = ({
   durationInFrames,
+  calm = false,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -29,8 +30,8 @@ export const FlowStage: React.FC<{ durationInFrames: number; children: React.Rea
     easing: (t) => 1 - Math.pow(1 - t, 3),
   });
   const exit = interpolate(frame, [durationInFrames, total], [0, 0.06], clamp);
-  const drift = interpolate(frame, [0, total], [0, 0.035], clamp);
-  const bob = Math.sin(frame / 22) * 7;
+  const drift = interpolate(frame, [0, total], [0, calm ? 0.012 : 0.035], clamp);
+  const bob = calm ? 0 : Math.sin(frame / 22) * 7;
   return (
     <AbsoluteFill
       style={{

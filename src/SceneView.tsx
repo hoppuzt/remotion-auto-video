@@ -3,6 +3,7 @@ import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { useEnter } from "./anim";
 import { BarsScene, CompareScene, IconsScene } from "./ExtraScenes";
 import { Callouts } from "./Flow";
+import { StageView } from "./Stage";
 import { Icon } from "./Icons";
 import { IconName, Scene, Theme } from "./types";
 
@@ -274,6 +275,9 @@ export const SceneView: React.FC<{
       break;
     case "bars":
       content = <BarsScene scene={scene} theme={theme} />;
+      break;
+    case "stage":
+      content = <StageView stage={scene.stage} labels={scene.labels} theme={theme} />;
       break;
   }
 

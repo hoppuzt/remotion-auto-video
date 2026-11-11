@@ -2,6 +2,7 @@
   "fps": 30,
   "subtitles": true,
   "motion": "flow",
+  "plainBackground": true,
   "voice": {
     "id": "hpp4J3VqNfWAUOO0d1Us",
     "model": "eleven_multilingual_v2",
@@ -13,58 +14,33 @@
   },
   "defaultSfx": "whoosh",
   "theme": {
-    "background": "#FFF4CC",
-    "primary": "#DC2626",
-    "accent": "#F59E0B",
-    "text": "#3A1F0B",
+    "background": "#FBF3E4",
+    "primary": "#E8590C",
+    "accent": "#2F6FDB",
+    "text": "#2A2118",
     "font": "Nunito"
   },
   "scenes": [
     {
-      "type": "title",
-      "title": "Kenapa Mie Instan Keriting?",
-      "subtitle": "Ternyata begini asalnya",
-      "icon": "question",
-      "bg": {
-        "background": "#FFF4CC",
-        "background2": "#FFE08A",
-        "primary": "#DC2626",
-        "accent": "#F59E0B",
-        "text": "#3A1F0B",
-        "style": "rays",
-        "decor": [
-          "star",
-          "fire"
-        ],
-        "art": "mie"
-      },
+      "type": "stage",
+      "stage": "penasaran",
+      "labels": [
+        "Kenapa keriting?"
+      ],
       "narration": "Pernah penasaran, kenapa mie instan selalu keriting? Ternyata begini asalnya.",
       "kicker": "Ternyata Begini Asalnya",
       "highlight": [
         "keriting"
       ],
-      "callouts": [
-        "Kenapa?"
-      ],
-      "durationInSeconds": 4.5
+      "durationInSeconds": 4
     },
     {
-      "type": "text",
-      "title": "1958",
-      "text": "Chicken Ramen, mie instan pertama",
-      "icon": "calendar",
-      "bg": {
-        "style": "blobs",
-        "background": "#FFF1E6",
-        "background2": "#FFD9B8",
-        "primary": "#C2410C",
-        "accent": "#0F766E",
-        "text": "#3A1F0B",
-        "decor": [
-          "calendar",
-          "star"
-        ]
-      },
+      "type": "stage",
+      "stage": "pertama",
+      "labels": [
+        "Momofuku Ando",
+        "Chicken Ramen"
+      ],
       "narration": "Mie instan pertama, Chicken Ramen, dibuat Momofuku Ando tahun seribu sembilan ratus lima puluh delapan.",
       "kicker": "Awal mulanya",
       "highlight": [
@@ -73,59 +49,33 @@
         "Momofuku",
         "Ando"
       ],
-      "callouts": [
-        "Momofuku Ando"
-      ],
       "sfx": "ding",
       "durationInSeconds": 6
     },
     {
-      "type": "text",
-      "title": "Digoreng kilat",
-      "text": "Gelombang menyisakan celah",
-      "icon": "fire",
-      "bg": {
-        "style": "embers",
-        "background": "#3B1A0A",
-        "background2": "#7C2D12",
-        "primary": "#F59E0B",
-        "accent": "#EF4444",
-        "text": "#FFF3D6",
-        "decor": [
-          "fire"
-        ],
-        "art": "wajan"
-      },
+      "type": "stage",
+      "stage": "goreng",
+      "labels": [
+        "Lurus: menempel",
+        "Keriting: matang merata"
+      ],
       "narration": "Mienya digoreng kilat. Kalau lurus, helainya menempel. Gelombang menyisakan celah, jadi gorengnya merata.",
       "kicker": "Alasan pertama",
       "highlight": [
+        "menempel",
         "celah",
         "merata"
-      ],
-      "callouts": [
-        "Tidak menempel",
-        "Matang merata"
       ],
       "durationInSeconds": 5.5
     },
     {
-      "type": "text",
-      "title": "Padat",
-      "text": "Satu blok, hemat bungkus",
-      "icon": "gift",
-      "bg": {
-        "style": "grid",
-        "background": "#E0F2FE",
-        "background2": "#BAE6FD",
-        "primary": "#0369A1",
-        "accent": "#F59E0B",
-        "text": "#0C2A3F",
-        "decor": [
-          "gift",
-          "briefcase"
-        ],
-        "art": "kemasan"
-      },
+      "type": "stage",
+      "stage": "kemas",
+      "labels": [
+        "Lurus: makan tempat",
+        "Keriting: lebih padat",
+        "Hemat bungkus"
+      ],
       "narration": "Kata produsen mesin mie, keriting juga bikin mie padat, hemat bungkus, dan tahan patah.",
       "kicker": "Alasan kedua",
       "highlight": [
@@ -133,58 +83,29 @@
         "hemat",
         "bungkus"
       ],
-      "callouts": [
-        "Muat bungkus kecil"
-      ],
       "durationInSeconds": 5.5
     },
     {
-      "type": "text",
-      "title": "Direbus",
-      "text": "Air mengalir, tidak lengket",
-      "icon": "water",
-      "bg": {
-        "style": "bubbles",
-        "background": "#CCFBF1",
-        "background2": "#99F6E4",
-        "primary": "#0F766E",
-        "accent": "#F59E0B",
-        "text": "#073B36",
-        "decor": [
-          "water",
-          "clock"
-        ],
-        "art": "panci"
-      },
+      "type": "stage",
+      "stage": "rebus",
+      "labels": [
+        "Air mengalir",
+        "Tidak lengket"
+      ],
       "narration": "Saat direbus, kerutan memberi ruang bagi air untuk mengalir, jadi helainya tidak lengket.",
       "kicker": "Alasan ketiga",
       "highlight": [
         "mengalir",
         "lengket"
       ],
-      "callouts": [
-        "Air mengalir"
-      ],
       "durationInSeconds": 4.5
     },
     {
-      "type": "text",
-      "title": "Jadi",
-      "text": "Keriting itu fungsi, bukan hiasan",
-      "icon": "check",
-      "bg": {
-        "background": "#FFF4CC",
-        "background2": "#FFE08A",
-        "primary": "#DC2626",
-        "accent": "#F59E0B",
-        "text": "#3A1F0B",
-        "style": "rays",
-        "decor": [
-          "check",
-          "star"
-        ],
-        "art": "mie"
-      },
+      "type": "stage",
+      "stage": "senang",
+      "labels": [
+        "Keriting itu fungsi"
+      ],
       "narration": "Jadi kerutan itu bukan hiasan. Itu cara supaya mie matang rata.",
       "kicker": "Kesimpulan",
       "highlight": [
@@ -193,7 +114,7 @@
         "rata"
       ],
       "sfx": "ding",
-      "durationInSeconds": 4.5
+      "durationInSeconds": 4
     }
   ]
 }

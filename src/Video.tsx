@@ -55,6 +55,7 @@ export const Video: React.FC<VideoProps> = ({
   defaultSfx = "none",
   sfxVolume = DEFAULT_SFX_VOLUME,
   motion,
+  plainBackground = false,
 }) => {
   const flow = motion === "flow";
   const { fps, durationInFrames: totalFrames } = useVideoConfig();
@@ -74,6 +75,10 @@ export const Video: React.FC<VideoProps> = ({
   const segments: Segment[] = [];
   const sceneArt: boolean[] = [];
   const sceneThemes: Theme[] = timeline.map(({ scene, start, durationInFrames }) => {
+    if (plainBackground) {
+      sceneArt.push(false);
+      return theme;
+    }
     if (scene.bg) {
       segments.push({ theme: resolveTheme(theme, scene.bg), art: scene.bg.art, from: start, to: start + durationInFrames });
     } else if (segments.length > 0) {
@@ -119,7 +124,7 @@ export const Video: React.FC<VideoProps> = ({
 
   return (
     <AbsoluteFill style={{ fontFamily }}>
-      <Background theme={theme} />
+      {plainBackground ? <AbsoluteFill style={{ backgroundColor: theme.background }} /> : <Background theme={theme} />}
       {segments.map((seg, i) => {
         const fade = seg.from > 0 ? BG_FADE_FRAMES : 0;
         const from = Math.max(0, seg.from - fade);
@@ -156,7 +161,7 @@ export const Video: React.FC<VideoProps> = ({
                 durationInFrames={durationInFrames + (i < timeline.length - 1 ? FLOW_OVERLAP : 0)}
                 layout="none"
               >
-                <FlowStage durationInFrames={durationInFrames}>
+                <FlowStage durationInFrames={durationInFrames} calm={scene.type === "stage"}>
                   <div style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: sceneArt[i] ? ART_CLEARANCE : 0 }}>
                     <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} fade={false} />
                   </div>
