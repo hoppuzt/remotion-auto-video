@@ -4,10 +4,8 @@
   "motion": "flow",
   "plainBackground": true,
   "voice": {
-    "id": "hpp4J3VqNfWAUOO0d1Us",
-    "model": "eleven_multilingual_v2",
-    "stability": 0.5,
-    "similarityBoost": 0.75
+    "provider": "gemini",
+    "voiceName": "Sulafat"
   },
   "music": {
     "track": "upbeat"
@@ -32,7 +30,8 @@
       "highlight": [
         "keriting"
       ],
-      "durationInSeconds": 4
+      "durationInSeconds": 4,
+      "delivery": "penasaran, bertanya sambil tersenyum"
     },
     {
       "type": "stage",
@@ -50,7 +49,8 @@
         "Ando"
       ],
       "sfx": "ding",
-      "durationInSeconds": 6
+      "durationInSeconds": 6,
+      "delivery": "antusias bercerita, sedikit kagum"
     },
     {
       "type": "stage",
@@ -66,7 +66,8 @@
         "celah",
         "merata"
       ],
-      "durationInSeconds": 5.5
+      "durationInSeconds": 5.5,
+      "delivery": "menjelaskan dengan semangat, nada naik di kata kunci"
     },
     {
       "type": "stage",
@@ -83,7 +84,8 @@
         "hemat",
         "bungkus"
       ],
-      "durationInSeconds": 5.5
+      "durationInSeconds": 5.5,
+      "delivery": "menjelaskan santai dan yakin"
     },
     {
       "type": "stage",
@@ -98,7 +100,8 @@
         "mengalir",
         "lengket"
       ],
-      "durationInSeconds": 4.5
+      "durationInSeconds": 4.5,
+      "delivery": "tenang dan mengalir, seperti menjelaskan ke teman"
     },
     {
       "type": "stage",
@@ -114,7 +117,8 @@
         "rata"
       ],
       "sfx": "ding",
-      "durationInSeconds": 4
+      "durationInSeconds": 4,
+      "delivery": "puas dan hangat, menutup dengan senyum"
     }
   ]
 }
