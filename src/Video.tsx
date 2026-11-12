@@ -14,6 +14,7 @@ import { Captions } from "./Captions";
 import { ChapterChip, ChapterRail, FLOW_OVERLAP, FlowCaptions, FlowStage } from "./Flow";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
+import { stageLabelFrames } from "./Stage";
 import { ArtName, MusicConfig, Theme, VideoProps } from "./types";
 
 const DEFAULT_MUSIC_VOLUME = 0.22;
@@ -173,6 +174,13 @@ export const Video: React.FC<VideoProps> = ({
                     <Audio src={staticFile(scene.audio)} />
                   </Sequence>
                 ) : null}
+                {scene.type === "stage"
+                  ? stageLabelFrames(scene.stage, durationInFrames, fps, (scene.labels ?? []).length).map((f, k) => (
+                      <Sequence key={`label-sfx-${k}`} from={f} durationInFrames={30} layout="none">
+                        <Audio src={staticFile("sfx/pop.mp3")} volume={sfxVolume * 0.8} />
+                      </Sequence>
+                    ))
+                  : null}
                 {subtitles ? <FlowCaptions captions={scene.captions} highlight={scene.highlight} theme={sceneTheme} /> : null}
               </Sequence>
             );
