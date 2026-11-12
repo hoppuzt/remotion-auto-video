@@ -1,5 +1,5 @@
-import React from "react";
-import { useCurrentFrame, useVideoConfig } from "remotion";
+import React, { useEffect, useState } from "react";
+import { continueRender, delayRender, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { StageName, Theme } from "./types";
 
 /**
@@ -290,6 +290,28 @@ const Bowl: React.FC<{ x: number; y: number; t: number; color: string; s?: numbe
   </g>
 );
 
+/** Gambar mangkuk mie hasil ilustrasi sendiri (public/art/mie-bowl.png), dengan uap vektor yang bergerak. */
+const BOWL_SRC = "art/mie-bowl.png";
+const BowlPhoto: React.FC<{ x: number; y: number; t: number; w?: number }> = ({ x, y, t, w = 540 }) => {
+  const [handle] = useState(() => delayRender("memuat gambar mangkuk"));
+  useEffect(() => {
+    const img = new Image();
+    const done = () => continueRender(handle);
+    img.onload = done;
+    img.onerror = done;
+    img.src = staticFile(BOWL_SRC);
+  }, [handle]);
+  const h = (w * 956) / 1000;
+  const bob = Math.sin(t * 2) * 4;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <ellipse cx={0} cy={-4} rx={w * 0.44} ry={30} fill="#2A2118" opacity={0.14} />
+      <image href={staticFile(BOWL_SRC)} x={-w / 2} y={-h - 8 + bob} width={w} height={h} />
+      <Steam x={-50} y={-h + 40} t={t} n={3} />
+    </g>
+  );
+};
+
 const Cross: React.FC<{ x: number; y: number; k: number }> = ({ x, y, k }) => (
   <g transform={`translate(${x} ${y}) scale(${Math.max(0, k)})`}>
     <circle r={38} fill="#D64545" />
@@ -329,8 +351,7 @@ const Penasaran: React.FC<Ctx> = ({ t, theme, labels }) => {
   const look: V2 = t < 2.8 ? [460, -190] : [0, -400];
   return (
     <>
-      <Table x1={540} x2={990} y={1100} />
-      <Bowl x={770} y={1100} t={t} color={theme.primary} />
+      <BowlPhoto x={770} y={1150} t={t} w={540} />
       <Person x={310} y={1290} t={t} mood={mood} shirt={theme.accent} handL={handL} handR={handR} look={look} lean={lean} enter={-1} />
       <g transform={`translate(470 760) scale(${q})`}>
         <circle r={68} fill="#FFFFFF" stroke="#2A2118" strokeWidth={6} />
@@ -345,7 +366,7 @@ const Penasaran: React.FC<Ctx> = ({ t, theme, labels }) => {
         <rect x={-24} y={52} width={48} height={28} rx={8} fill="#8E8E93" />
         <path d="M-14,10 Q0,-26 14,10" stroke="#2A2118" strokeWidth={5} fill="none" strokeLinecap="round" />
       </g>
-      <Tag text={labels[0]} ax={770} ay={930} px={600} py={640} at={LT.penasaran[0]} t={t} color={theme.primary} />
+      <Tag text={labels[0]} ax={770} ay={930} px={600} py={500} at={LT.penasaran[0]} t={t} color={theme.primary} />
     </>
   );
 };
@@ -543,10 +564,9 @@ const Senang: React.FC<Ctx> = ({ t, theme, labels }) => {
   const lean = -5 * seg(t, 0.4, 1.0) * (1 - cheer);
   return (
     <>
-      <Table x1={90} x2={560} y={1100} />
-      <Bowl x={325} y={1100} t={t} color={theme.primary} />
+      <BowlPhoto x={325} y={1150} t={t} w={480} />
       <Person x={740} y={1290} t={t} mood="happy" shirt={theme.accent} handL={handL} handR={handR} look={cheer > 0.5 ? [0, -400] : [-415, -190]} lean={lean} hop={hop} enter={1} />
-      <g transform={`translate(325 760) scale(${badge})`}>
+      <g transform={`translate(325 500) scale(${badge})`}>
         <circle r={62} fill="#2E9E5B" />
         <path d="M-26,4 L-8,24 L28,-20" stroke="#fff" strokeWidth={13} strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </g>
@@ -557,13 +577,13 @@ const Senang: React.FC<Ctx> = ({ t, theme, labels }) => {
           <path
             key={i}
             d="M0,-16 L5,-5 L16,0 L5,5 L0,16 L-5,5 L-16,0 L-5,-5 Z"
-            transform={`translate(${325 + Math.cos(a) * r} ${760 + Math.sin(a) * r * 0.8}) rotate(${t * 60})`}
+            transform={`translate(${325 + Math.cos(a) * r} ${500 + Math.sin(a) * r * 0.8}) rotate(${t * 60})`}
             fill="#F6C453"
             opacity={badge > 0.9 ? 1 : 0}
           />
         );
       })}
-      <Tag text={labels[0]} ax={325} ay={930} px={90} py={520} at={LT.senang[0]} t={t} color={theme.primary} />
+      <Tag text={labels[0]} ax={260} ay={900} px={40} py={600} at={LT.senang[0]} t={t} color={theme.primary} />
     </>
   );
 };
