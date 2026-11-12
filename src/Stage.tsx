@@ -474,11 +474,29 @@ const STAGES: Record<StageName, React.FC<Ctx>> = {
   senang: Senang,
 };
 
-export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: Theme }> = ({ stage, labels = [], theme }) => {
+/** Durasi (detik) yang dipakai saat adegan dirancang; waktu animasi diregangkan ke durasi scene sebenarnya. */
+const DESIGN_SECONDS: Record<StageName, number> = {
+  penasaran: 4.5,
+  pertama: 6,
+  goreng: 5.5,
+  kemas: 5.5,
+  rebus: 4.5,
+  senang: 4.5,
+};
+
+export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: Theme; durationInFrames?: number }> = ({
+  stage,
+  labels = [],
+  theme,
+  durationInFrames,
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const Draw = STAGES[stage];
   if (!Draw) return null;
+  // Selaraskan irama animasi dengan panjang narasi: scene lebih panjang = gerak lebih pelan, dan sebaliknya.
+  const actual = durationInFrames ? durationInFrames / fps : DESIGN_SECONDS[stage];
+  const speed = Math.max(0.55, Math.min(1.4, DESIGN_SECONDS[stage] / actual));
   return (
     <svg
       width={STAGE_W}
@@ -486,7 +504,7 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
       viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
       style={{ position: "absolute", left: 0, top: 170 }}
     >
-      <Draw t={frame / fps} theme={theme} labels={labels} />
+      <Draw t={(frame / fps) * speed} theme={theme} labels={labels} />
     </svg>
   );
 };

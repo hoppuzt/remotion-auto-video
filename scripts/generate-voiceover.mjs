@@ -30,7 +30,7 @@ const GEMINI_BASE = (process.env.GEMINI_API_BASE || "https://generativelanguage.
 const GEMINI_DEFAULT_VOICE = "Sulafat"; // hangat; coba juga Zephyr, Puck, Achird, Aoede, Vindemiatrix
 const GEMINI_MODELS = ["gemini-3.1-flash-tts-preview", "gemini-2.5-flash-preview-tts"];
 const GEMINI_DEFAULT_STYLE =
-  "Bacakan dalam bahasa Indonesia yang natural, hangat, dan ekspresif seperti bercerita ke teman: intonasi naik turun, ada rasa penasaran dan antusias, jeda alami, tidak datar dan tidak seperti pembaca berita.";
+  "Bacakan dalam bahasa Indonesia yang natural, hangat, dan ekspresif seperti bercerita ke teman: intonasi naik turun, ada rasa penasaran dan antusias, jeda alami, tidak datar dan tidak seperti pembaca berita. Tempo cepat dan lincah seperti orang antusias bercerita, tanpa jeda panjang antar kalimat.";
 const GEMINI_GAP_MS = Number(process.env.GEMINI_GAP_MS ?? 7_000); // jeda antar request supaya aman dari batas laju tier gratis
 
 const OUTPUT_FORMAT = "mp3_44100_128";

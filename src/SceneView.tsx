@@ -277,7 +277,7 @@ export const SceneView: React.FC<{
       content = <BarsScene scene={scene} theme={theme} />;
       break;
     case "stage":
-      content = <StageView stage={scene.stage} labels={scene.labels} theme={theme} />;
+      content = <StageView stage={scene.stage} labels={scene.labels} theme={theme} durationInFrames={durationInFrames} />;
       break;
   }
 
