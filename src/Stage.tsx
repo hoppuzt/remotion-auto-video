@@ -496,7 +496,7 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
   if (!Draw) return null;
   // Selaraskan irama animasi dengan panjang narasi: scene lebih panjang = gerak lebih pelan, dan sebaliknya.
   const actual = durationInFrames ? durationInFrames / fps : DESIGN_SECONDS[stage];
-  const speed = Math.max(0.55, Math.min(1.4, DESIGN_SECONDS[stage] / actual));
+  const speed = Math.max(0.4, Math.min(1.4, DESIGN_SECONDS[stage] / actual));
   return (
     <svg
       width={STAGE_W}

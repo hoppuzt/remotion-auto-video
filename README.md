@@ -117,3 +117,7 @@ Set `voice` di `input.json`:
 - Tiap scene boleh punya `delivery`, mis. `"penasaran dan hangat"` atau `"antusias, tempo agak cepat"`.
 - Audio disimpan sebagai `.wav` di `public/audio/` dan di-cache per teks, suara, dan `delivery`.
 - Tier gratis punya batas laju yang tidak dipublikasikan; skrip memberi jeda antar scene dan mengulang otomatis saat kena 429.
+
+## Durasi mengikuti suara
+
+`durationInSeconds` per scene hanya durasi minimum. Kalau suara narasi lebih panjang, scene otomatis diperpanjang (suara + jeda), dan animasi scene bertipe `stage` meregang mengikuti durasi itu. Jadi narasi tidak perlu diringkas demi memenuhi durasi target; total video mengikuti panjang suara.
