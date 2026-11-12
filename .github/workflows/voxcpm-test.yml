@@ -1,0 +1,36 @@
+name: VoxCPM Voice Test
+
+# Uji coba suara VoxCPM2 di CPU. Tidak terkait render video utama.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "voxcpm-test/**"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y ffmpeg libsndfile1
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install voxcpm soundfile
+      - name: Generate samples
+        run: python voxcpm-test/run.py
+      - name: Publish to Release
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "voxcpm-test-${{ github.run_number }}" voxcpm-test/out/* \
+            --title "VoxCPM test #${{ github.run_number }}" \
+            --notes "Uji suara VoxCPM2 di CPU (lihat log.txt)."
