@@ -70,7 +70,13 @@ export type Caption = {
 export type VoiceConfig =
   | string
   | {
+      /** "gemini" memakai Gemini TTS (GEMINI_API_KEY); kosong = ElevenLabs. */
+      provider?: "elevenlabs" | "gemini";
       id?: string;
+      /** Nama suara bawaan Gemini, mis. "Sulafat", "Zephyr", "Puck". */
+      voiceName?: string;
+      /** Gaya bicara umum untuk Gemini (bahasa bebas). */
+      style?: string;
       model?: string;
       stability?: number;
       similarityBoost?: number;
@@ -131,6 +137,8 @@ type SceneBase = {
   bg?: SceneBg;
   /** Teks yang dibacakan; diisi oleh kamu di input.json. */
   narration?: string;
+  /** Suasana bicara scene ini untuk Gemini, mis. "penasaran" atau "antusias". */
+  delivery?: string;
   /** SFX saat scene mulai: "whoosh" | "pop" | "ding" | "click" | "none". Default: defaultSfx video. */
   sfx?: string;
   /** Path file audio relatif ke public/ (diisi otomatis oleh generate-voiceover.mjs). */

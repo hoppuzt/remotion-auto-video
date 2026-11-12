@@ -103,3 +103,17 @@ Field per scene (semuanya opsional):
 - `kicker`: teks di penanda bab (default: judul scene).
 - `highlight`: daftar kata di narasi yang diberi warna aksen, mis. `["Manhattan"]`.
 - `callouts`: maks 3 label pendek (sekitar 18 huruf) yang menempel pada ikon scene `title`/`text`.
+
+## Suara Gemini (gratis, ada pengaturan emosi)
+
+Set `voice` di `input.json`:
+
+```json
+"voice": { "provider": "gemini", "voiceName": "Sulafat", "style": "opsional: gaya bicara umum" }
+```
+
+- Butuh secret `GEMINI_API_KEY` (key gratis dari Google AI Studio) di GitHub: Settings > Secrets and variables > Actions.
+- `voiceName` contoh: Sulafat (hangat), Zephyr (cerah), Puck (ceria), Achird (ramah), Aoede (ringan), Vindemiatrix (lembut).
+- Tiap scene boleh punya `delivery`, mis. `"penasaran dan hangat"` atau `"antusias, tempo agak cepat"`.
+- Audio disimpan sebagai `.wav` di `public/audio/` dan di-cache per teks, suara, dan `delivery`.
+- Tier gratis punya batas laju yang tidak dipublikasikan; skrip memberi jeda antar scene dan mengulang otomatis saat kena 429.

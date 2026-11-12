@@ -37,6 +37,7 @@ jobs:
       - name: Generate Voiceover & Captions
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate-voiceover.mjs input.json resolved.json
 
       - name: Commit New Audio Cache
