@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { continueRender, delayRender, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { PHONE_DESIGN, PHONE_LT, PHONE_STAGES } from "./PhoneStages";
 import { StageName, Theme } from "./types";
 
 /**
@@ -60,6 +61,7 @@ const LT: Record<StageName, number[]> = {
   kemas: [0.3, 3.0, 4.3],
   rebus: [2.0, 3.0],
   senang: [1.6],
+  ...PHONE_LT,
 };
 
 const backOut = (v: number) => {
@@ -595,6 +597,7 @@ const STAGES: Record<StageName, React.FC<Ctx>> = {
   kemas: Kemas,
   rebus: Rebus,
   senang: Senang,
+  ...PHONE_STAGES,
 };
 
 /** Durasi (detik) yang dipakai saat adegan dirancang; waktu animasi diregangkan ke durasi scene sebenarnya. */
@@ -605,6 +608,7 @@ const DESIGN_SECONDS: Record<StageName, number> = {
   kemas: 5.5,
   rebus: 4.5,
   senang: 4.5,
+  ...PHONE_DESIGN,
 };
 
 const speedFor = (stage: StageName, durationInFrames: number, fps: number) =>
@@ -632,7 +636,7 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
       width={STAGE_W}
       height={STAGE_H}
       viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
-      style={{ position: "absolute", left: 0, top: 170 }}
+      style={{ position: "absolute", left: 0, top: 170, overflow: stage.startsWith("hp") ? "visible" : undefined }}
     >
       <Draw t={(frame / fps) * speed} theme={theme} labels={labels} />
     </svg>

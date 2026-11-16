@@ -2,76 +2,104 @@
   "fps": 30,
   "subtitles": true,
   "motion": "flow",
+  "plainBackground": true,
   "voice": {
     "provider": "gemini",
     "voiceName": "Sulafat",
-    "style": "ceria, energik, sedikit humoris, seperti bicara ke teman"
+    "style": "menjelaskan sains dengan tenang dan jelas, ramah, sedikit antusias"
   },
   "music": {
-    "track": "upbeat"
+    "track": "curious"
   },
-  "defaultSfx": "pop",
+  "defaultSfx": "none",
   "theme": {
-    "background": "#F4F9FF",
-    "background2": "#FFE3EF",
-    "primary": "#E85D9A",
-    "accent": "#2B5C9E",
-    "text": "#1A1A2E",
-    "font": "Baloo2",
-    "bgStyle": "confetti",
-    "decor": ["heart", "star", "gift", "smile"]
+    "background": "#0A0F1C",
+    "primary": "#22D3EE",
+    "accent": "#FF9F43",
+    "text": "#F1F5F9",
+    "font": "Nunito"
   },
   "scenes": [
     {
-      "type": "title",
-      "title": "Lip Cream OMG",
-      "subtitle": "Oh My Glam, shade 11 Bumble",
-      "icon": "heart",
-      "kicker": "Kenalan dulu",
-      "highlight": ["Salsa", "OMG"],
-      "narration": "Halo, aku Salsa! Hari ini aku kenalin lip cream OMG Oh My Glam, shade sebelas, Bumble.",
-      "delivery": "ceria, menyapa kamera sambil tersenyum",
+      "type": "stage",
+      "stage": "hpHook",
+      "labels": ["Kok hangat?"],
+      "kicker": "Pertanyaan",
+      "highlight": ["hangat", "ngecas"],
+      "narration": "Kenapa HP jadi hangat pas lagi ngecas? Padahal cuma dicolok kabel.",
+      "delivery": "penasaran, bertanya sambil tersenyum",
+      "durationInSeconds": 4.5
+    },
+    {
+      "type": "stage",
+      "stage": "hpAliran",
+      "labels": ["arus dari charger", "ion lithium"],
+      "kicker": "Arus masuk",
+      "highlight": ["arus", "baterai"],
+      "narration": "Waktu ngecas, charger mendorong arus listrik masuk ke baterai.",
+      "delivery": "menjelaskan jelas dan tenang",
       "durationInSeconds": 5
     },
     {
-      "type": "icons",
-      "title": "Pilihan shade",
-      "items": [
-        { "icon": "sun", "label": "10 Shell" },
-        { "icon": "heart", "label": "11 Bumble" },
-        { "icon": "fire", "label": "12 Scarlett" }
-      ],
-      "kicker": "Tiga pilihan",
-      "highlight": ["Bumble"],
-      "narration": "Ada tiga shade di listingnya: sepuluh Shell, sebelas Bumble, dan dua belas Scarlett. Aku pilih Bumble.",
-      "delivery": "antusias menyebut tiap shade, lalu mantap di Bumble",
-      "durationInSeconds": 6.5
-    },
-    {
-      "type": "icons",
-      "title": "Cek sebelum checkout",
-      "items": [
-        { "icon": "eye", "label": "Foto pembeli asli" },
-        { "icon": "check", "label": "Nomor shade 11" },
-        { "icon": "chat", "label": "Baca ulasan" }
-      ],
-      "kicker": "Biar nggak salah warna",
-      "highlight": ["foto", "sebelas", "ulasannya"],
-      "narration": "Tapi sebelum checkout, lihat dulu foto pembeli asli, pastikan nomor shadenya sebelas, lalu baca ulasannya.",
-      "delivery": "menasihati seperti teman dekat, nada hangat",
+      "type": "stage",
+      "stage": "hpHambatan",
+      "labels": ["hambatan dalam", "jadi panas"],
+      "kicker": "Sumber panas",
+      "highlight": ["hambatan", "panas"],
+      "narration": "Tapi di dalam baterai ada hambatan. Arus yang menembusnya berubah jadi panas.",
+      "delivery": "mulai bersemangat, tekankan kata hambatan dan panas",
       "durationInSeconds": 6
     },
     {
-      "type": "text",
-      "title": "Link afiliasi",
-      "text": "Ada di deskripsi. Klik kalau cocok!",
-      "icon": "gift",
-      "kicker": "Terakhir",
-      "highlight": ["afiliasi", "deskripsi"],
+      "type": "stage",
+      "stage": "hpKuadrat",
+      "labels": ["arus dua kali", "panas empat kali"],
+      "kicker": "Rumus panas",
+      "highlight": ["kuadrat", "empat"],
+      "narration": "Rumusnya, panas sama dengan arus kuadrat kali hambatan. Arus dua kali lipat, panasnya kira-kira empat kali lipat.",
+      "delivery": "antusias seperti guru yang menemukan fakta menarik",
+      "durationInSeconds": 7
+    },
+    {
+      "type": "stage",
+      "stage": "hpCepat",
+      "labels": ["charger biasa", "fast charging"],
+      "kicker": "Fast charging",
+      "highlight": ["fast", "charging", "lebih"],
+      "narration": "Makanya fast charging terasa lebih hangat. Arus yang masuk lebih besar.",
+      "delivery": "menjelaskan dengan yakin",
+      "durationInSeconds": 5
+    },
+    {
+      "type": "stage",
+      "stage": "hpTurun",
+      "labels": ["terlalu panas", "pengisian ditahan"],
+      "kicker": "HP melindungi diri",
+      "highlight": ["terlalu", "panas", "memperlambat"],
+      "narration": "Kalau sudah terlalu panas, HP sendiri memperlambat atau menghentikan pengisian.",
+      "delivery": "tenang dan meyakinkan",
+      "durationInSeconds": 5.5
+    },
+    {
+      "type": "stage",
+      "stage": "hpUmur",
+      "labels": ["panas lama", "10-30°C"],
+      "kicker": "Umur baterai",
+      "highlight": ["umur", "baterai", "sepuluh", "tiga", "puluh"],
+      "narration": "Panas yang berlangsung lama memperpendek umur baterai. Idealnya, ngecas di suhu sepuluh sampai tiga puluh derajat Celsius.",
+      "delivery": "serius tapi tetap ramah",
+      "durationInSeconds": 7
+    },
+    {
+      "type": "stage",
+      "stage": "hpTips",
+      "labels": ["jauhi matahari", "hangat sedikit wajar"],
+      "kicker": "Kesimpulan",
+      "highlight": ["wajar", "matahari", "sejuk"],
+      "narration": "Jadi, hangat sedikit itu wajar. Tapi jauhkan HP dari sinar matahari dan taruh di tempat sejuk.",
+      "delivery": "hangat, lega, menutup dengan senyum",
       "sfx": "ding",
-      "narration": "Ini link afiliasi ya. Kalau cocok, klik di deskripsi!",
-      "delivery": "ramah dan jujur, tutup dengan senyum dan semangat",
-      "durationInSeconds": 4.5
+      "durationInSeconds": 5.5
     }
   ]
 }

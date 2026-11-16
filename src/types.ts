@@ -38,7 +38,12 @@ export const ART_NAMES = [
   "mie", "wajan", "kemasan", "panci",
 ] as const;
 /** Adegan bercerita (scene "stage"), digambar di src/Stage.tsx. */
-export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang"] as const;
+/** Adegan khusus video "Kenapa HP panas saat ngecas?" (digambar di src/PhoneStages.tsx). */
+export const PHONE_STAGE_NAMES = [
+  "hpHook", "hpAliran", "hpHambatan", "hpKuadrat", "hpCepat", "hpTurun", "hpUmur", "hpTips",
+] as const;
+export type PhoneStageName = (typeof PHONE_STAGE_NAMES)[number];
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];
 
 export type ArtName = (typeof ART_NAMES)[number];
