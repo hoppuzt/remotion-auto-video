@@ -2,124 +2,76 @@
   "fps": 30,
   "subtitles": true,
   "motion": "flow",
-  "plainBackground": true,
   "voice": {
     "provider": "gemini",
-    "voiceName": "Sulafat"
+    "voiceName": "Sulafat",
+    "style": "ceria, energik, sedikit humoris, seperti bicara ke teman"
   },
   "music": {
     "track": "upbeat"
   },
-  "defaultSfx": "whoosh",
+  "defaultSfx": "pop",
   "theme": {
-    "background": "#FBF3E4",
-    "primary": "#E8590C",
-    "accent": "#2F6FDB",
-    "text": "#2A2118",
-    "font": "Nunito"
+    "background": "#F4F9FF",
+    "background2": "#FFE3EF",
+    "primary": "#E85D9A",
+    "accent": "#2B5C9E",
+    "text": "#1A1A2E",
+    "font": "Baloo2",
+    "bgStyle": "confetti",
+    "decor": ["heart", "star", "gift", "smile"]
   },
   "scenes": [
     {
-      "type": "stage",
-      "stage": "penasaran",
-      "labels": [
-        "Kenapa keriting?"
-      ],
-      "narration": "Pernah penasaran, kenapa mie instan selalu keriting? Ternyata begini asalnya.",
-      "kicker": "Ternyata Begini Asalnya",
-      "highlight": [
-        "keriting"
-      ],
-      "durationInSeconds": 4,
-      "delivery": "penasaran, bertanya sambil tersenyum"
+      "type": "title",
+      "title": "Lip Cream OMG",
+      "subtitle": "Oh My Glam, shade 11 Bumble",
+      "icon": "heart",
+      "kicker": "Kenalan dulu",
+      "highlight": ["Salsa", "OMG"],
+      "narration": "Halo, aku Salsa! Hari ini aku kenalin lip cream OMG Oh My Glam, shade sebelas, Bumble.",
+      "delivery": "ceria, menyapa kamera sambil tersenyum",
+      "durationInSeconds": 5
     },
     {
-      "type": "stage",
-      "stage": "pertama",
-      "labels": [
-        "Chicken Ramen",
-        "Momofuku Ando"
+      "type": "icons",
+      "title": "Pilihan shade",
+      "items": [
+        { "icon": "sun", "label": "10 Shell" },
+        { "icon": "heart", "label": "11 Bumble" },
+        { "icon": "fire", "label": "12 Scarlett" }
       ],
-      "narration": "Mie instan pertama, Chicken Ramen, dibuat Momofuku Ando tahun seribu sembilan ratus lima puluh delapan.",
-      "kicker": "Awal mulanya",
-      "highlight": [
-        "Chicken",
-        "Ramen",
-        "Momofuku",
-        "Ando"
+      "kicker": "Tiga pilihan",
+      "highlight": ["Bumble"],
+      "narration": "Ada tiga shade di listingnya: sepuluh Shell, sebelas Bumble, dan dua belas Scarlett. Aku pilih Bumble.",
+      "delivery": "antusias menyebut tiap shade, lalu mantap di Bumble",
+      "durationInSeconds": 6.5
+    },
+    {
+      "type": "icons",
+      "title": "Cek sebelum checkout",
+      "items": [
+        { "icon": "eye", "label": "Foto pembeli asli" },
+        { "icon": "check", "label": "Nomor shade 11" },
+        { "icon": "chat", "label": "Baca ulasan" }
       ],
+      "kicker": "Biar nggak salah warna",
+      "highlight": ["foto", "sebelas", "ulasannya"],
+      "narration": "Tapi sebelum checkout, lihat dulu foto pembeli asli, pastikan nomor shadenya sebelas, lalu baca ulasannya.",
+      "delivery": "menasihati seperti teman dekat, nada hangat",
+      "durationInSeconds": 6
+    },
+    {
+      "type": "text",
+      "title": "Link afiliasi",
+      "text": "Ada di deskripsi. Klik kalau cocok!",
+      "icon": "gift",
+      "kicker": "Terakhir",
+      "highlight": ["afiliasi", "deskripsi"],
       "sfx": "ding",
-      "durationInSeconds": 6,
-      "delivery": "antusias bercerita, sedikit kagum"
-    },
-    {
-      "type": "stage",
-      "stage": "goreng",
-      "labels": [
-        "Lurus: menempel",
-        "Keriting: matang merata"
-      ],
-      "narration": "Mienya digoreng kilat. Kalau lurus, helainya menempel. Gelombang menyisakan celah, jadi gorengnya merata.",
-      "kicker": "Alasan pertama",
-      "highlight": [
-        "menempel",
-        "celah",
-        "merata"
-      ],
-      "durationInSeconds": 5.5,
-      "delivery": "menjelaskan dengan semangat, nada naik di kata kunci"
-    },
-    {
-      "type": "stage",
-      "stage": "kemas",
-      "labels": [
-        "Lurus: makan tempat",
-        "Keriting: lebih padat",
-        "Hemat bungkus"
-      ],
-      "narration": "Kata produsen mesin mie, keriting juga bikin mie padat, hemat bungkus, dan tahan patah.",
-      "kicker": "Alasan kedua",
-      "highlight": [
-        "padat",
-        "hemat",
-        "bungkus"
-      ],
-      "durationInSeconds": 5.5,
-      "delivery": "menjelaskan santai dan yakin"
-    },
-    {
-      "type": "stage",
-      "stage": "rebus",
-      "labels": [
-        "Air mengalir",
-        "Tidak lengket"
-      ],
-      "narration": "Saat direbus, kerutan memberi ruang bagi air untuk mengalir, jadi helainya tidak lengket.",
-      "kicker": "Alasan ketiga",
-      "highlight": [
-        "mengalir",
-        "lengket"
-      ],
-      "durationInSeconds": 4.5,
-      "delivery": "tenang dan mengalir, seperti menjelaskan ke teman"
-    },
-    {
-      "type": "stage",
-      "stage": "senang",
-      "labels": [
-        "Keriting itu fungsi"
-      ],
-      "narration": "Jadi kerutan itu bukan hiasan. Itu cara supaya mie matang rata.",
-      "kicker": "Kesimpulan",
-      "highlight": [
-        "hiasan",
-        "matang",
-        "rata"
-      ],
-      "sfx": "ding",
-      "durationInSeconds": 4,
-      "delivery": "puas dan hangat, menutup dengan senyum"
+      "narration": "Ini link afiliasi ya. Kalau cocok, klik di deskripsi!",
+      "delivery": "ramah dan jujur, tutup dengan senyum dan semangat",
+      "durationInSeconds": 4.5
     }
   ]
 }
-
