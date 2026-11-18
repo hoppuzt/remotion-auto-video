@@ -48,7 +48,12 @@ export const ISLANDIA_STAGE_NAMES = [
   "isHook", "isEs", "isNyamuk", "isTentara", "isNama", "isParlemen", "isPanas", "isTutup",
 ] as const;
 export type IslandiaStageName = (typeof ISLANDIA_STAGE_NAMES)[number];
-export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES] as const;
+/** Adegan khusus seri "Mitos atau Fakta": episode Bhutan (src/BhutanStages.tsx). */
+export const BHUTAN_STAGE_NAMES = [
+  "btHook", "btBahagia", "btLampu", "btTuris", "btGunung", "btKarbon", "btTv", "btTutup",
+] as const;
+export type BhutanStageName = (typeof BHUTAN_STAGE_NAMES)[number];
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];
 
 export type ArtName = (typeof ART_NAMES)[number];

@@ -10,27 +10,27 @@ import { IslandiaStageName, Theme } from "./types";
  * Guinness World Records (oldest existing parliament), Atlantic Council (geotermal), ABC News/The Guardian (nyamuk 2025).
  */
 
-type Ctx = { t: number; theme: Theme; labels: string[] };
-type V2 = [number, number];
+export type Ctx = { t: number; theme: Theme; labels: string[] };
+export type V2 = [number, number];
 
-const COOL = "#22D3EE";
-const WARM = "#FF9F43";
-const HOT = "#FF4D2E";
-const GOOD = "#2E9E5B";
-const GOOD_TEXT = "#4ADE80";
-const MAYBE = "#FFC83D";
-const WHITE = "#F1F5F9";
-const MUTED = "#94A3B8";
-const PANEL = "#0F1830";
-const LINE = "#3B4A6B";
-const INK = "#0B1222";
-const ICE = "#BDEBFF";
+export const COOL = "#22D3EE";
+export const WARM = "#FF9F43";
+export const HOT = "#FF4D2E";
+export const GOOD = "#2E9E5B";
+export const GOOD_TEXT = "#4ADE80";
+export const MAYBE = "#FFC83D";
+export const WHITE = "#F1F5F9";
+export const MUTED = "#94A3B8";
+export const PANEL = "#0F1830";
+export const LINE = "#3B4A6B";
+export const INK = "#0B1222";
+export const ICE = "#BDEBFF";
 
-const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
-const ease = (v: number) => 1 - Math.pow(1 - clamp01(v), 3);
-const seg = (t: number, a: number, b: number) => ease((t - a) / (b - a));
-const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
-const pop = (t: number, at: number) => {
+export const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+export const ease = (v: number) => 1 - Math.pow(1 - clamp01(v), 3);
+export const seg = (t: number, a: number, b: number) => ease((t - a) / (b - a));
+export const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
+export const pop = (t: number, at: number) => {
   const k = clamp01((t - at) / 0.45);
   return k <= 0 ? 0 : ease(k) + Math.sin(k * Math.PI) * 0.12;
 };
@@ -59,7 +59,7 @@ export const ISLANDIA_DESIGN: Record<IslandiaStageName, number> = {
 
 /* ---------- bahan bersama ---------- */
 
-const Frame: React.FC<{ id: string; tint: string; cy?: number; children: React.ReactNode }> = ({ id, tint, cy = 0.42, children }) => (
+export const Frame: React.FC<{ id: string; tint: string; cy?: number; children: React.ReactNode }> = ({ id, tint, cy = 0.42, children }) => (
   <>
     <defs>
       <radialGradient id={`${id}-bg`} cx="0.5" cy={cy} r="0.7">
@@ -79,7 +79,7 @@ const Frame: React.FC<{ id: string; tint: string; cy?: number; children: React.R
   </>
 );
 
-const T: React.FC<{
+export const T: React.FC<{
   x: number;
   y: number;
   size?: number;
@@ -96,7 +96,7 @@ const T: React.FC<{
 );
 
 /** Kartu klaim di atas: "KLAIM n" kecil + kutipan klaim (maks dua baris, pisah dengan "|"). */
-const ClaimCard: React.FC<{ n: number; text?: string; t: number }> = ({ n, text, t }) => {
+export const ClaimCard: React.FC<{ n: number; text?: string; t: number }> = ({ n, text, t }) => {
   const lines = (text ?? "").split("|");
   const k = seg(t, 0.05, 0.6);
   const h = 78 + lines.length * 62;
@@ -119,7 +119,7 @@ const VERDICT_STYLE: Record<string, { c: string; text: string }> = {
 };
 
 /** Stempel vonis: menghantam dari besar ke ukuran asli lalu gelombang kejut tipis. */
-const Stamp: React.FC<{ text?: string; at: number; t: number; x: number; y: number; rot?: number }> = ({ text, at, t, x, y, rot = -7 }) => {
+export const Stamp: React.FC<{ text?: string; at: number; t: number; x: number; y: number; rot?: number }> = ({ text, at, t, x, y, rot = -7 }) => {
   if (!text) return null;
   const st = VERDICT_STYLE[text] ?? VERDICT_STYLE.FAKTA;
   const k = clamp01((t - at) / 0.32);
@@ -142,7 +142,7 @@ const Stamp: React.FC<{ text?: string; at: number; t: number; x: number; y: numb
 
 /* ---------- Piko ---------- */
 
-type Expr = "smile" | "curious" | "skeptic" | "happy";
+export type Expr = "smile" | "curious" | "skeptic" | "happy";
 const PIN_PATH = "M220,470 C170,405 70,345 70,225 A150,150 0 0 1 370,225 C370,345 270,405 220,470 Z";
 const PIN = "#FF8A3D";
 const PIN_L = "#FFB26B";
@@ -158,7 +158,7 @@ const Stroke: React.FC<{ d: string; w: number; c: string; o?: number }> = ({ d, 
 );
 
 /** Maskot Piko (kit mitos-fakta): pin peta oranye, tangan saja, kaca pembesar. Ukuran asli 440x520. */
-const Piko: React.FC<{ id: string; x: number; y: number; s: number; expr: Expr; t: number; arm?: number; tilt?: number; wave?: number }> = ({
+export const Piko: React.FC<{ id: string; x: number; y: number; s: number; expr: Expr; t: number; arm?: number; tilt?: number; wave?: number }> = ({
   id,
   x,
   y,
@@ -272,7 +272,7 @@ const Piko: React.FC<{ id: string; x: number; y: number; s: number; expr: Expr; 
 };
 
 /** Piko kiri bawah standar dengan ekspresi yang berubah saat vonis jatuh. */
-const Corner: React.FC<{ id: string; t: number; verdictAt: number; before?: Expr; after?: Expr }> = ({ id, t, verdictAt, before = "curious", after = "happy" }) => {
+export const Corner: React.FC<{ id: string; t: number; verdictAt: number; before?: Expr; after?: Expr }> = ({ id, t, verdictAt, before = "curious", after = "happy" }) => {
   const e = t >= verdictAt ? after : before;
   return <Piko id={id} x={20} y={780} s={0.46} expr={e} t={t} arm={t >= verdictAt ? -12 : -30 * seg(t, 0.4, 1.2)} />;
 };

@@ -6,6 +6,7 @@
   "voice": {
     "provider": "gemini",
     "voiceName": "Sulafat",
+    "speed": 1.15,
     "style": "bicara dengan tempo cepat, energik, dan ringkas seperti pembawa kuis yang antusias, kalimat langsung nyambung tanpa jeda panjang"
   },
   "music": {
@@ -22,141 +23,138 @@
   "scenes": [
     {
       "type": "stage",
-      "stage": "isHook",
+      "stage": "btHook",
       "labels": [
         "Mitos atau Fakta?",
-        "ISLANDIA"
+        "BHUTAN"
       ],
-      "kicker": "Islandia",
+      "kicker": "Bhutan",
       "highlight": [
         "Piko",
         "enam",
         "mitos",
         "fakta"
       ],
-      "narration": "Islandia penuh klaim aneh. Aku Piko, si pin peta, dan aku cek enam klaim sekaligus. Mitos, fakta, atau sebagian benar? Gas!",
+      "narration": "Bhutan, negara kecil di Himalaya yang katanya serba unik. Aku Piko, si pin peta, dan aku cek enam klaim soal Bhutan. Mitos, fakta, atau sebagian benar? Gas!",
       "delivery": "cepat dan energik, pembukaan kuis",
       "durationInSeconds": 7
     },
     {
       "type": "stage",
-      "stage": "isEs",
+      "stage": "btBahagia",
       "labels": [
-        "Islandia lebih banyak|esnya daripada Greenland",
+        "Bhutan negara paling|bahagia di dunia",
         "MITOS"
       ],
       "kicker": "Klaim 1",
       "highlight": [
-        "sepuluh",
-        "delapan",
+        "bahagia",
+        "sembilan",
         "puluh",
-        "satu",
+        "lima",
         "mitos"
       ],
-      "narration": "Satu. Katanya, Islandia lebih banyak esnya daripada Greenland. Salah. Es cuma menutup sekitar sepuluh persen daratan Islandia. Gletser terbesarnya, Vatnajökull, seluas tujuh ribu tujuh ratus enam puluh empat kilometer persegi. Greenland? Lapisan esnya menutup delapan puluh satu persen. Dan cerita nama Islandia dipilih biar pendatang nggak datang? Kemungkinan besar itu juga mitos. Vonisnya: mitos!",
+      "narration": "Satu. Katanya, Bhutan negara paling bahagia di dunia. Mitos. Di World Happiness Report dua ribu sembilan belas, Bhutan peringkat sembilan puluh lima dari seratus lima puluh enam negara. Tapi di survei kebahagiaan buatan Bhutan sendiri tahun dua ribu lima belas, namanya GNH, sembilan puluh satu koma dua persen responden merasa bahagia. Dua pengukuran, dua hasil. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "isNyamuk",
+      "stage": "btLampu",
       "labels": [
-        "Islandia nggak punya nyamuk",
-        "SEBAGIAN BENAR"
+        "Bhutan nggak punya|lampu lalu lintas",
+        "FAKTA"
       ],
       "kicker": "Klaim 2",
       "highlight": [
-        "nyamuk",
-        "tiga",
-        "Kjós",
-        "sebagian",
-        "benar"
+        "lampu",
+        "polisi",
+        "fakta"
       ],
-      "narration": "Dua. Katanya, Islandia nggak punya nyamuk. Dulu itu benar. Tapi tanggal enam belas Oktober dua ribu dua puluh lima, seorang penggemar serangga melaporkan temuan di Kjós. Tiga ekor, dua betina dan satu jantan, spesies Culiseta annulata. Dikonfirmasi ahli serangga dari Natural Science Institute of Iceland. Belum dinyatakan menetap. Jadi: sebagian benar!",
+      "narration": "Dua. Bhutan nggak punya lampu lalu lintas. Fakta. Lampu lalu lintas pertama dipasang tahun seribu sembilan ratus sembilan puluh lima, dan dicopot sekitar sehari kemudian. Sejak itu nggak ada lampu baru, polisi yang mengatur persimpangan di Thimphu. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "isTentara",
+      "stage": "btTuris",
       "labels": [
-        "Islandia nggak punya tentara",
-        "FAKTA"
+        "Turis dilarang masuk Bhutan",
+        "MITOS"
       ],
       "kicker": "Klaim 3",
       "highlight": [
-        "tentara",
-        "Penjaga",
-        "Pantai",
-        "NATO",
-        "fakta"
+        "turis",
+        "visa",
+        "seratus",
+        "mitos"
       ],
-      "narration": "Tiga. Islandia nggak punya tentara. Fakta. Mereka nggak punya tentara tetap, cuma Penjaga Pantai yang bersenjata ringan. Tapi bukan berarti sendirian. Islandia anggota NATO sejak tiga puluh Maret seribu sembilan ratus empat puluh sembilan, dan pasukan Amerika baru ditarik dari Keflavík tahun dua ribu enam. Vonisnya: fakta!",
+      "narration": "Tiga. Turis dilarang masuk Bhutan. Mitos. Turis boleh masuk. Syaratnya e-visa empat puluh dolar lewat operator tur berlisensi, plus biaya pembangunan berkelanjutan seratus dolar per orang per malam sampai Agustus dua ribu dua puluh tujuh. Anak di bawah enam tahun bebas biaya. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "isNama",
+      "stage": "btGunung",
       "labels": [
-        "Orang Islandia nggak|punya nama keluarga",
+        "Gunung tertinggi Bhutan|belum pernah didaki",
         "FAKTA"
       ],
       "kicker": "Klaim 4",
       "highlight": [
-        "nama",
-        "ayah",
-        "son",
-        "dóttir",
+        "Gangkhar",
+        "Puensum",
+        "dilarang",
         "fakta"
       ],
-      "narration": "Empat. Orang Islandia nggak punya nama keluarga. Sebagian besar, fakta. Nama belakang mereka diambil dari nama ayah, ditambah son untuk anak laki-laki, atau dóttir untuk anak perempuan. Jón Einarsson punya anak Ólafur Jónsson dan Sigríður Jónsdóttir. Sejak tahun seribu sembilan ratus dua puluh lima, nama keluarga baru nggak boleh diadopsi. Fakta!",
+      "narration": "Empat. Gunung tertinggi Bhutan belum pernah didaki. Fakta. Namanya Gangkhar Puensum, tingginya tujuh ribu lima ratus tujuh puluh meter. Tahun seribu sembilan ratus sembilan puluh empat, Bhutan melarang pendakian di atas enam ribu meter. Sejak dua ribu tiga, semua pendakian gunung dilarang. Alasannya kepercayaan setempat: puncak itu tempat tinggal para dewa. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "isParlemen",
+      "stage": "btKarbon",
       "labels": [
-        "Parlemen Islandia paling|tua di dunia",
+        "Bhutan satu-satunya|negara karbon negatif",
         "SEBAGIAN BENAR"
       ],
       "kicker": "Klaim 5",
       "highlight": [
-        "Alþingi",
-        "Guinness",
-        "Tynwald",
-        "sebagian",
-        "benar"
+        "hutan",
+        "tujuh",
+        "puluh",
+        "dua",
+        "Suriname",
+        "Panama"
       ],
-      "narration": "Lima. Parlemen Islandia paling tua di dunia. Alþingi berdiri tahun sembilan ratus tiga puluh, dan Guinness mencatatnya sebagai yang tertua. Tapi sempat dibubarkan tahun delapan belas ratus, dan baru dipulihkan tahun delapan belas empat puluh tiga. Plus, Tynwald di Pulau Man, asalnya mungkin dari akhir abad kesembilan. Sebagian benar!",
+      "narration": "Lima. Bhutan satu-satunya negara karbon negatif. Sebagian benar. Hutan menutup sekitar tujuh puluh dua persen wilayahnya, dan konstitusi mewajibkan minimal enam puluh persen tetap berhutan. Emisinya sekitar satu koma satu juta ton CO2 per tahun, jauh di bawah yang diserap hutannya. Tapi Bhutan bukan satu-satunya. Suriname dan Panama juga disebut karbon negatif. Vonisnya: sebagian benar!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "isPanas",
+      "stage": "btTv",
       "labels": [
-        "Rumah di Islandia dihangatkan|panas bumi",
+        "Televisi baru masuk|Bhutan tahun 1999",
         "FAKTA"
       ],
       "kicker": "Klaim 6",
       "highlight": [
+        "televisi",
+        "seribu",
         "sembilan",
-        "sepuluh",
-        "panas",
-        "bumi",
+        "ratus",
         "fakta"
       ],
-      "narration": "Enam. Rumah di Islandia dihangatkan panas bumi. Fakta. Sembilan dari sepuluh rumah dihangatkan langsung dengan panas bumi lewat jaringan pemanas kota. Hampir seratus persen rumah memakai energi terbarukan. Tapi listrik dari panas bumi cuma dua puluh enam koma enam persen. Vonisnya: fakta!",
+      "narration": "Enam. Televisi baru masuk Bhutan tahun seribu sembilan ratus sembilan puluh sembilan. Fakta. Tahun itu pemerintah Bhutan mencabut larangan televisi dan internet. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+      "durationInSeconds": 10
     },
     {
       "type": "stage",
-      "stage": "isTutup",
+      "stage": "btTutup",
       "labels": [
-        "Skor Islandia",
+        "Skor Bhutan",
         "Daerah mana berikutnya?"
       ],
       "kicker": "Skor",
@@ -166,7 +164,7 @@
         "fakta",
         "komentar"
       ],
-      "narration": "Skor akhir Islandia: satu mitos, dua sebagian benar, tiga fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
+      "narration": "Skor akhir Bhutan: dua mitos, satu sebagian benar, tiga fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
       "delivery": "cepat dan energik, penutup",
       "durationInSeconds": 8
     }

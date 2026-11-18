@@ -9,10 +9,12 @@
 // Node 20+, tanpa dependensi.
 
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import {
   existsSync,
   mkdirSync,
   readFileSync,
+  unlinkSync,
   renameSync,
   statSync,
   writeFileSync,
@@ -70,6 +72,8 @@ function resolveVoice(voice) {
       models: v.model ? [String(v.model), ...GEMINI_MODELS] : GEMINI_MODELS,
       model: String(v.model || GEMINI_MODELS[0]),
       style: String(v.style || GEMINI_DEFAULT_STYLE),
+      // Percepat hasil suara (1 = normal). Aman sampai sekitar 1.25; nada tetap (ffmpeg atempo).
+      speed: typeof v.speed === "number" && v.speed > 1 && v.speed <= 1.5 ? v.speed : 1,
     };
   }
   const num = (x, fallback) => (typeof x === "number" && Number.isFinite(x) ? x : fallback);
@@ -89,7 +93,7 @@ function resolveVoice(voice) {
 function cacheKey(voice, text, delivery = "") {
   const parts =
     voice.provider === "gemini"
-      ? ["gemini", voice.id, voice.model, voice.style, delivery, text]
+      ? ["gemini", voice.id, voice.model, voice.style, delivery, text, ...(voice.speed > 1 ? [voice.speed] : [])]
       : [voice.id, voice.model, voice.settings, text];
   return createHash("sha256")
     .update(JSON.stringify(parts))
@@ -260,6 +264,19 @@ function audioSeconds(file) {
   return (statSync(file).size * 8) / BITRATE;
 }
 
+/** Percepat WAV dengan ffmpeg atempo tanpa mengubah nada. */
+function speedUpWav(buf, speed) {
+  const tmpIn = path.join(AUDIO_DIR, `speed-in-${process.pid}.wav`);
+  const tmpOut = path.join(AUDIO_DIR, `speed-out-${process.pid}.wav`);
+  writeFileSync(tmpIn, buf);
+  try {
+    execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", tmpIn, "-fflags", "+bitexact", "-filter:a", `atempo=${speed}`, "-flags:a", "+bitexact", "-ar", "24000", "-ac", "1", tmpOut]);
+    return readFileSync(tmpOut);
+  } finally {
+    for (const f of [tmpIn, tmpOut]) if (existsSync(f)) unlinkSync(f);
+  }
+}
+
 // ---------------------------------------------------------------- subtitle
 
 /** Pecah narasi jadi potongan <= MAX_CAPTION_CHARS; juga pecah di akhir kalimat/koma. */
@@ -349,7 +366,15 @@ async function main() {
         ? await synthesizeGemini(narration, voice, delivery, apiKey)
         : await synthesize(narration, voice, apiKey);
       const tmp = `${file}.tmp`;
-      writeFileSync(tmp, audio);
+      let finalAudio = audio;
+      if (gemini && voice.speed > 1) {
+        try {
+          finalAudio = speedUpWav(audio, voice.speed);
+        } catch (err) {
+          log(`scene ${index + 1}: gagal mempercepat (${err?.message}); pakai tempo asli`);
+        }
+      }
+      writeFileSync(tmp, finalAudio);
       renameSync(tmp, file);
       generated++;
       log(`scene ${index + 1}: tersimpan ${relative}`);
