@@ -2,7 +2,7 @@ import React from "react";
 import { AntartikaStageName } from "./types";
 import {
   COOL, WARM, HOT, GOOD, GOOD_TEXT, MAYBE, WHITE, MUTED, PANEL, LINE, INK, ICE,
-  clamp01, ease, seg, lerp, pop, Frame, T, ClaimCard, Stamp, Piko, Corner, Ctx,
+  clamp01, ease, seg, lerp, pop, Frame as BaseFrame, T, ClaimCard, Stamp, Piko, Corner, Ctx,
 } from "./IslandiaStages";
 
 /**
@@ -38,37 +38,58 @@ const SAND = "#E9B872";
 
 /* ---------- gambar kecil: penguin dan beruang kutub ---------- */
 
+const SH = { filter: "drop-shadow(0 10px 8px rgba(2,8,23,0.45))" } as React.CSSProperties;
+const SH_S = { filter: "drop-shadow(0 5px 4px rgba(2,8,23,0.4))" } as React.CSSProperties;
+const PAPER = "#24436B";
+
+/** Bingkai episode: latar plus punggung es berlapis (potongan kertas) di bagian bawah. */
+const Frame: React.FC<{ id: string; tint: string; cy?: number; children: React.ReactNode }> = ({ id, tint, cy, children }) => (
+  <BaseFrame id={id} tint={tint} cy={cy}>
+    <g opacity={0.55}>
+      <path d="M-60,1010 C120,940 260,1000 420,960 C600,910 760,990 1140,930 L1140,1700 L-60,1700 Z" fill="#1B3A63" style={SH} />
+      <path d="M-60,1080 C160,1030 340,1090 540,1050 C760,1010 900,1070 1140,1030 L1140,1700 L-60,1700 Z" fill="#2A5382" style={SH} />
+      <path d="M-60,1160 C200,1120 380,1170 600,1140 C800,1110 960,1160 1140,1130 L1140,1700 L-60,1700 Z" fill="#3B6FA3" style={SH} />
+    </g>
+    {children}
+  </BaseFrame>
+);
+
+/* Gaya episode ini: potongan kertas berlapis, tanpa garis tepi, bayangan jatuh. */
 const Penguin: React.FC<{ x: number; y: number; s?: number; t?: number; flip?: boolean }> = ({ x, y, s = 1, t = 0, flip }) => (
-  <g transform={`translate(${x} ${y + Math.sin(t * 3) * 3 * s}) scale(${flip ? -s : s} ${s})`}>
-    <ellipse cx={0} cy={86} rx={52} ry={9} fill={INK} opacity={0.3} />
-    <ellipse cx={-34} cy={78} rx={20} ry={9} fill={WARM} stroke={INK} strokeWidth={4} />
-    <ellipse cx={34} cy={78} rx={20} ry={9} fill={WARM} stroke={INK} strokeWidth={4} />
-    <ellipse cx={0} cy={0} rx={52} ry={80} fill="#1E293B" stroke={INK} strokeWidth={6} />
-    <ellipse cx={0} cy={14} rx={34} ry={60} fill="#F1F5F9" />
-    <path d="M-52,-6 Q-84,24 -66,50 Q-56,24 -48,12 Z" fill="#1E293B" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-    <path d="M52,-6 Q84,24 66,50 Q56,24 48,12 Z" fill="#1E293B" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-    <circle cx={-16} cy={-40} r={9} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
-    <circle cx={16} cy={-40} r={9} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
-    <circle cx={-14} cy={-38} r={4} fill={INK} />
-    <circle cx={18} cy={-38} r={4} fill={INK} />
-    <path d="M-12,-24 L12,-24 L0,-8 Z" fill={WARM} stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+  <g transform={`translate(${x} ${y + Math.sin(t * 3) * 3 * s}) scale(${flip ? -s : s} ${s})`} style={SH_S}>
+    <ellipse cx={-24} cy={84} rx={24} ry={10} fill="#F59E0B" />
+    <ellipse cx={24} cy={84} rx={24} ry={10} fill="#F59E0B" />
+    <path d="M-50,-10 C-56,-70 -34,-96 0,-96 C34,-96 56,-70 50,-10 C58,40 44,84 0,84 C-44,84 -58,40 -50,-10 Z" fill="#22364F" />
+    <path d="M-30,-6 C-34,-50 -20,-70 0,-70 C20,-70 34,-50 30,-6 C36,34 24,76 0,76 C-24,76 -36,34 -30,-6 Z" fill="#F4F8FC" />
+    <path d="M-27,-52 C-14,-66 14,-66 27,-52 C20,-36 -20,-36 -27,-52 Z" fill="#F7C873" />
+    <path d="M-50,-4 C-82,20 -76,58 -62,66 C-54,40 -48,20 -42,6 Z" fill="#1A2A40" />
+    <path d="M50,-4 C82,20 76,58 62,66 C54,40 48,20 42,6 Z" fill="#1A2A40" />
+    <circle cx={-14} cy={-68} r={7} fill="#FFFFFF" />
+    <circle cx={14} cy={-68} r={7} fill="#FFFFFF" />
+    <circle cx={-13} cy={-67} r={3.4} fill="#0B1222" />
+    <circle cx={15} cy={-67} r={3.4} fill="#0B1222" />
+    <path d="M-9,-56 L9,-56 L0,-40 Z" fill="#F97316" />
   </g>
 );
 
+/** Beruang kutub tampak samping: badan panjang, leher panjang, kepala landai dengan moncong, punuk bahu. */
 const Bear: React.FC<{ x: number; y: number; s?: number; t?: number }> = ({ x, y, s = 1, t = 0 }) => (
-  <g transform={`translate(${x} ${y + Math.sin(t * 2.6) * 3 * s}) scale(${s})`}>
-    <ellipse cx={0} cy={92} rx={100} ry={10} fill={INK} opacity={0.3} />
-    <rect x={-96} y={44} width={30} height={50} rx={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <rect x={62} y={44} width={30} height={50} rx={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <ellipse cx={-10} cy={20} rx={112} ry={62} fill="#F8FAFC" stroke={INK} strokeWidth={6} />
-    <rect x={-46} y={50} width={30} height={46} rx={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <rect x={26} y={50} width={30} height={46} rx={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <circle cx={108} cy={-4} r={44} fill="#F8FAFC" stroke={INK} strokeWidth={6} />
-    <circle cx={92} cy={-44} r={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <circle cx={128} cy={-42} r={14} fill="#F1F5F9" stroke={INK} strokeWidth={5} />
-    <ellipse cx={134} cy={6} rx={22} ry={16} fill="#E2E8F0" stroke={INK} strokeWidth={4} />
-    <ellipse cx={144} cy={0} rx={8} ry={6} fill={INK} />
-    <circle cx={106} cy={-14} r={5} fill={INK} />
+  <g transform={`translate(${x} ${y + Math.sin(t * 2.6) * 2 * s}) scale(${s})`} style={SH}>
+    <rect x={-96} y={46} width={34} height={58} rx={16} fill="#B7C9DC" />
+    <rect x={36} y={46} width={34} height={58} rx={16} fill="#B7C9DC" />
+    <path d="M-132,34 C-140,-8 -104,-40 -48,-46 C-14,-52 14,-50 40,-40 C62,-34 78,-24 94,-10 L104,6 C100,30 92,54 60,66 L-92,70 C-120,68 -130,56 -132,34 Z" fill="#F4F8FC" />
+    <path d="M-120,48 C-90,74 40,76 92,50 C88,66 70,78 50,80 L-92,82 C-112,80 -120,66 -120,48 Z" fill="#D5E3F0" />
+    <rect x={-70} y={46} width={38} height={64} rx={18} fill="#F4F8FC" />
+    <rect x={64} y={46} width={38} height={64} rx={18} fill="#F4F8FC" />
+    <ellipse cx={-51} cy={108} rx={24} ry={9} fill="#E3EDF7" />
+    <ellipse cx={83} cy={108} rx={24} ry={9} fill="#E3EDF7" />
+    <path d="M84,-14 C98,-40 120,-52 142,-48 C164,-44 178,-30 190,-18 C196,-10 192,2 180,6 L150,12 C130,22 104,22 96,8 Z" fill="#F4F8FC" />
+    <path d="M150,8 C166,2 184,4 194,-6 C190,8 176,16 150,18 Z" fill="#D5E3F0" />
+    <circle cx={122} cy={-50} r={10} fill="#F4F8FC" />
+    <circle cx={122} cy={-50} r={5} fill="#D5E3F0" />
+    <ellipse cx={193} cy={-12} rx={9} ry={7} fill="#0B1222" />
+    <circle cx={150} cy={-22} r={4.5} fill="#0B1222" />
+    <path d="M176,2 Q184,8 192,2" fill="none" stroke="#0B1222" strokeWidth={3} strokeLinecap="round" />
   </g>
 );
 
@@ -107,7 +128,7 @@ const Hook: React.FC<Ctx> = ({ t, labels }) => {
         <ellipse key={r} cx={540} cy={620} rx={r * grow} ry={r * 0.82 * grow} fill="none" stroke={LINE} strokeWidth={3} strokeDasharray="6 14" opacity={0.7 - i * 0.2} />
       ))}
       <path d={ice} fill={ICE} opacity={0.12 * grow} filter="url(#ah-b24)" />
-      <path d={ice} fill="#E8F6FF" stroke="#A5D8F0" strokeWidth={6} strokeLinejoin="round" />
+      <path d={ice} fill="#E8F6FF" style={SH} strokeLinejoin="round" />
       <path d={ice} fill="#BFE3F5" opacity={0.5} transform="translate(8 14) scale(0.96)" style={{ transformOrigin: "540px 620px" }} />
       <g opacity={pop(t, 1.0) > 0 ? 1 : 0}>
         <Piko id="ah-p" x={330} y={400 + (1 - ease((t - 1.0) / 0.6)) * -240} s={0.6} expr={t > 3 ? "curious" : "smile"} t={t} arm={-28 * seg(t, 1.6, 2.4)} />
@@ -135,20 +156,20 @@ const Gurun: React.FC<Ctx> = ({ t, labels }) => {
     <Frame id="ag" tint={SAND} cy={0.5}>
       <ClaimCard n={1} text={labels[0]} t={t} />
       <g transform={`translate(300 430) scale(${Math.max(0.001, k1)})`}>
-        <circle r={190} fill="#E8F6FF" stroke="#A5D8F0" strokeWidth={6} />
+        <circle r={190} fill="#E8F6FF" style={SH} />
         <T x={0} y={-6} size={64} fill={INK}>14</T>
         <T x={0} y={36} size={26} fill={INK} weight={700}>juta km2</T>
         <T x={0} y={236} size={32} fill={ICE} spacing={2}>ANTARTIKA</T>
       </g>
       <g transform={`translate(790 470) scale(${Math.max(0.001, k2)})`}>
-        <circle r={154} fill={SAND} stroke="#B7864A" strokeWidth={6} />
+        <circle r={154} fill={SAND} style={SH} />
         <T x={0} y={-6} size={58} fill={INK}>9,2</T>
         <T x={0} y={34} size={24} fill={INK} weight={700}>juta km2</T>
         <T x={0} y={198} size={32} fill={SAND} spacing={2}>SAHARA</T>
       </g>
       <g opacity={seg(t, 3.8, 4.3)}>
         <T x={80} y={732} size={24} fill={MUTED} anchor="start" spacing={3}>SALJU DAN HUJAN PER TAHUN</T>
-        <rect x={80} y={750} width={960 - 80} height={34} rx={17} fill={PANEL} stroke={LINE} strokeWidth={3} />
+        <rect x={80} y={750} width={960 - 80} height={34} rx={17} fill={PAPER} style={SH} />
       </g>
       <rect x={80} y={750} width={Math.max(0, (scaleX(166) - 80) * bar)} height={34} rx={17} fill={COOL} />
       <g opacity={bar > 0.9 ? 1 : 0}>
@@ -176,7 +197,7 @@ const Milik: React.FC<Ctx> = ({ t, labels }) => {
   return (
     <Frame id="am" tint="#38BDF8">
       <ClaimCard n={2} text={labels[0]} t={t} />
-      <circle cx={cx} cy={cy} r={120} fill="#E8F6FF" stroke="#A5D8F0" strokeWidth={6} />
+      <circle cx={cx} cy={cy} r={120} fill="#E8F6FF" style={SH} />
       <T x={cx} y={cy + 12} size={30} fill={INK}>ANTARTIKA</T>
       {NATIONS.map((n, i) => {
         const a = (i / 7) * Math.PI * 2 - Math.PI / 2;
@@ -188,7 +209,7 @@ const Milik: React.FC<Ctx> = ({ t, labels }) => {
           <g key={n}>
             <line x1={cx + Math.cos(a) * 124} y1={cy + Math.sin(a) * 124} x2={lerp(cx + Math.cos(a) * 124, px, clamp01((t - at) / 0.5))} y2={lerp(cy + Math.sin(a) * 124, py, clamp01((t - at) / 0.5))} stroke={WARM} strokeWidth={4} opacity={1 - cut * 0.85} />
             <g transform={`translate(${px} ${py}) scale(${Math.max(0.001, k)})`}>
-              <rect x={-96} y={-26} width={192} height={52} rx={26} fill={PANEL} stroke={WARM} strokeWidth={4} />
+              <rect x={-96} y={-26} width={192} height={52} rx={26} fill={PAPER} style={SH} />
               <T x={0} y={9} size={26} fill={WHITE}>{n}</T>
             </g>
           </g>
@@ -199,7 +220,7 @@ const Milik: React.FC<Ctx> = ({ t, labels }) => {
         <line x1={-106} y1={-106} x2={106} y2={106} stroke={HOT} strokeWidth={14} strokeLinecap="round" />
       </g>
       <g transform={`translate(400 810) scale(${Math.max(0.001, doc)})`}>
-        <rect x={-150} y={-60} width={300} height={120} rx={14} fill="#F8FAFC" stroke={INK} strokeWidth={5} />
+        <rect x={-150} y={-60} width={300} height={120} rx={14} fill="#F8FAFC" style={SH} />
         <T x={0} y={-22} size={21} fill={INK}>PERJANJIAN ANTARTIKA</T>
         <T x={0} y={14} size={30} fill={INK}>1959</T>
         <T x={0} y={46} size={22} fill="#475569" weight={700}>12 negara, berlaku 1961</T>
@@ -223,7 +244,7 @@ const Beruang: React.FC<Ctx> = ({ t, labels }) => {
     <Frame id="ab" tint="#60A5FA">
       <ClaimCard n={3} text={labels[0]} t={t} />
       <g transform={`translate(270 480) scale(${Math.max(0.001, a)})`}>
-        <rect x={-230} y={-200} width={460} height={420} rx={36} fill={PANEL} stroke={COOL} strokeWidth={5} />
+        <rect x={-230} y={-200} width={460} height={420} rx={36} fill={PAPER} style={SH} />
         <T x={0} y={-150} size={30} fill={COOL} spacing={3}>ARKTIK, UTARA</T>
         <rect x={-190} y={70} width={380} height={30} rx={15} fill="#E8F6FF" opacity={0.85} />
         <g transform="translate(-30 -10) scale(0.9)">
@@ -232,7 +253,7 @@ const Beruang: React.FC<Ctx> = ({ t, labels }) => {
         <T x={0} y={170} size={34} fill={WHITE}>beruang kutub</T>
       </g>
       <g transform={`translate(810 480) scale(${Math.max(0.001, b)})`}>
-        <rect x={-230} y={-200} width={460} height={420} rx={36} fill={PANEL} stroke={WARM} strokeWidth={5} />
+        <rect x={-230} y={-200} width={460} height={420} rx={36} fill={PAPER} style={SH} />
         <T x={0} y={-150} size={30} fill={WARM} spacing={3}>ANTARTIKA, SELATAN</T>
         <rect x={-190} y={90} width={380} height={30} rx={15} fill="#E8F6FF" opacity={0.85} />
         <Penguin x={-70} y={10} s={0.9} t={t} />
@@ -240,7 +261,7 @@ const Beruang: React.FC<Ctx> = ({ t, labels }) => {
         <T x={0} y={170} size={34} fill={WHITE}>penguin</T>
       </g>
       <g transform={`translate(540 480) scale(${Math.max(0.001, neq)})`}>
-        <circle r={46} fill={HOT} stroke="#FFFFFF" strokeWidth={5} />
+        <circle r={46} fill={HOT} style={SH} />
         <line x1={-20} y1={-8} x2={20} y2={-8} stroke="#FFFFFF" strokeWidth={8} strokeLinecap="round" />
         <line x1={-20} y1={10} x2={20} y2={10} stroke="#FFFFFF" strokeWidth={8} strokeLinecap="round" />
         <line x1={-24} y1={24} x2={24} y2={-24} stroke="#FFFFFF" strokeWidth={8} strokeLinecap="round" />
@@ -271,8 +292,8 @@ const Suhu: React.FC<Ctx> = ({ t, labels }) => {
     <Frame id="as" tint="#38BDF8">
       <ClaimCard n={4} text={labels[0]} t={t} />
       <g>
-        <rect x={250} y={top - 20} width={60} height={bottom - top + 40} rx={30} fill={PANEL} stroke={LINE} strokeWidth={5} />
-        <circle cx={280} cy={bottom + 38} r={50} fill={PANEL} stroke={LINE} strokeWidth={5} />
+        <rect x={250} y={top - 20} width={60} height={bottom - top + 40} rx={30} fill={PAPER} style={SH} />
+        <circle cx={280} cy={bottom + 38} r={50} fill={PAPER} style={SH} />
         <rect x={266} y={yAt(level)} width={28} height={bottom + 38 - yAt(level)} rx={14} fill={COOL} />
         <circle cx={280} cy={bottom + 38} r={36} fill={COOL} />
         {[0, -20, -40, -60, -80, -100].map((c) => (
@@ -302,8 +323,8 @@ const Suhu: React.FC<Ctx> = ({ t, labels }) => {
 
 const Baby: React.FC<{ x: number; y: number; c: string; k: number }> = ({ x, y, c, k }) => (
   <g transform={`translate(${x} ${y}) scale(${Math.max(0.001, k)})`}>
-    <circle r={34} fill="#FFE0BD" stroke={INK} strokeWidth={5} />
-    <path d="M-34,10 Q0,70 34,10 L34,34 Q0,84 -34,34 Z" fill={c} stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+    <circle r={34} fill="#FFE0BD" style={SH} />
+    <path d="M-34,10 Q0,70 34,10 L34,34 Q0,84 -34,34 Z" fill={c} style={SH} strokeLinejoin="round" />
     <circle cx={-12} cy={-4} r={5} fill={INK} />
     <circle cx={12} cy={-4} r={5} fill={INK} />
     <path d="M-10,12 Q0,22 10,12" fill="none" stroke={INK} strokeWidth={4} strokeLinecap="round" />
@@ -317,7 +338,7 @@ const Lahir: React.FC<Ctx> = ({ t, labels }) => {
     <Frame id="al" tint="#F472B6">
       <ClaimCard n={5} text={labels[0]} t={t} />
       <g transform={`translate(540 380) scale(${Math.max(0.001, first)})`}>
-        <rect x={-440} y={-80} width={880} height={160} rx={30} fill={PANEL} stroke={WARM} strokeWidth={5} />
+        <rect x={-440} y={-80} width={880} height={160} rx={30} fill={PAPER} style={SH} />
         <g transform="translate(-340 0) scale(1.2)">
           <Baby x={0} y={0} c={WARM} k={1} />
         </g>
@@ -362,7 +383,7 @@ const Air: React.FC<Ctx> = ({ t, labels }) => {
       <clipPath id="aa-clip">
         <rect x={300} y={top} width={260} height={h} rx={40} />
       </clipPath>
-      <rect x={300} y={top} width={260} height={h} rx={40} fill={PANEL} stroke={LINE} strokeWidth={6} />
+      <rect x={300} y={top} width={260} height={h} rx={40} fill={PAPER} style={SH} />
       <g clipPath="url(#aa-clip)">
         <path d={`M300,${wy + wave} Q365,${wy - 14} 430,${wy + wave} T560,${wy + wave} V${top + h} H300 Z`} fill="#38BDF8" />
         <path d={`M300,${wy + wave + 8} Q365,${wy - 6} 430,${wy + wave + 8} T560,${wy + wave + 8} V${top + h} H300 Z`} fill="#7DD3FC" opacity={0.5} />
@@ -377,10 +398,10 @@ const Air: React.FC<Ctx> = ({ t, labels }) => {
         <T x={640} y={576} size={28} fill={WHITE} anchor="start">ada di lapisan es</T>
       </g>
       <g transform={`translate(790 660) scale(${Math.max(0.001, pop(t, 6.0))})`}>
-        <rect x={-190} y={-34} width={160} height={68} rx={34} fill={PANEL} stroke="#A5D8F0" strokeWidth={4} />
+        <rect x={-190} y={-34} width={160} height={68} rx={34} fill={PAPER} style={SH} />
         <T x={-110} y={9} size={26} fill={ICE}>Antartika</T>
         <T x={-6} y={11} size={40} fill={WHITE}>+</T>
-        <rect x={16} y={-34} width={174} height={68} rx={34} fill={PANEL} stroke={WARM} strokeWidth={4} />
+        <rect x={16} y={-34} width={174} height={68} rx={34} fill={PAPER} style={SH} />
         <T x={103} y={9} size={26} fill={WARM}>Greenland</T>
       </g>
       <g opacity={seg(t, 7.0, 7.5)}>
