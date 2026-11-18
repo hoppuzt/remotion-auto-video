@@ -6,10 +6,10 @@
   "voice": {
     "provider": "gemini",
     "voiceName": "Sulafat",
-    "style": "menjelaskan sains dengan tenang dan jelas, ramah, sedikit antusias"
+    "style": "bicara dengan tempo cepat, energik, dan ringkas seperti pembawa kuis yang antusias, kalimat langsung nyambung tanpa jeda panjang"
   },
   "music": {
-    "track": "curious"
+    "track": "upbeat"
   },
   "defaultSfx": "none",
   "theme": {
@@ -22,84 +22,153 @@
   "scenes": [
     {
       "type": "stage",
-      "stage": "hpHook",
-      "labels": ["Kok hangat?"],
-      "kicker": "Pertanyaan",
-      "highlight": ["hangat", "ngecas"],
-      "narration": "Kenapa HP jadi hangat pas lagi ngecas? Padahal cuma dicolok kabel.",
-      "delivery": "penasaran, bertanya sambil tersenyum",
-      "durationInSeconds": 4.5
-    },
-    {
-      "type": "stage",
-      "stage": "hpAliran",
-      "labels": ["arus dari charger", "ion lithium"],
-      "kicker": "Arus masuk",
-      "highlight": ["arus", "baterai"],
-      "narration": "Waktu ngecas, charger mendorong arus listrik masuk ke baterai.",
-      "delivery": "menjelaskan jelas dan tenang",
-      "durationInSeconds": 5
-    },
-    {
-      "type": "stage",
-      "stage": "hpHambatan",
-      "labels": ["hambatan dalam", "jadi panas"],
-      "kicker": "Sumber panas",
-      "highlight": ["hambatan", "panas"],
-      "narration": "Tapi di dalam baterai ada hambatan. Arus yang menembusnya berubah jadi panas.",
-      "delivery": "mulai bersemangat, tekankan kata hambatan dan panas",
-      "durationInSeconds": 6
-    },
-    {
-      "type": "stage",
-      "stage": "hpKuadrat",
-      "labels": ["arus dua kali", "panas empat kali"],
-      "kicker": "Rumus panas",
-      "highlight": ["kuadrat", "empat"],
-      "narration": "Rumusnya, panas sama dengan arus kuadrat kali hambatan. Arus dua kali lipat, panasnya kira-kira empat kali lipat.",
-      "delivery": "antusias seperti guru yang menemukan fakta menarik",
+      "stage": "isHook",
+      "labels": [
+        "Mitos atau Fakta?",
+        "ISLANDIA"
+      ],
+      "kicker": "Islandia",
+      "highlight": [
+        "Piko",
+        "enam",
+        "mitos",
+        "fakta"
+      ],
+      "narration": "Islandia penuh klaim aneh. Aku Piko, si pin peta, dan aku cek enam klaim sekaligus. Mitos, fakta, atau sebagian benar? Gas!",
+      "delivery": "cepat dan energik, pembukaan kuis",
       "durationInSeconds": 7
     },
     {
       "type": "stage",
-      "stage": "hpCepat",
-      "labels": ["charger biasa", "fast charging"],
-      "kicker": "Fast charging",
-      "highlight": ["fast", "charging", "lebih"],
-      "narration": "Makanya fast charging terasa lebih hangat. Arus yang masuk lebih besar.",
-      "delivery": "menjelaskan dengan yakin",
-      "durationInSeconds": 5
+      "stage": "isEs",
+      "labels": [
+        "Islandia lebih banyak|esnya daripada Greenland",
+        "MITOS"
+      ],
+      "kicker": "Klaim 1",
+      "highlight": [
+        "sepuluh",
+        "delapan",
+        "puluh",
+        "satu",
+        "mitos"
+      ],
+      "narration": "Satu. Katanya, Islandia lebih banyak esnya daripada Greenland. Salah. Es cuma menutup sekitar sepuluh persen daratan Islandia. Gletser terbesarnya, Vatnajökull, seluas tujuh ribu tujuh ratus enam puluh empat kilometer persegi. Greenland? Lapisan esnya menutup delapan puluh satu persen. Dan cerita nama Islandia dipilih biar pendatang nggak datang? Kemungkinan besar itu juga mitos. Vonisnya: mitos!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "hpTurun",
-      "labels": ["terlalu panas", "pengisian ditahan"],
-      "kicker": "HP melindungi diri",
-      "highlight": ["terlalu", "panas", "memperlambat"],
-      "narration": "Kalau sudah terlalu panas, HP sendiri memperlambat atau menghentikan pengisian.",
-      "delivery": "tenang dan meyakinkan",
-      "durationInSeconds": 5.5
+      "stage": "isNyamuk",
+      "labels": [
+        "Islandia nggak punya nyamuk",
+        "SEBAGIAN BENAR"
+      ],
+      "kicker": "Klaim 2",
+      "highlight": [
+        "nyamuk",
+        "tiga",
+        "Kjós",
+        "sebagian",
+        "benar"
+      ],
+      "narration": "Dua. Katanya, Islandia nggak punya nyamuk. Dulu itu benar. Tapi tanggal enam belas Oktober dua ribu dua puluh lima, seorang penggemar serangga melaporkan temuan di Kjós. Tiga ekor, dua betina dan satu jantan, spesies Culiseta annulata. Dikonfirmasi ahli serangga dari Natural Science Institute of Iceland. Belum dinyatakan menetap. Jadi: sebagian benar!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "hpUmur",
-      "labels": ["panas lama", "10-30°C"],
-      "kicker": "Umur baterai",
-      "highlight": ["umur", "baterai", "sepuluh", "tiga", "puluh"],
-      "narration": "Panas yang berlangsung lama memperpendek umur baterai. Idealnya, ngecas di suhu sepuluh sampai tiga puluh derajat Celsius.",
-      "delivery": "serius tapi tetap ramah",
-      "durationInSeconds": 7
+      "stage": "isTentara",
+      "labels": [
+        "Islandia nggak punya tentara",
+        "FAKTA"
+      ],
+      "kicker": "Klaim 3",
+      "highlight": [
+        "tentara",
+        "Penjaga",
+        "Pantai",
+        "NATO",
+        "fakta"
+      ],
+      "narration": "Tiga. Islandia nggak punya tentara. Fakta. Mereka nggak punya tentara tetap, cuma Penjaga Pantai yang bersenjata ringan. Tapi bukan berarti sendirian. Islandia anggota NATO sejak tiga puluh Maret seribu sembilan ratus empat puluh sembilan, dan pasukan Amerika baru ditarik dari Keflavík tahun dua ribu enam. Vonisnya: fakta!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "hpTips",
-      "labels": ["jauhi matahari", "hangat sedikit wajar"],
-      "kicker": "Kesimpulan",
-      "highlight": ["wajar", "matahari", "sejuk"],
-      "narration": "Jadi, hangat sedikit itu wajar. Tapi jauhkan HP dari sinar matahari dan taruh di tempat sejuk.",
-      "delivery": "hangat, lega, menutup dengan senyum",
-      "sfx": "ding",
-      "durationInSeconds": 5.5
+      "stage": "isNama",
+      "labels": [
+        "Orang Islandia nggak|punya nama keluarga",
+        "FAKTA"
+      ],
+      "kicker": "Klaim 4",
+      "highlight": [
+        "nama",
+        "ayah",
+        "son",
+        "dóttir",
+        "fakta"
+      ],
+      "narration": "Empat. Orang Islandia nggak punya nama keluarga. Sebagian besar, fakta. Nama belakang mereka diambil dari nama ayah, ditambah son untuk anak laki-laki, atau dóttir untuk anak perempuan. Jón Einarsson punya anak Ólafur Jónsson dan Sigríður Jónsdóttir. Sejak tahun seribu sembilan ratus dua puluh lima, nama keluarga baru nggak boleh diadopsi. Fakta!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
+    },
+    {
+      "type": "stage",
+      "stage": "isParlemen",
+      "labels": [
+        "Parlemen Islandia paling|tua di dunia",
+        "SEBAGIAN BENAR"
+      ],
+      "kicker": "Klaim 5",
+      "highlight": [
+        "Alþingi",
+        "Guinness",
+        "Tynwald",
+        "sebagian",
+        "benar"
+      ],
+      "narration": "Lima. Parlemen Islandia paling tua di dunia. Alþingi berdiri tahun sembilan ratus tiga puluh, dan Guinness mencatatnya sebagai yang tertua. Tapi sempat dibubarkan tahun delapan belas ratus, dan baru dipulihkan tahun delapan belas empat puluh tiga. Plus, Tynwald di Pulau Man, asalnya mungkin dari akhir abad kesembilan. Sebagian benar!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
+    },
+    {
+      "type": "stage",
+      "stage": "isPanas",
+      "labels": [
+        "Rumah di Islandia dihangatkan|panas bumi",
+        "FAKTA"
+      ],
+      "kicker": "Klaim 6",
+      "highlight": [
+        "sembilan",
+        "sepuluh",
+        "panas",
+        "bumi",
+        "fakta"
+      ],
+      "narration": "Enam. Rumah di Islandia dihangatkan panas bumi. Fakta. Sembilan dari sepuluh rumah dihangatkan langsung dengan panas bumi lewat jaringan pemanas kota. Hampir seratus persen rumah memakai energi terbarukan. Tapi listrik dari panas bumi cuma dua puluh enam koma enam persen. Vonisnya: fakta!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
+    },
+    {
+      "type": "stage",
+      "stage": "isTutup",
+      "labels": [
+        "Skor Islandia",
+        "Daerah mana berikutnya?"
+      ],
+      "kicker": "Skor",
+      "highlight": [
+        "mitos",
+        "sebagian",
+        "fakta",
+        "komentar"
+      ],
+      "narration": "Skor akhir Islandia: satu mitos, dua sebagian benar, tiga fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
+      "delivery": "cepat dan energik, penutup",
+      "durationInSeconds": 8
     }
   ]
 }
