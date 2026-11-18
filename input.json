@@ -23,138 +23,141 @@
   "scenes": [
     {
       "type": "stage",
-      "stage": "btHook",
+      "stage": "anHook",
       "labels": [
         "Mitos atau Fakta?",
-        "BHUTAN"
+        "ANTARTIKA"
       ],
-      "kicker": "Bhutan",
+      "kicker": "Antartika",
       "highlight": [
         "Piko",
         "enam",
         "mitos",
         "fakta"
       ],
-      "narration": "Bhutan, negara kecil di Himalaya yang katanya serba unik. Aku Piko, si pin peta, dan aku cek enam klaim soal Bhutan. Mitos, fakta, atau sebagian benar? Gas!",
+      "narration": "Antartika, benua es di ujung bumi yang hampir nggak ada penduduk tetapnya. Aku Piko, si pin peta, dan aku cek enam klaim soal Antartika. Mitos, fakta, atau sebagian benar? Gas!",
       "delivery": "cepat dan energik, pembukaan kuis",
       "durationInSeconds": 7
     },
     {
       "type": "stage",
-      "stage": "btBahagia",
+      "stage": "anGurun",
       "labels": [
-        "Bhutan negara paling|bahagia di dunia",
-        "MITOS"
+        "Antartika itu gurun|terbesar di dunia",
+        "FAKTA"
       ],
       "kicker": "Klaim 1",
       "highlight": [
-        "bahagia",
-        "sembilan",
-        "puluh",
-        "lima",
-        "mitos"
+        "gurun",
+        "empat",
+        "belas",
+        "fakta"
       ],
-      "narration": "Satu. Katanya, Bhutan negara paling bahagia di dunia. Mitos. Di World Happiness Report dua ribu sembilan belas, Bhutan peringkat sembilan puluh lima dari seratus lima puluh enam negara. Tapi di survei kebahagiaan buatan Bhutan sendiri tahun dua ribu lima belas, namanya GNH, sembilan puluh satu koma dua persen responden merasa bahagia. Dua pengukuran, dua hasil. Vonisnya: mitos!",
+      "narration": "Satu. Antartika itu gurun terbesar di dunia. Fakta. Gurun bukan soal panas, tapi soal hujan dan salju yang sedikit. Luasnya empat belas juta kilometer persegi, lebih besar dari Sahara yang sembilan koma dua juta. Saljunya rata-rata cuma seratus enam puluh enam milimeter per tahun, dan di pedalaman cuma sekitar dua puluh. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btLampu",
+      "stage": "anMilik",
       "labels": [
-        "Bhutan nggak punya|lampu lalu lintas",
-        "FAKTA"
+        "Antartika dimiliki|satu negara",
+        "MITOS"
       ],
       "kicker": "Klaim 2",
       "highlight": [
-        "lampu",
-        "polisi",
-        "fakta"
+        "negara",
+        "perjanjian",
+        "seribu",
+        "sembilan",
+        "mitos"
       ],
-      "narration": "Dua. Bhutan nggak punya lampu lalu lintas. Fakta. Lampu lalu lintas pertama dipasang tahun seribu sembilan ratus sembilan puluh lima, dan dicopot sekitar sehari kemudian. Sejak itu nggak ada lampu baru, polisi yang mengatur persimpangan di Thimphu. Vonisnya: fakta!",
+      "narration": "Dua. Antartika dimiliki satu negara. Mitos. Tujuh negara mengajukan klaim wilayah: Argentina, Australia, Chile, Prancis, Selandia Baru, Norwegia, dan Inggris. Tapi tahun seribu sembilan ratus lima puluh sembilan, dua belas negara menandatangani Perjanjian Antartika, berlaku sejak seribu sembilan ratus enam puluh satu. Tidak ada satu negara pun yang memilikinya. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btTuris",
+      "stage": "anBeruang",
       "labels": [
-        "Turis dilarang masuk Bhutan",
+        "Beruang kutub dan penguin|hidup berdampingan",
         "MITOS"
       ],
       "kicker": "Klaim 3",
       "highlight": [
-        "turis",
-        "visa",
-        "seratus",
+        "beruang",
+        "penguin",
+        "utara",
+        "selatan",
         "mitos"
       ],
-      "narration": "Tiga. Turis dilarang masuk Bhutan. Mitos. Turis boleh masuk. Syaratnya e-visa empat puluh dolar lewat operator tur berlisensi, plus biaya pembangunan berkelanjutan seratus dolar per orang per malam sampai Agustus dua ribu dua puluh tujuh. Anak di bawah enam tahun bebas biaya. Vonisnya: mitos!",
+      "narration": "Tiga. Beruang kutub dan penguin hidup berdampingan. Mitos. Beruang kutub tinggal di Arktik, di utara. Penguin hidup di belahan bumi selatan, dan penguin Antartika ada di sana. Mereka nggak pernah ketemu di alam liar. Pertemuan di buku dan iklan itu cuma gambar. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btGunung",
+      "stage": "anSuhu",
       "labels": [
-        "Gunung tertinggi Bhutan|belum pernah didaki",
+        "Suhu terendah bumi|minus 89,2 derajat",
         "FAKTA"
       ],
       "kicker": "Klaim 4",
       "highlight": [
-        "Gangkhar",
-        "Puensum",
-        "dilarang",
+        "minus",
+        "delapan",
+        "puluh",
+        "sembilan",
+        "Vostok",
         "fakta"
       ],
-      "narration": "Empat. Gunung tertinggi Bhutan belum pernah didaki. Fakta. Namanya Gangkhar Puensum, tingginya tujuh ribu lima ratus tujuh puluh meter. Tahun seribu sembilan ratus sembilan puluh empat, Bhutan melarang pendakian di atas enam ribu meter. Sejak dua ribu tiga, semua pendakian gunung dilarang. Alasannya kepercayaan setempat: puncak itu tempat tinggal para dewa. Vonisnya: fakta!",
+      "narration": "Empat. Suhu terendah yang pernah tercatat di bumi adalah minus delapan puluh sembilan koma dua derajat Celsius. Fakta. Dicatat di Stasiun Vostok, Antartika, dua puluh satu Juli seribu sembilan ratus delapan puluh tiga, dan diakui Guinness. Satelit pernah membaca sekitar minus sembilan puluh delapan, tapi itu belum diakui. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btKarbon",
+      "stage": "anLahir",
       "labels": [
-        "Bhutan satu-satunya|negara karbon negatif",
-        "SEBAGIAN BENAR"
+        "Belum pernah ada bayi|lahir di Antartika",
+        "MITOS"
       ],
       "kicker": "Klaim 5",
       "highlight": [
-        "hutan",
-        "tujuh",
-        "puluh",
-        "dua",
-        "Suriname",
-        "Panama"
+        "bayi",
+        "Emilio",
+        "sebelas",
+        "mitos"
       ],
-      "narration": "Lima. Bhutan satu-satunya negara karbon negatif. Sebagian benar. Hutan menutup sekitar tujuh puluh dua persen wilayahnya, dan konstitusi mewajibkan minimal enam puluh persen tetap berhutan. Emisinya sekitar satu koma satu juta ton CO2 per tahun, jauh di bawah yang diserap hutannya. Tapi Bhutan bukan satu-satunya. Suriname dan Panama juga disebut karbon negatif. Vonisnya: sebagian benar!",
+      "narration": "Lima. Belum pernah ada bayi lahir di Antartika. Mitos. Bayi pertama bernama Emilio Marcos Palma, lahir tujuh Januari seribu sembilan ratus tujuh puluh delapan di Pangkalan Esperanza, dari orang tua Argentina. Sampai sekarang, paling sedikit sebelas anak lahir di sana, delapan Argentina dan tiga Chile. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btTv",
+      "stage": "anAir",
       "labels": [
-        "Televisi baru masuk|Bhutan tahun 1999",
-        "FAKTA"
+        "Antartika simpan|70% air tawar dunia",
+        "SEBAGIAN BENAR"
       ],
       "kicker": "Klaim 6",
       "highlight": [
-        "televisi",
-        "seribu",
-        "sembilan",
-        "ratus",
-        "fakta"
+        "air",
+        "tawar",
+        "enam",
+        "puluh",
+        "delapan",
+        "Greenland"
       ],
-      "narration": "Enam. Televisi baru masuk Bhutan tahun seribu sembilan ratus sembilan puluh sembilan. Fakta. Tahun itu pemerintah Bhutan mencabut larangan televisi dan internet. Vonisnya: fakta!",
+      "narration": "Enam. Antartika menyimpan tujuh puluh persen air tawar dunia. Sebagian benar. Lembaga NSIDC mencatat lapisan es Antartika dan Greenland digabung menyimpan lebih dari enam puluh delapan persen air tawar dunia. Jadi angkanya gabungan dua tempat, bukan Antartika saja. Vonisnya: sebagian benar!",
       "delivery": "cepat dan energik",
-      "durationInSeconds": 10
+      "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "btTutup",
+      "stage": "anTutup",
       "labels": [
-        "Skor Bhutan",
+        "Skor Antartika",
         "Daerah mana berikutnya?"
       ],
       "kicker": "Skor",
@@ -164,7 +167,7 @@
         "fakta",
         "komentar"
       ],
-      "narration": "Skor akhir Bhutan: dua mitos, satu sebagian benar, tiga fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
+      "narration": "Skor akhir Antartika: tiga mitos, satu sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
       "delivery": "cepat dan energik, penutup",
       "durationInSeconds": 8
     }
