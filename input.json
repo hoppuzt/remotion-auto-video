@@ -14,10 +14,10 @@
   },
   "defaultSfx": "none",
   "theme": {
-    "background": "#0A0F1C",
-    "primary": "#22D3EE",
-    "accent": "#FF9F43",
-    "text": "#F1F5F9",
+    "background": "#1E3A5F",
+    "primary": "#4FB0E5",
+    "accent": "#FF7A59",
+    "text": "#FFFFFF",
     "font": "Nunito"
   },
   "scenes": [

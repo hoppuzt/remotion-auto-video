@@ -3,7 +3,7 @@ import { continueRender, delayRender, staticFile, useCurrentFrame, useVideoConfi
 import { PHONE_DESIGN, PHONE_LT, PHONE_STAGES } from "./PhoneStages";
 import { ISLANDIA_DESIGN, ISLANDIA_LT, ISLANDIA_STAGES } from "./IslandiaStages";
 import { BHUTAN_DESIGN, BHUTAN_LT, BHUTAN_STAGES } from "./BhutanStages";
-import { ANTARTIKA_DESIGN, ANTARTIKA_LT, ANTARTIKA_STAGES } from "./AntartikaStages";
+import { ANTARTIKA_DESIGN, ANTARTIKA_LT, ANTARTIKA_STAGES, AntartikaBackdrop } from "./AntartikaStages";
 import { StageName, Theme } from "./types";
 
 /**
@@ -644,6 +644,8 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
   const actual = durationInFrames ? durationInFrames / fps : DESIGN_SECONDS[stage];
   const speed = Math.max(0.4, Math.min(1.4, DESIGN_SECONDS[stage] / actual));
   return (
+    <>
+    {/^an/.test(stage) ? <AntartikaBackdrop stage={stage} /> : null}
     <svg
       width={STAGE_W}
       height={STAGE_H}
@@ -652,5 +654,6 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
     >
       <Draw t={(frame / fps) * speed} theme={theme} labels={labels} />
     </svg>
+    </>
   );
 };
