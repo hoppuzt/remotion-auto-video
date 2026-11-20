@@ -10,7 +10,7 @@ import { IslandiaStageName, Theme } from "./types";
  * Guinness World Records (oldest existing parliament), Atlantic Council (geotermal), ABC News/The Guardian (nyamuk 2025).
  */
 
-export type Ctx = { t: number; theme: Theme; labels: string[] };
+export type Ctx = { t: number; theme: Theme; labels: string[]; cue?: (phrase: string, fallback: number) => number };
 export type V2 = [number, number];
 
 export const COOL = "#22D3EE";

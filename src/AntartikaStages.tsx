@@ -190,14 +190,19 @@ const sahPath = (cx: number, cy: number, a: number, b: number) => {
 
 /* ---------- adegan ---------- */
 
-const Hook: React.FC<Ctx> = ({ t }) => {
-  const pill = ease((t - 1.8) / 0.5);
-  const drop = ease((t - 2.3) / 0.7);
+type Cu = (phrase: string, fallback: number) => number;
+const cueOf = (ctx: Ctx): Cu => ctx.cue ?? ((_p, fb) => fb);
+
+const Hook: React.FC<Ctx> = (ctx) => {
+  const { t } = ctx;
+  const cu = cueOf(ctx);
+  const pill = ease((t - cu("Antartika", 0.3)) / 0.5);
+  const drop = ease((t - cu("Aku Piko", 2.3)) / 0.7);
   return (
     <M>
-      <Title t={t} at={0.3} y={190} size={50} rot={-4}>MITOS</Title>
-      <Title t={t} at={0.8} y={250} size={30} fill={YELLOW} sw={9}>atau</Title>
-      <Title t={t} at={1.2} y={345} size={100} fill={CORAL} rot={3} sw={14}>FAKTA?</Title>
+      <Title t={t} at={cu("Mitos, fakta", 3)} y={190} size={50} rot={-4}>MITOS</Title>
+      <Title t={t} at={cu("atau sebagian", 3.6)} y={250} size={30} fill={YELLOW} sw={9}>atau</Title>
+      <Title t={t} at={cu("fakta, atau", 3.3)} y={345} size={100} fill={CORAL} rot={3} sw={14}>FAKTA?</Title>
       <g opacity={pill} transform={`translate(0 ${(1 - pill) * 40})`}>
         <rect x={60} y={400} width={420} height={84} rx={42} fill={YELLOW} stroke={NAVY} strokeWidth={6} />
         <Tx x={270} y={458} size={44}>ANTARTIKA</Tx>
@@ -209,15 +214,19 @@ const Hook: React.FC<Ctx> = ({ t }) => {
   );
 };
 
-const Gurun: React.FC<Ctx> = ({ t, labels }) => {
-  const a = pop(t, 1.0);
-  const s = pop(t, 3.2);
-  const ka = (14.2 * seg(t, 1.2, 2.6)).toFixed(1).replace(".", ",");
-  const ks = (9.2 * seg(t, 3.4, 4.6)).toFixed(1).replace(".", ",");
+const Gurun: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
+  const tA = cu("Luasnya", 1.0), tS = cu("Sahara", 3.2), tH = cu("hujan", 0.6);
+  const a = pop(t, tA);
+  const s = pop(t, tS);
+  const ka = (14.2 * seg(t, tA + 0.2, tA + 1.4)).toFixed(1).replace(".", ",");
+  const ks = (9.2 * seg(t, tS + 0.2, tS + 1.2)).toFixed(1).replace(".", ",");
   return (
     <M>
       <Title t={t} y={150} size={72} fill={CORAL} stroke="#FFFFFF" rot={-3}>GURUN?</Title>
-      <g opacity={seg(t, 0.6, 1.2)}><Tx x={270} y={190} size={22} weight={800}>gurun = hujan dan salju sedikit</Tx></g>
+      <g opacity={seg(t, tH, tH + 0.5)}><Tx x={270} y={190} size={22} weight={800}>gurun = hujan dan salju sedikit</Tx></g>
       <g transform={`translate(270 362) scale(${a}) translate(-270 -362)`} opacity={clamp01(a * 1.5)}>
         <path d={antPath(270, 362, 138)} fill="#FFFFFF" stroke="#9ED8F5" strokeWidth={8} strokeLinejoin="round" />
         <Tx x={270} y={360} size={34}>ANTARTIKA</Tx>
@@ -228,30 +237,35 @@ const Gurun: React.FC<Ctx> = ({ t, labels }) => {
         <Tx x={270} y={620} size={28} fill="#7A4A12">SAHARA</Tx>
         <Tx x={270} y={650} size={21} fill="#7A4A12" weight={800}>{`${ks} juta km²`}</Tx>
       </g>
-      <Stamp v={labels[1]} t={t} x={50} y={725} />
-      <PikoM id="p-gurun" x={400} y={690} s={0.24} t={t} />
+      <Stamp v={labels[1]} t={t} x={50} y={725} at={V} />
+      <PikoM id="p-gurun" x={400} y={690} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
 const NEGARA = ["ARG", "AUS", "CHL", "FRA", "NZL", "NOR", "GBR"];
 const WARNA = [CORAL, SKY, GREEN, YELLOW, "#8E7CF0", "#F4A73E", "#E86A9A"];
-const Milik: React.FC<Ctx> = ({ t, labels }) => {
+const NAMA = ["Argentina", "Australia", "Chile", "Prancis", "Selandia Baru", "Norwegia", "Inggris"];
+const Milik: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
   const R = 170;
   const wedges = NEGARA.map((n, i) => {
     const a0 = -90 + (360 / 7) * i;
     const a1 = a0 + (360 / 7) * 0.88;
     const r0 = (a0 * Math.PI) / 180, r1 = (a1 * Math.PI) / 180, mid = (r0 + r1) / 2;
-    const k = pop(t, 1.0 + i * 0.4);
+    const k = pop(t, cu(NAMA[i], 1.0 + i * 0.4));
     return (
       <g key={n} opacity={clamp01(k * 1.5)} transform={`scale(${k})`}>
         <path d={`M0,0 L${R * Math.cos(r0)},${R * Math.sin(r0)} A${R},${R} 0 0 1 ${R * Math.cos(r1)},${R * Math.sin(r1)} Z`} fill={WARNA[i]} />
         <Tx x={108 * Math.cos(mid)} y={108 * Math.sin(mid) + 9} size={24} fill="#FFFFFF" stroke={NAVY} sw={5}>{n}</Tx>
-        {i === 0 ? <Station x={148 * Math.cos(mid) - 15} y={148 * Math.sin(mid) - 14} s={0.5} /> : null}
+        <Station x={150 * Math.cos(mid) - 15} y={150 * Math.sin(mid) - 14} s={0.5} />
       </g>
     );
   });
-  const seal = pop(t, 4.4);
+  const seal = pop(t, cu("tahun seribu", 4.4));
+  const note = seg(t, cu("dua belas negara", 5.0), cu("dua belas negara", 5.0) + 0.5);
   return (
     <M>
       <Title t={t} y={140} size={54}>SATU NEGARA?</Title>
@@ -264,17 +278,22 @@ const Milik: React.FC<Ctx> = ({ t, labels }) => {
           <Tx x={0} y={26} size={32} fill={CORAL}>1959</Tx>
         </g>
       </g>
-      <g opacity={seg(t, 5.0, 5.6)}><Tx x={270} y={642} size={25}>7 negara klaim, 12 negara sepakat</Tx></g>
-      <Stamp v={labels[1]} t={t} x={50} y={700} />
-      <PikoM id="p-milik" x={400} y={690} s={0.24} t={t} />
+      <g opacity={note}><Tx x={270} y={642} size={25}>7 negara klaim, 12 negara sepakat</Tx></g>
+      <Stamp v={labels[1]} t={t} x={50} y={700} at={V} />
+      <PikoM id="p-milik" x={400} y={690} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
-const Beruang: React.FC<Ctx> = ({ t, labels }) => {
+const Beruang: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
+  const tB = cu("Beruang kutub tinggal", 1.4), tN = cu("Arktik", 1.4), tP = cu("Penguin hidup di belahan", 2.4), tS = cu("belahan bumi", 2.4);
+  const tL = cu("dan penguin Antartika", 3.2), tX = cu("Mereka nggak", 5.0);
   const bob = Math.sin(t * 2) * 3;
-  const x = pop(t, 5.0);
-  const line = seg(t, 2.6, 4.6);
+  const x = pop(t, tX);
+  const line = seg(t, tL, tX);
   return (
     <M>
       <Title t={t} y={124} size={46}>SATU HABITAT?</Title>
@@ -293,17 +312,19 @@ const Beruang: React.FC<Ctx> = ({ t, labels }) => {
           <path d="M120,430 C150,396 200,404 220,442 C228,490 172,506 130,480 Z M310,400 C350,384 416,410 408,466 C380,494 322,478 306,440 Z" fill={GREEN} opacity={0.8} />
         </g>
       </g>
-      <g opacity={seg(t, 1.0, 1.6)}>
+      <g opacity={seg(t, tN, tN + 0.4)}>
         <rect x={165} y={142} width={210} height={42} rx={21} fill={SKY} />
         <Tx x={270} y={171} size={22} fill="#FFFFFF">KUTUB UTARA</Tx>
+      </g>
+      <g opacity={seg(t, tS, tS + 0.4)}>
         <rect x={145} y={668} width={250} height={42} rx={21} fill={CORAL} />
         <Tx x={270} y={697} size={22} fill="#FFFFFF">KUTUB SELATAN</Tx>
       </g>
-      <g transform={`translate(0 ${bob})`} opacity={seg(t, 1.4, 2.0)}>
+      <g transform={`translate(0 ${bob})`} opacity={seg(t, tB, tB + 0.5)}>
         <circle cx={270} cy={292} r={77} fill="#FFFFFF" />
         <image href={staticFile("anclips/badge-beruang.jpg")} x={200} y={222} width={140} height={140} clipPath="url(#an-bc)" preserveAspectRatio="xMidYMid slice" />
       </g>
-      <g transform={`translate(0 ${-bob})`} opacity={seg(t, 1.8, 2.4)}>
+      <g transform={`translate(0 ${-bob})`} opacity={seg(t, tP, tP + 0.5)}>
         <circle cx={270} cy={588} r={77} fill="#FFFFFF" />
         <image href={staticFile("anclips/badge-penguin.jpg")} x={200} y={518} width={140} height={140} clipPath="url(#an-pc)" preserveAspectRatio="xMidYMid slice" />
       </g>
@@ -312,15 +333,21 @@ const Beruang: React.FC<Ctx> = ({ t, labels }) => {
         <circle r={44} fill={CORAL} stroke="#FFFFFF" strokeWidth={6} />
         <path d="M-18,-18 L18,18 M18,-18 L-18,18" stroke="#FFFFFF" strokeWidth={9} strokeLinecap="round" />
       </g>
-      <Stamp v={labels[1]} t={t} x={50} y={728} />
-      <PikoM id="p-beruang" x={400} y={690} s={0.24} t={t} />
+      <Stamp v={labels[1]} t={t} x={50} y={728} at={V} />
+      <PikoM id="p-beruang" x={400} y={690} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
 const yT = (T: number) => 340 - 3.35 * T;
-const Suhu: React.FC<Ctx> = ({ t, labels }) => {
-  const k = ease((t - 1.4) / 4.6);
+const Suhu: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
+  const t0 = cu("minus delapan puluh", 1.4);
+  const t1 = Math.max(t0 + 1.5, cu("derajat Celsius", t0 + 4) + 0.3);
+  const tV = cu("Stasiun Vostok", 6.2);
+  const k = ease((t - t0) / (t1 - t0));
   const T = 30 + (-89.2 - 30) * k;
   const top = yT(T);
   const txt = `${T < 0 ? "−" : "+"}${Math.abs(T).toFixed(1).replace(".", ",")}°C`;
@@ -349,29 +376,35 @@ const Suhu: React.FC<Ctx> = ({ t, labels }) => {
         <Tx x={115} y={350} size={30} fill="#FFFFFF">{txt}</Tx>
         <path d="M210,340 L230,340" stroke={CORAL} strokeWidth={6} strokeLinecap="round" />
       </g>
-      <g opacity={seg(t, 6.2, 6.8)}>
+      <g opacity={seg(t, tV, tV + 0.5)}>
         <rect x={330} y={590} width={190} height={44} rx={22} fill="#FFFFFF" opacity={0.92} />
         <Tx x={425} y={619} size={17}>Vostok · 1983</Tx>
       </g>
-      <Stamp v={labels[1]} t={t} x={50} y={728} />
-      <PikoM id="p-suhu" x={400} y={690} s={0.24} t={t} />
+      <Stamp v={labels[1]} t={t} x={50} y={728} at={V} />
+      <PikoM id="p-suhu" x={400} y={690} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
-const Lahir: React.FC<Ctx> = ({ t, labels }) => {
-  const kn = pop(t, 1.0);
-  const b1 = pop(t, 3.4), b2 = pop(t, 4.6), kini = pop(t, 5.6);
-  const cnt = Math.round(11 * seg(t, 5.8, 7.0));
+const Lahir: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
+  const tC = cu("Bayi pertama", 1.4), tK = cu("tujuh Januari", 1.0), tSt = cu("Pangkalan Esperanza", 1.8);
+  const tB1 = cu("Sampai sekarang", 3.4), tB2 = cu("paling sedikit", 4.6), tKini = cu("anak lahir di sana", 5.6);
+  const kn = pop(t, tK);
+  const b1 = pop(t, tB1), b2 = pop(t, tB2), kini = pop(t, tKini);
+  const cnt = Math.round(11 * seg(t, tKini + 0.1, tKini + 1.2));
+  const ln = seg(t, tK, tKini);
   return (
     <M>
       <Title t={t} y={138} size={48} fill={CORAL} stroke="#FFFFFF">ADA BAYI LAHIR?</Title>
-      <line x1={270} y1={190} x2={270} y2={650 * seg(t, 0.6, 5.8) + 190 * (1 - seg(t, 0.6, 5.8))} stroke={NAVY} strokeWidth={8} strokeLinecap="round" strokeDasharray="2 18" />
+      <line x1={270} y1={190} x2={270} y2={190 + 440 * ln} stroke={NAVY} strokeWidth={8} strokeLinecap="round" strokeDasharray="2 18" />
       <g opacity={clamp01(kn * 1.5)} transform={`translate(270 232) scale(${kn}) translate(-270 -232)`}>
         <circle cx={270} cy={232} r={34} fill={YELLOW} stroke={NAVY} strokeWidth={6} />
         <Tx x={270} y={243} size={22}>1978</Tx>
       </g>
-      <g opacity={seg(t, 1.4, 2.2)} transform={`translate(${(1 - seg(t, 1.4, 2.2)) * -40} 0)`}>
+      <g opacity={seg(t, tC, tC + 0.7)} transform={`translate(${(1 - seg(t, tC, tC + 0.7)) * -40} 0)`}>
         <rect x={24} y={186} width={208} height={150} rx={26} fill="#FFFFFF" stroke={NAVY} strokeWidth={5} />
         <Baby x={78} y={236} s={0.9} />
         <Tx x={168} y={224} size={17} fill={CORAL} anchor="middle">Bayi pertama</Tx>
@@ -379,7 +412,7 @@ const Lahir: React.FC<Ctx> = ({ t, labels }) => {
         <Tx x={128} y={298} size={15} weight={800}>7 Januari 1978</Tx>
         <Tx x={128} y={322} size={14} weight={800} fill={SKY}>Base Esperanza</Tx>
       </g>
-      <g opacity={seg(t, 1.8, 2.6)} transform={`translate(${(1 - seg(t, 1.8, 2.6)) * 40} 0)`}>
+      <g opacity={seg(t, tSt, tSt + 0.7)} transform={`translate(${(1 - seg(t, tSt, tSt + 0.7)) * 40} 0)`}>
         <Station x={344} y={196} s={1.7} />
         <Tx x={394} y={310} size={16} fill={NAVY} weight={800}>pangkalan Argentina</Tx>
       </g>
@@ -398,14 +431,20 @@ const Lahir: React.FC<Ctx> = ({ t, labels }) => {
         <Tx x={416} y={596} size={50} fill={SKY}>{`${cnt}+`}</Tx>
         <Tx x={416} y={622} size={15}>anak lahir di sana</Tx>
       </g>
-      <Stamp v={labels[1]} t={t} x={50} y={700} />
-      <PikoM id="p-lahir" x={400} y={690} s={0.24} t={t} />
+      <Stamp v={labels[1]} t={t} x={50} y={700} at={V} />
+      <PikoM id="p-lahir" x={400} y={690} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
-const Air: React.FC<Ctx> = ({ t, labels }) => {
-  const fill = ease((t - 1.4) / 2.6);
+const Air: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const V = cu("Vonisnya", 8.6);
+  const f0 = cu("Lembaga NSIDC", 1.4);
+  const f1 = Math.max(f0 + 1.5, cu("delapan persen", f0 + 3) + 0.3);
+  const tL = cu("Antartika dan Greenland", 4.6);
+  const fill = ease((t - f0) / (f1 - f0));
   const surf = 830 - (830 - 520) * fill;
   const wv = t * 60;
   const BOTTLE = "M215,200 h110 v50 C380,280 390,330 390,380 V780 q0,50 -50,50 H200 q-50,0 -50,-50 V380 C150,330 160,280 215,250 Z";
@@ -425,21 +464,25 @@ const Air: React.FC<Ctx> = ({ t, labels }) => {
         <path d={BOTTLE} fill="none" stroke={NAVY} strokeWidth={8} strokeLinejoin="round" />
         <rect x={205} y={170} width={130} height={42} rx={14} fill={CORAL} stroke={NAVY} strokeWidth={8} />
         <Tx x={270} y={690} size={88} fill="#FFFFFF" stroke={NAVY} sw={13}>{`${pct}%`}</Tx>
-        <g opacity={seg(t, 4.6, 5.4)}><Tx x={270} y={760} size={22} fill="#FFFFFF" stroke={NAVY} sw={6}>es Antartika + Greenland</Tx></g>
+        <g opacity={seg(t, tL, tL + 0.6)}><Tx x={270} y={760} size={22} fill="#FFFFFF" stroke={NAVY} sw={6}>es Antartika + Greenland</Tx></g>
       </g>
-      <Stamp v={labels[1]} t={t} x={145} y={752} />
-      <PikoM id="p-air" x={410} y={420} s={0.24} t={t} />
+      <Stamp v={labels[1]} t={t} x={145} y={752} at={V} />
+      <PikoM id="p-air" x={410} y={420} s={0.24} t={t} happyAt={V} />
     </M>
   );
 };
 
-const Tutup: React.FC<Ctx> = ({ t, labels }) => {
+const Tutup: React.FC<Ctx> = (ctx) => {
+  const { t, labels } = ctx;
+  const cu = cueOf(ctx);
+  const tq = cu("Daerah mana", 3.2);
+  const cues = [cu("tiga mitos", 1.0), cu("satu sebagian", 1.5), cu("dua fakta", 2.0)];
   const items: [string, number, string, string, number][] = [["MITOS", 3, CORAL, "#FFFFFF", 110], ["SEBAGIAN", 1, YELLOW, NAVY, 270], ["FAKTA", 2, GREEN, "#FFFFFF", 430]];
   return (
     <M>
       <Title t={t} y={150} size={46}>{(labels[0] ?? "SKOR AKHIR").toUpperCase()}</Title>
       {items.map(([l, n, c, tc, cx], i) => {
-        const k = pop(t, 1.0 + i * 0.5);
+        const k = pop(t, cues[i]);
         return (
           <g key={l} opacity={clamp01(k * 1.5)} transform={`translate(${cx} 290) scale(${k})`}>
             <circle r={76} fill="#FFFFFF" filter="url(#an-sh)" />
@@ -449,7 +492,7 @@ const Tutup: React.FC<Ctx> = ({ t, labels }) => {
           </g>
         );
       })}
-      <g opacity={seg(t, 3.2, 4.0)} transform={`translate(0 ${(1 - seg(t, 3.2, 4.0)) * 30})`}>
+      <g opacity={seg(t, tq, tq + 0.6)} transform={`translate(0 ${(1 - seg(t, tq, tq + 0.6)) * 30})`}>
         <rect x={50} y={470} width={440} height={80} rx={40} fill="#FFFFFF" />
         <Tx x={270} y={522} size={28}>{labels[1] ?? "Daerah mana berikutnya?"}</Tx>
       </g>

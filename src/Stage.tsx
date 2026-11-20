@@ -4,7 +4,7 @@ import { PHONE_DESIGN, PHONE_LT, PHONE_STAGES } from "./PhoneStages";
 import { ISLANDIA_DESIGN, ISLANDIA_LT, ISLANDIA_STAGES } from "./IslandiaStages";
 import { BHUTAN_DESIGN, BHUTAN_LT, BHUTAN_STAGES } from "./BhutanStages";
 import { ANTARTIKA_DESIGN, ANTARTIKA_LT, ANTARTIKA_STAGES, AntartikaBackdrop } from "./AntartikaStages";
-import { StageName, Theme } from "./types";
+import { Caption, StageName, Theme } from "./types";
 
 /**
  * Scene "stage": satu adegan vektor penuh yang bergerak mengikuti proses yang diceritakan,
@@ -54,7 +54,7 @@ const wavyV = (x: number, y1: number, y2: number, amp: number, len: number, ph: 
   return `M${pts.join(" L")}`;
 };
 
-type Ctx = { t: number; theme: Theme; labels: string[] };
+type Ctx = { t: number; theme: Theme; labels: string[]; cue?: (phrase: string, fallback: number) => number };
 
 /** Detik (waktu rancangan) kapan tiap label muncul; dipakai juga untuk efek bunyi "pop". */
 const LT: Record<StageName, number[]> = {
@@ -630,11 +630,30 @@ const speedFor = (stage: StageName, durationInFrames: number, fps: number) =>
 export const stageLabelFrames = (stage: StageName, durationInFrames: number, fps: number, count: number): number[] =>
   LT[stage].slice(0, count).map((at) => Math.round(((at + 0.15) / speedFor(stage, durationInFrames, fps)) * fps));
 
-export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: Theme; durationInFrames?: number }> = ({
+/** Waktu (dalam jam desain adegan) saat sebuah frasa diucapkan, dihitung dari subtitle yang sudah selaras suara. */
+const makeCue = (captions: Caption[] | undefined, speed: number) => (phrase: string, fallback: number): number => {
+  if (!captions || captions.length === 0) return fallback;
+  let full = "";
+  const spans: { s: number; e: number; c: Caption }[] = [];
+  for (const c of captions) {
+    if (full) full += " ";
+    spans.push({ s: full.length, e: full.length + c.text.length, c });
+    full += c.text;
+  }
+  const idx = full.toLowerCase().indexOf(phrase.toLowerCase());
+  if (idx < 0) return fallback;
+  const sp = spans.find((x) => idx >= x.s && idx < x.e + 1) ?? spans[spans.length - 1];
+  const frac = Math.max(0, Math.min(1, (idx - sp.s) / Math.max(1, sp.e - sp.s)));
+  const real = sp.c.startSeconds + (sp.c.endSeconds - sp.c.startSeconds) * frac;
+  return Math.max(0, real - 0.1) * speed;
+};
+
+export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: Theme; durationInFrames?: number; captions?: Caption[] }> = ({
   stage,
   labels = [],
   theme,
   durationInFrames,
+  captions,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -652,7 +671,7 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
       viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
       style={{ position: "absolute", left: 0, top: 170, overflow: /^(hp|is|bt|an)/.test(stage) ? "visible" : undefined }}
     >
-      <Draw t={(frame / fps) * speed} theme={theme} labels={labels} />
+      <Draw t={(frame / fps) * speed} theme={theme} labels={labels} cue={makeCue(captions, speed)} />
     </svg>
     </>
   );
