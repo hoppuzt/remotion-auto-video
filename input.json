@@ -14,150 +14,143 @@
   },
   "defaultSfx": "none",
   "theme": {
-    "background": "#1E3A5F",
-    "primary": "#4FB0E5",
-    "accent": "#FF7A59",
-    "text": "#FFFFFF",
-    "font": "Nunito"
+    "background": "#F6E7C8",
+    "primary": "#D9582B",
+    "accent": "#1B8A8F",
+    "text": "#27283D",
+    "font": "Poppins"
   },
   "scenes": [
     {
       "type": "stage",
-      "stage": "anHook",
+      "stage": "rnHook",
       "labels": [
         "Mitos atau Fakta?",
-        "ANTARTIKA"
+        "PULAU PASKAH"
       ],
-      "kicker": "Antartika",
+      "kicker": "Pulau Paskah",
       "highlight": [
         "Piko",
         "enam",
         "mitos",
         "fakta"
       ],
-      "narration": "Antartika, benua es di ujung bumi yang hampir nggak ada penduduk tetapnya. Aku Piko, si pin peta, dan aku cek enam klaim soal Antartika. Mitos, fakta, atau sebagian benar? Gas!",
+      "narration": "Pulau Paskah, pulau kecil di tengah Pasifik yang terkenal sama patung raksasanya. Aku Piko, si pin peta, dan aku cek enam klaim soal Pulau Paskah. Mitos, fakta, atau sebagian benar? Gas!",
       "delivery": "cepat dan energik, pembukaan kuis",
       "durationInSeconds": 7
     },
     {
       "type": "stage",
-      "stage": "anGurun",
+      "stage": "rnKepala",
       "labels": [
-        "Antartika itu gurun|terbesar di dunia",
-        "FAKTA"
+        "Moai itu cuma kepala",
+        "MITOS"
       ],
       "kicker": "Klaim 1",
       "highlight": [
-        "gurun",
-        "empat",
-        "belas",
-        "fakta"
+        "kepala",
+        "badan",
+        "sepuluh",
+        "mitos"
       ],
-      "narration": "Satu. Antartika itu gurun terbesar di dunia. Mitos atau fakta? Tebak dulu. Gurun bukan soal panas, tapi soal hujan dan salju yang sedikit. Luasnya empat belas juta kilometer persegi, lebih besar dari Sahara yang sembilan koma dua juta. Saljunya rata-rata cuma seratus enam puluh enam milimeter per tahun, dan di pedalaman cuma sekitar dua puluh. Vonisnya: fakta!",
+      "narration": "Satu. Patung moai itu cuma kepala. Mitos atau fakta? Tebak dulu. Foto terkenalnya memang cuma kelihatan kepala, karena badannya terkubur sampai bahu. Tapi begitu digali, badannya ada. Yang tertinggi sampai sekitar sepuluh meter. Para arkeolog sudah tahu sejak penggalian tahun seribu sembilan ratus empat belas. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "anMilik",
+      "stage": "rnTerpencil",
       "labels": [
-        "Antartika dimiliki|satu negara",
-        "MITOS"
+        "Pulau berpenghuni|paling terpencil di dunia",
+        "FAKTA"
       ],
       "kicker": "Klaim 2",
       "highlight": [
-        "negara",
-        "perjanjian",
-        "seribu",
-        "sembilan",
-        "mitos"
+        "terpencil",
+        "Chile",
+        "Pitcairn",
+        "fakta"
       ],
-      "narration": "Dua. Antartika dimiliki satu negara. Menurut kamu, mitos atau fakta? Tujuh negara mengajukan klaim wilayah: Argentina, Australia, Chile, Prancis, Selandia Baru, Norwegia, dan Inggris. Tapi tahun seribu sembilan ratus lima puluh sembilan, dua belas negara menandatangani Perjanjian Antartika, berlaku sejak seribu sembilan ratus enam puluh satu. Tidak ada satu negara pun yang memilikinya. Vonisnya: mitos!",
+      "narration": "Dua. Pulau Paskah itu pulau berpenghuni paling terpencil di dunia. Mitos atau fakta, hayo? Daratan Chile ada sekitar tiga ribu tujuh ratus kilometer ke timur. Tetangga berpenghuni terdekat, Pulau Pitcairn, sekitar dua ribu kilometer ke barat. Sampai ada yang menyebutnya daratan berpenghuni paling terisolasi di Bumi. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "anBeruang",
+      "stage": "rnHadap",
       "labels": [
-        "Beruang kutub dan penguin|hidup berdampingan",
+        "Moai menghadap ke laut",
         "MITOS"
       ],
       "kicker": "Klaim 3",
       "highlight": [
-        "beruang",
-        "penguin",
-        "utara",
-        "selatan",
+        "menghadap",
+        "desa",
+        "tujuh",
         "mitos"
       ],
-      "narration": "Tiga. Beruang kutub dan penguin hidup berdampingan. Benar nggak ya? Beruang kutub tinggal di Arktik, di utara. Penguin hidup di belahan bumi selatan, dan penguin Antartika ada di sana. Mereka nggak pernah ketemu di alam liar. Pertemuan di buku dan iklan itu cuma gambar. Vonisnya: mitos!",
+      "narration": "Tiga. Patung moai menghadap ke laut. Benar nggak ya? Hampir semuanya justru membelakangi laut dan menghadap desa. Pengecualiannya cuma tujuh moai di Ahu Akivi, yang menatap laut. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+      "durationInSeconds": 11
     },
     {
       "type": "stage",
-      "stage": "anSuhu",
+      "stage": "rnJalan",
       "labels": [
-        "Suhu terendah bumi|minus 89,2 derajat",
-        "FAKTA"
+        "Moai bisa berjalan",
+        "SEBAGIAN BENAR"
       ],
       "kicker": "Klaim 4",
       "highlight": [
-        "minus",
+        "berjalan",
+        "tali",
         "delapan",
-        "puluh",
-        "sembilan",
-        "Vostok",
-        "fakta"
+        "sebagian"
       ],
-      "narration": "Empat. Suhu terendah yang pernah tercatat di bumi adalah minus delapan puluh sembilan koma dua derajat Celsius. Mitos atau fakta, hayo? Dicatat di Stasiun Vostok, Antartika, dua puluh satu Juli seribu sembilan ratus delapan puluh tiga, dan diakui Guinness. Satelit pernah membaca sekitar minus sembilan puluh delapan, tapi itu belum diakui. Vonisnya: fakta!",
+      "narration": "Empat. Patung moai bisa berjalan. Mitos, fakta, atau sebagian benar? Hati-hati, yang ini licin. Sebagian warga Rapa Nui bilang patungnya memang berjalan. Para peneliti menarik replika dengan tiga tali sambil digoyang kiri kanan. Delapan belas orang menggerakkannya seratus meter dalam empat puluh menit. Tapi peneliti lain bilang itu baru bukti bisa, bukan bukti terjadi. Vonisnya: sebagian benar!",
       "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+      "durationInSeconds": 13
     },
     {
       "type": "stage",
-      "stage": "anLahir",
+      "stage": "rnHutan",
       "labels": [
-        "Belum pernah ada bayi|lahir di Antartika",
+        "Penduduk punah|karena tebang pohon",
         "MITOS"
       ],
       "kicker": "Klaim 5",
       "highlight": [
-        "bayi",
-        "Emilio",
-        "sebelas",
+        "pohon",
+        "tikus",
+        "seribu",
         "mitos"
       ],
-      "narration": "Lima. Belum pernah ada bayi lahir di Antartika. Tebak, mitos atau fakta? Bayi pertama bernama Emilio Marcos Palma, lahir tujuh Januari seribu sembilan ratus tujuh puluh delapan di Pangkalan Esperanza, dari orang tua Argentina. Sampai sekarang, paling sedikit sebelas anak lahir di sana, delapan Argentina dan tiga Chile. Vonisnya: mitos!",
+      "narration": "Lima. Penduduk Pulau Paskah punah karena menebang semua pohonnya. Mitos atau fakta? Tebak dulu. Pohon palemnya memang habis. Tapi menurut studi Lipo dan Hunt, pelaku utamanya tikus Polinesia, yang memakan bijinya sampai jumlahnya jutaan. Penduduknya baru anjlok setelah orang Eropa datang tahun seribu tujuh ratus dua puluh dua. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+      "durationInSeconds": 13
     },
     {
       "type": "stage",
-      "stage": "anAir",
+      "stage": "rnTulis",
       "labels": [
-        "Antartika simpan|70% air tawar dunia",
-        "SEBAGIAN BENAR"
+        "Tulisan kuno Rapa Nui|belum bisa dibaca",
+        "FAKTA"
       ],
       "kicker": "Klaim 6",
       "highlight": [
-        "air",
-        "tawar",
-        "enam",
-        "puluh",
-        "delapan",
-        "Greenland"
+        "rongorongo",
+        "dua puluh tujuh",
+        "fakta"
       ],
-      "narration": "Enam. Antartika menyimpan tujuh puluh persen air tawar dunia. Mitos, fakta, atau sebagian benar? Hati-hati, yang ini licin. Lembaga NSIDC mencatat lapisan es Antartika dan Greenland digabung menyimpan lebih dari enam puluh delapan persen air tawar dunia. Jadi angkanya gabungan dua tempat, bukan Antartika saja. Vonisnya: sebagian benar!",
+      "narration": "Enam. Tulisan kuno Rapa Nui, namanya rongorongo, sampai sekarang belum bisa dibaca. Mitos atau fakta? Tebak dulu. Tersisa dua puluh tujuh benda kayu bertulisan, dan semuanya sudah tidak ada di pulau itu. Berbagai upaya membacanya belum ada yang diterima. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "anTutup",
+      "stage": "rnTutup",
       "labels": [
-        "Skor Antartika",
+        "Skor Pulau Paskah",
         "Daerah mana berikutnya?"
       ],
       "kicker": "Skor",
@@ -167,7 +160,7 @@
         "fakta",
         "komentar"
       ],
-      "narration": "Skor akhir Antartika: tiga mitos, satu sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
+      "narration": "Skor akhir Pulau Paskah: tiga mitos, satu sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
       "delivery": "cepat dan energik, penutup",
       "durationInSeconds": 8
     }

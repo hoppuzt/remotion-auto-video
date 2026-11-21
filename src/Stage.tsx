@@ -3,6 +3,7 @@ import { continueRender, delayRender, staticFile, useCurrentFrame, useVideoConfi
 import { PHONE_DESIGN, PHONE_LT, PHONE_STAGES } from "./PhoneStages";
 import { ISLANDIA_DESIGN, ISLANDIA_LT, ISLANDIA_STAGES } from "./IslandiaStages";
 import { BHUTAN_DESIGN, BHUTAN_LT, BHUTAN_STAGES } from "./BhutanStages";
+import { RAPANUI_DESIGN, RAPANUI_LT, RAPANUI_STAGES, RapaNuiBackdrop } from "./RapaNuiStages";
 import { ANTARTIKA_DESIGN, ANTARTIKA_LT, ANTARTIKA_STAGES, AntartikaBackdrop } from "./AntartikaStages";
 import { Caption, StageName, Theme } from "./types";
 
@@ -68,6 +69,7 @@ const LT: Record<StageName, number[]> = {
   ...ISLANDIA_LT,
   ...BHUTAN_LT,
   ...ANTARTIKA_LT,
+  ...RAPANUI_LT,
 };
 
 const backOut = (v: number) => {
@@ -607,6 +609,7 @@ const STAGES: Record<StageName, React.FC<Ctx>> = {
   ...ISLANDIA_STAGES,
   ...BHUTAN_STAGES,
   ...ANTARTIKA_STAGES,
+  ...RAPANUI_STAGES,
 };
 
 /** Durasi (detik) yang dipakai saat adegan dirancang; waktu animasi diregangkan ke durasi scene sebenarnya. */
@@ -621,6 +624,7 @@ const DESIGN_SECONDS: Record<StageName, number> = {
   ...ISLANDIA_DESIGN,
   ...BHUTAN_DESIGN,
   ...ANTARTIKA_DESIGN,
+  ...RAPANUI_DESIGN,
 };
 
 const speedFor = (stage: StageName, durationInFrames: number, fps: number) =>
@@ -665,11 +669,12 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
   return (
     <>
     {/^an/.test(stage) ? <AntartikaBackdrop stage={stage} /> : null}
+    {/^rn/.test(stage) ? <RapaNuiBackdrop stage={stage} /> : null}
     <svg
       width={STAGE_W}
       height={STAGE_H}
       viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
-      style={{ position: "absolute", left: 0, top: 170, overflow: /^(hp|is|bt|an)/.test(stage) ? "visible" : undefined }}
+      style={{ position: "absolute", left: 0, top: 170, overflow: /^(hp|is|bt|an|rn)/.test(stage) ? "visible" : undefined }}
     >
       <Draw t={(frame / fps) * speed} theme={theme} labels={labels} cue={makeCue(captions, speed)} />
     </svg>

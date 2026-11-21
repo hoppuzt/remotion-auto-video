@@ -58,7 +58,12 @@ export const ANTARTIKA_STAGE_NAMES = [
   "anHook", "anGurun", "anMilik", "anBeruang", "anSuhu", "anLahir", "anAir", "anTutup",
 ] as const;
 export type AntartikaStageName = (typeof ANTARTIKA_STAGE_NAMES)[number];
-export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES] as const;
+/** Adegan khusus seri "Mitos atau Fakta": episode Pulau Paskah (src/RapaNuiStages.tsx). */
+export const RAPANUI_STAGE_NAMES = [
+  "rnHook", "rnKepala", "rnTerpencil", "rnHadap", "rnJalan", "rnHutan", "rnTulis", "rnTutup",
+] as const;
+export type RapaNuiStageName = (typeof RAPANUI_STAGE_NAMES)[number];
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];
 
 export type ArtName = (typeof ART_NAMES)[number];
