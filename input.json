@@ -14,153 +14,149 @@
   },
   "defaultSfx": "none",
   "theme": {
-    "background": "#F6E7C8",
-    "primary": "#D9582B",
-    "accent": "#1B8A8F",
-    "text": "#27283D",
+    "background": "#FFF4E0",
+    "primary": "#E8743B",
+    "accent": "#5ED3C9",
+    "text": "#1B1B3A",
     "font": "Poppins"
   },
   "scenes": [
     {
       "type": "stage",
-      "stage": "rnHook",
+      "stage": "atHook",
       "labels": [
         "Mitos atau Fakta?",
-        "PULAU PASKAH"
+        "GURUN ATACAMA"
       ],
-      "kicker": "Pulau Paskah",
+      "kicker": "Gurun Atacama",
       "highlight": [
         "Piko",
         "enam",
         "mitos",
         "fakta"
       ],
-      "narration": "Pulau Paskah, pulau kecil di tengah Pasifik yang terkenal sama patung raksasanya. Aku Piko, si pin peta, dan aku cek enam klaim soal Pulau Paskah. Mitos, fakta, atau sebagian benar? Gas!",
+      "narration": "Gurun Atacama di Chile, tempat yang katanya paling gersang di Bumi. Aku Piko, si pin peta, dan aku cek enam klaim soal gurun ini. Mitos, atau sebagian benar, atau fakta? Gas!",
       "delivery": "cepat dan energik, pembukaan kuis",
       "durationInSeconds": 7
     },
     {
       "type": "stage",
-      "stage": "rnKepala",
+      "stage": "atGauge",
       "labels": [
-        "Moai itu cuma kepala",
-        "MITOS"
+        "Gurun paling kering sedunia?",
+        "SEBAGIAN BENAR"
       ],
       "kicker": "Klaim 1",
       "highlight": [
-        "kepala",
-        "badan",
-        "sepuluh",
-        "mitos"
+        "lima belas",
+        "Antartika",
+        "sebagian"
       ],
-      "narration": "Satu. Patung moai itu cuma kepala. Mitos atau fakta? Tebak dulu. Foto terkenalnya memang cuma kelihatan kepala, karena badannya terkubur sampai bahu. Tapi begitu digali, badannya ada. Yang tertinggi sampai sekitar sepuluh meter. Para arkeolog sudah tahu sejak penggalian tahun seribu sembilan ratus empat belas. Vonisnya: mitos!",
+      "narration": "Satu. Atacama gurun paling kering sedunia. Tebak dulu. Rata-rata hujannya cuma sekitar lima belas milimeter setahun. Tapi sebagian Antartika malah lebih kering. Vonisnya: sebagian benar!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "rnTerpencil",
+      "stage": "atHujan",
       "labels": [
-        "Pulau berpenghuni|paling terpencil di dunia",
-        "FAKTA"
+        "Atacama tidak pernah hujan?",
+        "MITOS"
       ],
       "kicker": "Klaim 2",
       "highlight": [
-        "terpencil",
-        "Chile",
-        "Pitcairn",
-        "fakta"
+        "satu sampai tiga",
+        "Maret",
+        "mitos"
       ],
-      "narration": "Dua. Pulau Paskah itu pulau berpenghuni paling terpencil di dunia. Mitos atau fakta, hayo? Daratan Chile ada sekitar tiga ribu tujuh ratus kilometer ke timur. Tetangga berpenghuni terdekat, Pulau Pitcairn, sekitar dua ribu kilometer ke barat. Sampai ada yang menyebutnya daratan berpenghuni paling terisolasi di Bumi. Vonisnya: fakta!",
+      "narration": "Dua. Atacama tidak pernah hujan. Benar nggak ya? Titik terkeringnya memang cuma satu sampai tiga milimeter setahun. Tapi Maret dua ribu lima belas, hujan bertahun-tahun turun dalam sehari. Vonisnya: mitos!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "rnHadap",
+      "stage": "atHidup",
       "labels": [
-        "Moai menghadap ke laut",
+        "Atacama tanpa kehidupan?",
         "MITOS"
       ],
       "kicker": "Klaim 3",
       "highlight": [
-        "menghadap",
-        "desa",
-        "tujuh",
+        "mikroba",
+        "Begitu hujan",
+        "tiga sampai sepuluh",
         "mitos"
       ],
-      "narration": "Tiga. Patung moai menghadap ke laut. Benar nggak ya? Hampir semuanya justru membelakangi laut dan menghadap desa. Pengecualiannya cuma tujuh moai di Ahu Akivi, yang menatap laut. Vonisnya: mitos!",
+      "narration": "Tiga. Atacama tanpa kehidupan. Tebak dulu. Ada mikroba yang tidur di bawah tanah. Begitu hujan turun, mereka bangun, dan bunga mekar tiap tiga sampai sepuluh tahun. Vonisnya: mitos!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 12
+    },
+    {
+      "type": "stage",
+      "stage": "atMars",
+      "labels": [
+        "NASA tes alat Mars di Atacama?",
+        "FAKTA"
+      ],
+      "kicker": "Klaim 4",
+      "highlight": [
+        "mirip Mars",
+        "rover",
+        "fakta"
+      ],
+      "narration": "Empat. Atacama dipakai menguji alat untuk Mars. Benar nggak ya? Tanahnya mirip Mars, jadi rover dan alat pendeteksi kehidupan diuji di sini. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 11
     },
     {
       "type": "stage",
-      "stage": "rnJalan",
+      "stage": "atAlma",
       "labels": [
-        "Moai bisa berjalan",
-        "SEBAGIAN BENAR"
-      ],
-      "kicker": "Klaim 4",
-      "highlight": [
-        "berjalan",
-        "tali",
-        "delapan",
-        "sebagian"
-      ],
-      "narration": "Empat. Patung moai bisa berjalan. Mitos, fakta, atau sebagian benar? Hati-hati, yang ini licin. Sebagian warga Rapa Nui bilang patungnya memang berjalan. Para peneliti menarik replika dengan tiga tali sambil digoyang kiri kanan. Delapan belas orang menggerakkannya seratus meter dalam empat puluh menit. Tapi peneliti lain bilang itu baru bukti bisa, bukan bukti terjadi. Vonisnya: sebagian benar!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 13
-    },
-    {
-      "type": "stage",
-      "stage": "rnHutan",
-      "labels": [
-        "Penduduk punah|karena tebang pohon",
-        "MITOS"
+        "Langit paling jernih buat teleskop?",
+        "FAKTA"
       ],
       "kicker": "Klaim 5",
       "highlight": [
-        "pohon",
-        "tikus",
-        "seribu",
-        "mitos"
-      ],
-      "narration": "Lima. Penduduk Pulau Paskah punah karena menebang semua pohonnya. Mitos atau fakta? Tebak dulu. Pohon palemnya memang habis. Tapi menurut studi Lipo dan Hunt, pelaku utamanya tikus Polinesia, yang memakan bijinya sampai jumlahnya jutaan. Penduduknya baru anjlok setelah orang Eropa datang tahun seribu tujuh ratus dua puluh dua. Vonisnya: mitos!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 13
-    },
-    {
-      "type": "stage",
-      "stage": "rnTulis",
-      "labels": [
-        "Tulisan kuno Rapa Nui|belum bisa dibaca",
-        "FAKTA"
-      ],
-      "kicker": "Klaim 6",
-      "highlight": [
-        "rongorongo",
-        "dua puluh tujuh",
+        "lima ribu meter",
+        "enam puluh enam",
         "fakta"
       ],
-      "narration": "Enam. Tulisan kuno Rapa Nui, namanya rongorongo, sampai sekarang belum bisa dibaca. Mitos atau fakta? Tebak dulu. Tersisa dua puluh tujuh benda kayu bertulisan, dan semuanya sudah tidak ada di pulau itu. Berbagai upaya membacanya belum ada yang diterima. Vonisnya: fakta!",
+      "narration": "Lima. Langit Atacama jernih buat teleskop. Tebak dulu. Di ketinggian lima ribu meter, ada enam puluh enam antena ALMA yang mengintip alam semesta. Vonisnya: fakta!",
       "delivery": "cepat dan energik",
       "durationInSeconds": 12
     },
     {
       "type": "stage",
-      "stage": "rnTutup",
+      "stage": "atLitium",
       "labels": [
-        "Skor Pulau Paskah",
+        "Atacama punya lithium terbanyak?",
+        "SEBAGIAN BENAR"
+      ],
+      "kicker": "Klaim 6",
+      "highlight": [
+        "tiga puluh enam",
+        "Uyuni",
+        "sebagian"
+      ],
+      "narration": "Enam. Atacama punya lithium terbanyak. Benar nggak ya? Chile menyumbang tiga puluh enam persen produksi dunia. Tapi cadangan terbesar ada di Uyuni, Bolivia. Vonisnya: sebagian benar!",
+      "delivery": "cepat dan energik",
+      "durationInSeconds": 13
+    },
+    {
+      "type": "stage",
+      "stage": "atTutup",
+      "labels": [
+        "Skor Gurun Atacama",
         "Daerah mana berikutnya?"
       ],
       "kicker": "Skor",
       "highlight": [
-        "mitos",
-        "sebagian",
-        "fakta",
+        "dua mitos",
+        "dua sebagian",
+        "dua fakta",
         "komentar"
       ],
-      "narration": "Skor akhir Pulau Paskah: tiga mitos, satu sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
+      "narration": "Skor akhir Atacama: dua mitos, dua sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
       "delivery": "cepat dan energik, penutup",
       "durationInSeconds": 8
     }

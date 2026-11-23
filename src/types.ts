@@ -63,7 +63,12 @@ export const RAPANUI_STAGE_NAMES = [
   "rnHook", "rnKepala", "rnTerpencil", "rnHadap", "rnJalan", "rnHutan", "rnTulis", "rnTutup",
 ] as const;
 export type RapaNuiStageName = (typeof RAPANUI_STAGE_NAMES)[number];
-export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES] as const;
+/** Adegan khusus seri "Mitos atau Fakta": episode Gurun Atacama (src/AtacamaStages.tsx). */
+export const ATACAMA_STAGE_NAMES = [
+  "atHook", "atGauge", "atHujan", "atHidup", "atMars", "atAlma", "atLitium", "atTutup",
+] as const;
+export type AtacamaStageName = (typeof ATACAMA_STAGE_NAMES)[number];
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES, ...ATACAMA_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];
 
 export type ArtName = (typeof ART_NAMES)[number];
