@@ -6,7 +6,8 @@ import { BHUTAN_DESIGN, BHUTAN_LT, BHUTAN_STAGES } from "./BhutanStages";
 import { ATACAMA_DESIGN, ATACAMA_LT, ATACAMA_STAGES, AtacamaBackdrop, AtacamaFront } from "./AtacamaStages";
 import { RAPANUI_DESIGN, RAPANUI_LT, RAPANUI_STAGES, RapaNuiBackdrop } from "./RapaNuiStages";
 import { ANTARTIKA_DESIGN, ANTARTIKA_LT, ANTARTIKA_STAGES, AntartikaBackdrop } from "./AntartikaStages";
-import { Caption, StageName, Theme } from "./types";
+import { BROKI_DESIGN, BROKI_LT, BrokiStageView } from "./BrokiStages";
+import { BROKI_STAGE_NAMES, BrokiStageName, Caption, StageName, Theme } from "./types";
 
 /**
  * Scene "stage": satu adegan vektor penuh yang bergerak mengikuti proses yang diceritakan,
@@ -72,6 +73,7 @@ const LT: Record<StageName, number[]> = {
   ...ANTARTIKA_LT,
   ...RAPANUI_LT,
   ...ATACAMA_LT,
+  ...BROKI_LT,
 };
 
 const backOut = (v: number) => {
@@ -613,6 +615,7 @@ const STAGES: Record<StageName, React.FC<Ctx>> = {
   ...ANTARTIKA_STAGES,
   ...RAPANUI_STAGES,
   ...ATACAMA_STAGES,
+  ...(Object.fromEntries(BROKI_STAGE_NAMES.map((n) => [n, () => null])) as unknown as Record<BrokiStageName, React.FC<Ctx>>),
 };
 
 /** Durasi (detik) yang dipakai saat adegan dirancang; waktu animasi diregangkan ke durasi scene sebenarnya. */
@@ -629,6 +632,7 @@ const DESIGN_SECONDS: Record<StageName, number> = {
   ...ANTARTIKA_DESIGN,
   ...RAPANUI_DESIGN,
   ...ATACAMA_DESIGN,
+  ...BROKI_DESIGN,
 };
 
 const speedFor = (stage: StageName, durationInFrames: number, fps: number) =>
@@ -665,6 +669,7 @@ export const StageView: React.FC<{ stage: StageName; labels?: string[]; theme: T
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  if (/^bk/.test(stage)) return <BrokiStageView stage={stage as BrokiStageName} captions={captions} />;
   const Draw = STAGES[stage];
   if (!Draw) return null;
   // Selaraskan irama animasi dengan panjang narasi: scene lebih panjang = gerak lebih pelan, dan sebaliknya.

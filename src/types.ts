@@ -68,7 +68,10 @@ export const ATACAMA_STAGE_NAMES = [
   "atHook", "atGauge", "atHujan", "atHidup", "atMars", "atAlma", "atLitium", "atTutup",
 ] as const;
 export type AtacamaStageName = (typeof ATACAMA_STAGE_NAMES)[number];
-export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES, ...ATACAMA_STAGE_NAMES] as const;
+/** Adegan seri "Broki life" (src/BrokiStages.tsx), tokoh stickman Broki. */
+export const BROKI_STAGE_NAMES = ["bkHook", "bkOtak", "bkKenyataan", "bkPsiko", "bkTwist", "bkSolusi", "bkTutup"] as const;
+export type BrokiStageName = (typeof BROKI_STAGE_NAMES)[number];
+export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES, ...ATACAMA_STAGE_NAMES, ...BROKI_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];
 
 export type ArtName = (typeof ART_NAMES)[number];
@@ -270,6 +273,10 @@ export type VideoProps = {
   sfxVolume?: number;
   /** "flow" = transisi menyambung antar scene, subtitle kata demi kata, rel progres bab, gerak halus. */
   motion?: "flow";
+  /** "typewriter": subtitle mesin ketik per kata dengan kata kunci hijau dan kursor (seri Broki). */
+  captionStyle?: "typewriter";
+  /** true: sembunyikan rel progres bab dan penanda bab (mode flow). */
+  hideChrome?: boolean;
   /** true: latar satu warna polos (theme.background) di seluruh video; `bg` per scene diabaikan. */
   plainBackground?: boolean;
 };

@@ -11,6 +11,7 @@ import {
 import { Background } from "./Background";
 import { resolveTheme } from "./eras";
 import { Captions } from "./Captions";
+import { TypeCaptions } from "./BrokiStages";
 import { ChapterChip, ChapterRail, FLOW_OVERLAP, FlowCaptions, FlowStage } from "./Flow";
 import { loadThemeFont } from "./fonts";
 import { SceneView } from "./SceneView";
@@ -56,6 +57,8 @@ export const Video: React.FC<VideoProps> = ({
   sfxVolume = DEFAULT_SFX_VOLUME,
   motion,
   plainBackground = false,
+  captionStyle,
+  hideChrome = false,
 }) => {
   const flow = motion === "flow";
   const { fps, durationInFrames: totalFrames } = useVideoConfig();
@@ -144,12 +147,12 @@ export const Video: React.FC<VideoProps> = ({
       ) : null}
       {flow ? (
         <>
-          <ChapterRail
+          {hideChrome ? null : <ChapterRail
             starts={timeline.map((x) => x.start)}
             total={timeline.reduce((m, x) => Math.max(m, x.start + x.durationInFrames), 0)}
             colors={sceneThemes.map((th) => th.primary)}
             track={sceneThemes[0].text}
-          />
+          />}
           {timeline.map(({ scene, start, durationInFrames }, i) => {
             const sceneTheme = sceneThemes[i];
             const sfx = scene.sfx ?? defaultSfx;
@@ -166,14 +169,14 @@ export const Video: React.FC<VideoProps> = ({
                     <SceneView scene={scene} theme={sceneTheme} durationInFrames={durationInFrames} fade={false} />
                   </div>
                 </FlowStage>
-                <ChapterChip index={i} count={timeline.length} kicker={kicker} theme={sceneTheme} duration={durationInFrames + (i < timeline.length - 1 ? FLOW_OVERLAP : 0)} />
+                {hideChrome ? null : <ChapterChip index={i} count={timeline.length} kicker={kicker} theme={sceneTheme} duration={durationInFrames + (i < timeline.length - 1 ? FLOW_OVERLAP : 0)} />}
                 {sfx && sfx !== "none" ? <Audio src={staticFile(audioPath(sfx, "sfx"))} volume={sfxVolume} /> : null}
                 {scene.audio ? (
                   <Sequence from={Math.round((scene.audioDelaySeconds ?? 0) * fps)}>
                     <Audio src={staticFile(scene.audio)} />
                   </Sequence>
                 ) : null}
-                {subtitles ? <FlowCaptions captions={scene.captions} highlight={scene.highlight} theme={sceneTheme} /> : null}
+                {subtitles ? (captionStyle === "typewriter" ? <TypeCaptions captions={scene.captions} highlight={scene.highlight} /> : <FlowCaptions captions={scene.captions} highlight={scene.highlight} theme={sceneTheme} />) : null}
               </Sequence>
             );
           })}

@@ -3,162 +3,104 @@
   "subtitles": true,
   "motion": "flow",
   "plainBackground": true,
+  "hideChrome": true,
+  "captionStyle": "typewriter",
   "voice": {
     "provider": "gemini",
-    "voiceName": "Sulafat",
-    "speed": 1.15,
-    "style": "bicara dengan tempo cepat, energik, dan ringkas seperti pembawa kuis yang antusias, kalimat langsung nyambung tanpa jeda panjang"
+    "voiceName": "Puck",
+    "speed": 1.08,
+    "style": "teman ngobrol yang jenaka, santai tapi tempo cepat dan hidup, kalimat nyambung tanpa jeda panjang"
   },
   "music": {
-    "track": "upbeat"
+    "track": "calm",
+    "volume": 0.05,
+    "fadeInSeconds": 0.8,
+    "fadeOutSeconds": 1.2
   },
   "defaultSfx": "none",
   "theme": {
-    "background": "#FFF4E0",
+    "background": "#1E2147",
     "primary": "#E8743B",
-    "accent": "#5ED3C9",
-    "text": "#1B1B3A",
+    "accent": "#8BD450",
+    "text": "#FFF6E5",
     "font": "Poppins"
   },
   "scenes": [
     {
       "type": "stage",
-      "stage": "atHook",
-      "labels": [
-        "Mitos atau Fakta?",
-        "GURUN ATACAMA"
-      ],
-      "kicker": "Gurun Atacama",
+      "stage": "bkHook",
+      "durationInSeconds": 5,
+      "narration": "Chat udah centang biru, tapi nggak dibales. Dan otak langsung bikin sinetron.",
       "highlight": [
-        "Piko",
-        "enam",
-        "mitos",
-        "fakta"
-      ],
-      "narration": "Gurun Atacama di Chile, tempat yang katanya paling gersang di Bumi. Aku Piko, si pin peta, dan aku cek enam klaim soal gurun ini. Mitos, atau sebagian benar, atau fakta? Gas!",
-      "delivery": "cepat dan energik, pembukaan kuis",
-      "durationInSeconds": 7
+        "centang biru",
+        "sinetron"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atGauge",
-      "labels": [
-        "Gurun paling kering sedunia?",
-        "SEBAGIAN BENAR"
-      ],
-      "kicker": "Klaim 1",
+      "stage": "bkOtak",
+      "durationInSeconds": 5,
+      "narration": "Lima menit. Sepuluh menit. Sejam. Tiba-tiba Broki yakin: dia marah, dia bosan, dan dia lagi nonton drakor bareng orang lain.",
       "highlight": [
-        "lima belas",
-        "Antartika",
-        "sebagian"
-      ],
-      "narration": "Satu. Atacama gurun paling kering sedunia. Tebak dulu. Rata-rata hujannya cuma sekitar lima belas milimeter setahun. Tapi sebagian Antartika malah lebih kering. Vonisnya: sebagian benar!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+        "marah",
+        "bosan",
+        "drakor"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atHujan",
-      "labels": [
-        "Atacama tidak pernah hujan?",
-        "MITOS"
-      ],
-      "kicker": "Klaim 2",
+      "stage": "bkKenyataan",
+      "durationInSeconds": 5,
+      "narration": "Padahal kenyataannya? HP-nya lagi dicas di kamar. Orangnya lagi nyuci piring sambil nyanyi.",
       "highlight": [
-        "satu sampai tiga",
-        "Maret",
-        "mitos"
-      ],
-      "narration": "Dua. Atacama tidak pernah hujan. Benar nggak ya? Titik terkeringnya memang cuma satu sampai tiga milimeter setahun. Tapi Maret dua ribu lima belas, hujan bertahun-tahun turun dalam sehari. Vonisnya: mitos!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+        "dicas",
+        "nyuci piring",
+        "nyanyi"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atHidup",
-      "labels": [
-        "Atacama tanpa kehidupan?",
-        "MITOS"
-      ],
-      "kicker": "Klaim 3",
+      "stage": "bkPsiko",
+      "durationInSeconds": 5,
+      "narration": "Ini kerjaan otak. Dia benci ketidakpastian. Ada eksperimen yang nemuin, stres justru paling tinggi pas peluangnya fifty-fifty, bukan pas pasti kena. Jadi pas informasinya kosong, otak ngisinya pakai skenario terburuk.",
       "highlight": [
-        "mikroba",
-        "Begitu hujan",
-        "tiga sampai sepuluh",
-        "mitos"
-      ],
-      "narration": "Tiga. Atacama tanpa kehidupan. Tebak dulu. Ada mikroba yang tidur di bawah tanah. Begitu hujan turun, mereka bangun, dan bunga mekar tiap tiga sampai sepuluh tahun. Vonisnya: mitos!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+        "ketidakpastian",
+        "fifty-fifty",
+        "skenario terburuk"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atMars",
-      "labels": [
-        "NASA tes alat Mars di Atacama?",
-        "FAKTA"
-      ],
-      "kicker": "Klaim 4",
+      "stage": "bkTwist",
+      "durationInSeconds": 5,
+      "narration": "Dan jujur aja, Broki juga sering gitu. Baca chat, mikir ntar aja deh bales, terus lupa hampir seharian. Di seberang sana, ada yang lagi bikin sinetron.",
       "highlight": [
-        "mirip Mars",
-        "rover",
-        "fakta"
-      ],
-      "narration": "Empat. Atacama dipakai menguji alat untuk Mars. Benar nggak ya? Tanahnya mirip Mars, jadi rover dan alat pendeteksi kehidupan diuji di sini. Vonisnya: fakta!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 11
+        "jujur",
+        "hampir seharian",
+        "sinetron"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atAlma",
-      "labels": [
-        "Langit paling jernih buat teleskop?",
-        "FAKTA"
-      ],
-      "kicker": "Klaim 5",
+      "stage": "bkSolusi",
+      "durationInSeconds": 5,
+      "narration": "Jadi sebelum nulis skenario di kepala, coba tanya aja. Satu kalimat singkat, bisa nyelametin dua malam tidur kamu.",
       "highlight": [
-        "lima ribu meter",
-        "enam puluh enam",
-        "fakta"
-      ],
-      "narration": "Lima. Langit Atacama jernih buat teleskop. Tebak dulu. Di ketinggian lima ribu meter, ada enam puluh enam antena ALMA yang mengintip alam semesta. Vonisnya: fakta!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 12
+        "tanya aja",
+        "satu kalimat",
+        "dua malam"
+      ]
     },
     {
       "type": "stage",
-      "stage": "atLitium",
-      "labels": [
-        "Atacama punya lithium terbanyak?",
-        "SEBAGIAN BENAR"
-      ],
-      "kicker": "Klaim 6",
+      "stage": "bkTutup",
+      "durationInSeconds": 5,
+      "narration": "Diam itu bukan jawaban. Seringnya, orang cuma lagi hidup. Masih banyak isi kepala Broki yang lucu, jangan sampai ketinggalan episode berikutnya.",
       "highlight": [
-        "tiga puluh enam",
-        "Uyuni",
-        "sebagian"
-      ],
-      "narration": "Enam. Atacama punya lithium terbanyak. Benar nggak ya? Chile menyumbang tiga puluh enam persen produksi dunia. Tapi cadangan terbesar ada di Uyuni, Bolivia. Vonisnya: sebagian benar!",
-      "delivery": "cepat dan energik",
-      "durationInSeconds": 13
-    },
-    {
-      "type": "stage",
-      "stage": "atTutup",
-      "labels": [
-        "Skor Gurun Atacama",
-        "Daerah mana berikutnya?"
-      ],
-      "kicker": "Skor",
-      "highlight": [
-        "dua mitos",
-        "dua sebagian",
-        "dua fakta",
-        "komentar"
-      ],
-      "narration": "Skor akhir Atacama: dua mitos, dua sebagian benar, dua fakta. Daerah mana yang mau aku cek berikutnya? Tulis di komentar!",
-      "delivery": "cepat dan energik, penutup",
-      "durationInSeconds": 8
+        "bukan jawaban",
+        "lagi hidup",
+        "episode berikutnya"
+      ]
     }
   ]
 }

@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.3.0",
+    "@fontsource/space-mono": "^5.3.0",
     "@remotion/cli": "4.0.541",
     "@remotion/google-fonts": "4.0.541",
     "react": "^19.0.0",
