@@ -9,7 +9,8 @@
     "provider": "gemini",
     "voiceName": "Puck",
     "speed": 1.08,
-    "style": "teman ngobrol yang jenaka, santai tapi tempo cepat dan hidup, kalimat nyambung tanpa jeda panjang"
+    "style": "satu narator pria yang sama dari awal sampai akhir, nada, warna suara, dan tingkat energi konsisten. Gaya teman ngobrol yang jenaka, santai tapi tempo cepat, kalimat nyambung tanpa jeda panjang",
+    "oneTake": true
   },
   "music": {
     "track": "calm",

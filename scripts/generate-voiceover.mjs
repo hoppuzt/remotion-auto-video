@@ -74,6 +74,8 @@ function resolveVoice(voice) {
       style: String(v.style || GEMINI_DEFAULT_STYLE),
       // Percepat hasil suara (1 = normal). Aman sampai sekitar 1.25; nada tetap (ffmpeg atempo).
       speed: typeof v.speed === "number" && v.speed > 1 && v.speed <= 1.5 ? v.speed : 1,
+      // oneTake: seluruh narasi dibacakan SEKALI jalan (intonasi konsisten), lalu dipotong per scene di jeda hening.
+      oneTake: v.oneTake === true,
     };
   }
   const num = (x, fallback) => (typeof x === "number" && Number.isFinite(x) ? x : fallback);
@@ -275,6 +277,51 @@ function speedUpWav(buf, speed) {
   } finally {
     for (const f of [tmpIn, tmpOut]) if (existsSync(f)) unlinkSync(f);
   }
+}
+
+
+/** Cari titik hening (detik, tengah jeda) dalam WAV dengan ffmpeg silencedetect. */
+function findSilences(file) {
+  let out = "";
+  try {
+    execFileSync("ffmpeg", ["-hide_banner", "-nostats", "-i", file, "-af", "silencedetect=noise=-34dB:d=0.12", "-f", "null", "-"], { stdio: ["ignore", "ignore", "pipe"] });
+  } catch (err) {
+    out = String(err?.stderr || "");
+  }
+  if (!out) {
+    try {
+      const r = execFileSync("sh", ["-c", `ffmpeg -hide_banner -nostats -i "${file}" -af silencedetect=noise=-34dB:d=0.12 -f null - 2>&1`]);
+      out = String(r);
+    } catch (err) {
+      out = String(err?.stdout || "");
+    }
+  }
+  const starts = [...out.matchAll(/silence_start: ([\d.]+)/g)].map((m) => Number(m[1]));
+  const ends = [...out.matchAll(/silence_end: ([\d.]+)/g)].map((m) => Number(m[1]));
+  return starts.map((a, i) => ({ mid: (a + (ends[i] ?? a)) / 2, len: (ends[i] ?? a) - a })).filter((x) => Number.isFinite(x.mid));
+}
+
+/** Potong take panjang jadi segmen per scene: pilih jeda terdekat dari perkiraan batas (proporsi karakter). */
+function splitTake(file, texts, outFiles) {
+  const total = audioSeconds(file);
+  const chars = texts.map((t) => t.length);
+  const sum = chars.reduce((a, b) => a + b, 0);
+  const silences = findSilences(file);
+  const cuts = [0];
+  let acc = 0;
+  for (let i = 0; i < texts.length - 1; i++) {
+    acc += chars[i];
+    const expected = (acc / sum) * total;
+    const window = Math.max(1.5, total * 0.06);
+    const cand = silences.filter((x) => x.mid > cuts[cuts.length - 1] + 0.8 && Math.abs(x.mid - expected) <= window);
+    cand.sort((a, b) => b.len - a.len + (Math.abs(a.mid - expected) - Math.abs(b.mid - expected)) * 0.3);
+    cuts.push(cand.length ? cand[0].mid : expected);
+  }
+  cuts.push(total);
+  texts.forEach((_, i) => {
+    execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-ss", String(cuts[i]), "-to", String(cuts[i + 1]), "-ar", "24000", "-ac", "1", outFiles[i]]);
+  });
+  log(`take dipotong di detik: ${cuts.slice(1, -1).map((c) => c.toFixed(2)).join(", ")} dari ${total.toFixed(2)}`);
 }
 
 // ---------------------------------------------------------------- subtitle
@@ -554,6 +601,35 @@ async function main() {
   let cached = 0;
   const scenes = [];
 
+  // Mode satu kali baca: sintesis semua narasi sekaligus supaya suara & intonasi konsisten.
+  let takeId = "";
+  if (gemini && voice.oneTake) {
+    const idx = input.scenes.map((sc, i) => [i, typeof sc.narration === "string" ? sc.narration.replace(/\s+/g, " ").trim() : ""]).filter(([, t]) => t);
+    const texts = idx.map(([, t]) => t);
+    takeId = createHash("sha256").update(JSON.stringify([voice.id, voice.model, voice.style, voice.speed, texts])).digest("hex").slice(0, 16);
+    const outs = idx.map(([i, t]) => path.join(AUDIO_DIR, `${cacheKey(voice, t, `take:${takeId}:${i}`)}.wav`));
+    if (!outs.every((f) => existsSync(f) && statSync(f).size > 0)) {
+      if (!apiKey) fail("Mode oneTake butuh GEMINI_API_KEY untuk membuat suara baru.");
+      log(`oneTake: membuat suara ${texts.length} bagian sekaligus (${texts.join(" ").length} karakter, voice ${voice.id})...`);
+      let audio = await synthesizeGemini(texts.join("\n\n"), voice, "", apiKey);
+      if (voice.speed > 1) {
+        try {
+          audio = speedUpWav(audio, voice.speed);
+        } catch (err) {
+          log(`gagal mempercepat (${err?.message}); pakai tempo asli`);
+        }
+      }
+      const whole = path.join(AUDIO_DIR, `take-${takeId}.wav`);
+      writeFileSync(whole, audio);
+      try {
+        splitTake(whole, texts, outs);
+      } finally {
+        if (existsSync(whole)) unlinkSync(whole);
+      }
+      generated += texts.length;
+    }
+  }
+
   for (const [index, scene] of input.scenes.entries()) {
     const narration = typeof scene.narration === "string" ? scene.narration.replace(/\s+/g, " ").trim() : "";
     if (!narration) {
@@ -561,7 +637,7 @@ async function main() {
       continue;
     }
 
-    const delivery = typeof scene.delivery === "string" ? scene.delivery.trim() : "";
+    const delivery = takeId ? `take:${takeId}:${index}` : typeof scene.delivery === "string" ? scene.delivery.trim() : "";
     const hash = cacheKey(voice, narration, delivery);
     const relative = `audio/${hash}.${ext}`;
     const file = path.join(AUDIO_DIR, `${hash}.${ext}`);
