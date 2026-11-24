@@ -35,7 +35,17 @@ jobs:
         run: npm ci
 
       - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        timeout-minutes: 6
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          if ! command -v ffmpeg >/dev/null; then
+            timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg || {
+              echo "apt gagal, pakai ffmpeg bawaan Remotion"
+              printf '#!/bin/sh\nexec npx --no-install remotion ffmpeg "$@"\n' | sudo tee /usr/local/bin/ffmpeg >/dev/null
+              sudo chmod +x /usr/local/bin/ffmpeg
+            }
+          fi
+          ffmpeg -version | head -1
 
       - name: Generate Voiceover & Captions
         env:
