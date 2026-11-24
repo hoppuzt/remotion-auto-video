@@ -1323,6 +1323,353 @@ const BrokiTutup: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
   );
 };
 
+/* ---------------------------------------------------------------- EPISODE 2: Mantan Lewat Story */
+
+const SoftCard: React.FC<{ x: number; y: number; w: number; h: number; s: number; children?: React.ReactNode; fill?: string }> = ({ x, y, w, h, s, children, fill = "#1A1D3D" }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} opacity={clamp01(s * 1.6)}>
+    <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={34} fill={fill} stroke="#454B93" strokeWidth={5} />
+    {children}
+  </g>
+);
+
+const StoryRing: React.FC<{ r: number; t: number; seen?: boolean }> = ({ r, t, seen }) => (
+  <g>
+    <circle r={r + 10} fill="none" stroke={seen ? "#6B6F99" : "#FF7F9E"} strokeWidth={7} strokeDasharray={seen ? "0" : `${r * 1.2} ${r * 0.3}`} transform={`rotate(${t * 40})`} />
+    <circle r={r} fill="#E8743B" />
+    <circle cy={-r * 0.2} r={r * 0.32} fill="#FFF6E5" />
+    <path d={`M ${-r * 0.55} ${r * 0.62} Q 0 ${r * 0.05} ${r * 0.55} ${r * 0.62} Z`} fill="#FFF6E5" />
+  </g>
+);
+
+const Bk2Hook: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cJam = cue("Jam dua", 0.3);
+  const cCek = cue("ngecek", 1.8);
+  const cLima = cue("kelima", 4.0);
+  const count = Math.min(5, Math.floor(Math.max(0, t - cCek) / 0.55) + 1);
+  const shown = t < cCek ? 0 : count;
+  const card = pop(t, cCek - 0.2, 0.5);
+  const pose = track(
+    t,
+    [
+      { t: 0, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.7, headTilt: 3 }) },
+      { t: cCek, v: P({ aR: 18, eR: 124, aL: 14, eL: 8, lookY: 0.8, headTilt: -2, lean: 1 }) },
+      { t: cLima, v: P({ aR: 18, eR: 124, aL: 112, eL: -122, lookY: 0.5, headTilt: 6, lean: -1 }) },
+    ],
+    0.6,
+    "inout"
+  );
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.tenang }, { t: cCek, v: EXPR.santai }, { t: cLima, v: EXPR.kaget }], 0.4);
+  return (
+    <>
+      <Room id="e2a" t={t} minutes={120 + t * 1.2} lamp tone={0} />
+      <SoftCard x={765} y={420} w={500} h={400} s={card}>
+        <g transform="translate(-170 -90)"><StoryRing r={52} t={t} /></g>
+        <text x={-90} y={-100} fill="#F4F1FF" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>Story mantan</text>
+        <text x={-90} y={-62} fill="#8FA0E8" fontFamily={FONT_SANS} fontWeight={600} fontSize={24}>baru saja</text>
+        <rect x={-210} y={0} width={420} height={110} rx={26} fill="#262A57" />
+        <text x={0} y={72} textAnchor="middle" fill="#FFF6E5" fontFamily={FONT_SANS} fontWeight={800} fontSize={40}>
+          dilihat {shown} kali
+        </text>
+        <rect x={-210} y={130} width={420} height={14} rx={7} fill="#262A57" />
+        <rect x={-210} y={130} width={420 * (shown / 5)} height={14} rx={7} fill={BROKI_GREEN} />
+      </SoftCard>
+      <Stickman pose={pose} expr={ex} t={t} x={400} y={1226} scale={1.4} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
+      <Sfx at={cJam} name="ding" volume={0.03} />
+      <Sfx at={cLima} name="whoosh" volume={0.03} />
+    </>
+  );
+};
+
+const Bk2Alasan: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cSama = cue("selalu sama", 0.4);
+  const cBaik = cue("baik-baik aja", 1.8);
+  const cTanda = cue("tanda", 5.4);
+  const thought = pop(t, cSama, 0.5);
+  const lens = seg(t, cTanda - 0.5, cTanda + 1.0);
+  const pose = track(
+    t,
+    [
+      { t: 0, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.5, headTilt: 4 }) },
+      { t: cBaik, v: P({ aR: 18, eR: 122, aL: 70, eL: -140, lookY: 0.2, headTilt: 7 }) },
+      { t: cTanda, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.6, headTilt: -3 }) },
+    ],
+    0.6,
+    "inout"
+  );
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.santai }, { t: cBaik, v: EXPR.senyum }, { t: cTanda, v: EXPR.bingung }], 0.4);
+  return (
+    <>
+      <Room id="e2b" t={t} minutes={125 + t} lamp tone={0} />
+      {[0, 1].map((i) => <circle key={i} cx={470 + i * 38} cy={850 - i * 40} r={9 + i * 6} fill="#FFF6E5" opacity={clamp01(pop(t, cSama + i * 0.08, 0.4))} />)}
+      <g transform={`translate(700 700) scale(${thought})`} opacity={clamp01(thought * 1.6)}>
+        <rect x={-300} y={-60} width={600} height={120} rx={50} fill="#FFF6E5" stroke="#E5CFAE" strokeWidth={3} />
+        <text x={0} y={-6} textAnchor="middle" fill="#1A1B33" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>cuma pengen tahu</text>
+        <text x={0} y={36} textAnchor="middle" fill="#1A1B33" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>dia baik-baik aja</text>
+      </g>
+      {lens > 0 ? (
+        <g transform={`translate(${760 - lens * 40} ${460 + Math.sin(t * 3) * 10})`} opacity={lens}>
+          <path d="M 0 90 C -120 10 -70 -90 0 -34 C 70 -90 120 10 0 90 Z" fill="#FF5B7F" />
+          <text x={0} y={22} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={74} fill="#fff">?</text>
+          <g transform={`translate(${-90 + lens * 150} 60) rotate(-40)`}>
+            <circle r={48} fill="#9AD0F2" opacity={0.45} stroke="#E8D3A8" strokeWidth={12} />
+            <rect x={-8} y={48} width={16} height={70} rx={8} fill="#E8D3A8" />
+          </g>
+        </g>
+      ) : null}
+      <Stickman pose={pose} expr={ex} t={t} x={400} y={1226} scale={1.4} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
+      <Sfx at={cSama} name="click" volume={0.025} />
+      <Sfx at={cTanda} name="whoosh" volume={0.025} />
+    </>
+  );
+};
+
+const Snap: React.FC<{ x: number; y: number; s: number; kind: number; t: number }> = ({ x, y, s, kind, t }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} opacity={clamp01(s * 1.6)}>
+    <rect x={-150} y={-190} width={300} height={380} rx={30} fill="#262A57" stroke="#454B93" strokeWidth={5} />
+    <rect x={-132} y={-172} width={264} height={344} rx={20} fill={["#C8A27A", "#8FB4E8", "#F2C94C"][kind]} />
+    {kind === 0 ? (
+      <g>
+        <path d="M -60 -20 H 60 L 48 90 H -48 Z" fill="#FFF6E5" stroke="#6E4332" strokeWidth={6} strokeLinejoin="round" />
+        <path d="M 60 0 Q 100 0 96 40 Q 90 70 56 66" fill="none" stroke="#FFF6E5" strokeWidth={10} />
+        {[-24, 0, 24].map((dx, i) => <path key={i} d={`M ${dx} -40 q 12 -28 0 -56`} stroke="#fff" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.6 + Math.sin(t * 3 + i) * 0.3} />)}
+      </g>
+    ) : null}
+    {kind === 1 ? (
+      <g>
+        <ellipse cy={30} rx={70} ry={58} fill="#F3EEF9" />
+        <path d="M -62 -10 L -52 -70 L -16 -30 Z M 62 -10 L 52 -70 L 16 -30 Z" fill="#F3EEF9" />
+        <circle cx={-26} cy={20} r={8} fill="#1A1B33" />
+        <circle cx={26} cy={20} r={8} fill="#1A1B33" />
+        <path d="M -10 44 Q 0 54 10 44" stroke="#1A1B33" strokeWidth={5} fill="none" strokeLinecap="round" />
+      </g>
+    ) : null}
+    {kind === 2 ? (
+      <g>
+        <path d="M -80 10 Q 0 -70 80 10 L 60 80 H -60 Z" fill="#E8743B" stroke="#6E4332" strokeWidth={6} strokeLinejoin="round" />
+        {[-30, 0, 30].map((dx, i) => <path key={i} d={`M ${dx} -4 q 14 18 0 36 q -14 18 0 36`} stroke="#FFE9A6" strokeWidth={9} fill="none" strokeLinecap="round" />)}
+      </g>
+    ) : null}
+  </g>
+);
+
+const Bk2Isi: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cKopi = cue("kopi", 0.6);
+  const cKucing = cue("Kucing", 1.4);
+  const cMi = cue("Mi instan", 2.2);
+  const cRahasia = cue("pesan rahasia", 3.4);
+  const pose = track(t, [{ t: 0, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.4 }) }, { t: cRahasia, v: P({ aR: 18, eR: 122, aL: 70, eL: -140, headTilt: 8, lookY: 0.2 }) }], 0.6, "inout");
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.bingung }, { t: cRahasia, v: EXPR.pasrah }], 0.5);
+  const stamp = pop(t, cRahasia + 0.2, 0.45);
+  return (
+    <>
+      <Room id="e2c" t={t} minutes={133 + t} lamp tone={0} />
+      <Snap x={200} y={620} s={pop(t, cKopi, 0.5)} kind={0} t={t} />
+      <Snap x={540} y={560} s={pop(t, cKucing, 0.5)} kind={1} t={t} />
+      <Snap x={880} y={620} s={pop(t, cMi, 0.5)} kind={2} t={t} />
+      <g transform={`translate(540 900) rotate(-6) scale(${stamp})`} opacity={clamp01(stamp * 1.6)}>
+        <rect x={-300} y={-52} width={600} height={104} rx={20} fill="#FFF6E5" stroke="#E5534B" strokeWidth={8} />
+        <text x={0} y={14} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={40} fill="#E5534B">pesan rahasia: tidak ada</text>
+      </g>
+      <Stickman pose={pose} expr={ex} t={t} x={540} y={1326} scale={1.25} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
+      <Sfx at={cKopi} name="click" volume={0.025} />
+      <Sfx at={cRahasia + 0.2} name="ding" volume={0.03} />
+    </>
+  );
+};
+
+const Bk2Psiko: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cTekan = cue("tertekan", 2.6);
+  const cKangen = cue("kangen", 4.4);
+  const cBerkembang = cue("berkembang", 5.6);
+  const cHubungan = cue("hubungan", 7.2);
+  const rows = [
+    { at: cTekan - 0.3, label: "lebih tertekan setelah putus", up: true },
+    { at: cKangen - 0.3, label: "lebih sering kangen", up: true },
+    { at: cBerkembang - 0.5, label: "lebih susah berkembang", up: false },
+  ];
+  const note = pop(t, cHubungan, 0.5);
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.bingung }, { t: cTekan, v: EXPR.cemas }, { t: cHubungan, v: EXPR.tenang }], 0.5);
+  const pose = track(t, [{ t: 0, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.2 }) }, { t: cTekan, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, headTilt: 6, lookY: 0.4 }) }], 0.6, "inout");
+  return (
+    <>
+      <defs>
+        <linearGradient id="e2p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2A2E48" /><stop offset="1" stopColor="#3C4263" /></linearGradient>
+      </defs>
+      <rect width={W} height={H} fill="url(#e2p)" />
+      <g transform={`translate(540 250) scale(${pop(t, 0.2, 0.5)})`}>
+        <rect x={-360} y={-60} width={720} height={120} rx={30} fill="#1A1D3D" stroke={BROKI_GREEN} strokeWidth={5} />
+        <text x={0} y={-8} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={32} fill="#F4F1FF">Orang yang rajin ngecek</text>
+        <text x={0} y={34} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={32} fill={BROKI_GREEN}>medsos mantannya</text>
+      </g>
+      {rows.map((r, i) => {
+        const s = pop(t, r.at, 0.5);
+        const col = r.up ? "#FF7F9E" : "#7EC8F7";
+        return (
+          <g key={i} transform={`translate(540 ${520 + i * 210}) scale(${s})`} opacity={clamp01(s * 1.6)}>
+            <rect x={-420} y={-80} width={840} height={160} rx={36} fill="#1A1D3D" stroke="#454B93" strokeWidth={5} />
+            <circle cx={-320} cy={0} r={52} fill={col} />
+            <path d={r.up ? "M 0 28 V -24 M -24 0 L 0 -26 L 24 0" : "M 0 -28 V 24 M -24 0 L 0 26 L 24 0"} stroke="#1A1B33" strokeWidth={12} fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(-320 0)" />
+            <text x={-240} y={12} fontFamily={FONT_SANS} fontWeight={800} fontSize={40} fill="#FFF6E5">{r.label}</text>
+          </g>
+        );
+      })}
+      <g transform={`translate(540 1100) scale(${note})`} opacity={clamp01(note * 1.6)}>
+        <rect x={-420} y={-62} width={840} height={124} rx={36} fill="#FFF6E5" />
+        <text x={0} y={-6} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={32} fill="#1A1B33">Ini baru hubungan,</text>
+        <text x={0} y={36} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={32} fill="#1A1B33">belum tentu sebab-akibat</text>
+      </g>
+      <text x={540} y={1210} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={600} fontSize={24} fill="#8FA0E8" opacity={note}>Studi Marshall, 2012</text>
+      <Stickman pose={pose} expr={ex} t={t} x={540} y={1500} scale={0.62} shirt="#E8743B" pants="#4F6FC4" energy={0.3} />
+      <Sfx at={cTekan} name="click" volume={0.025} />
+      <Sfx at={cKangen} name="click" volume={0.025} />
+      <Sfx at={cBerkembang} name="click" volume={0.025} />
+    </>
+  );
+};
+
+const Bk2Mute: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cMute = cue("mute", 0.5);
+  const cKedua = cue("akun kedua", 2.2);
+  const cAdil = cue("adil", 4.0);
+  const tog = seg(t, cMute + 0.3, cMute + 0.7);
+  const card2 = pop(t, cKedua, 0.5);
+  const pose = track(t, [{ t: 0, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.6 }) }, { t: cKedua, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, lookY: 0.5, headTilt: -4 }) }, { t: cAdil, v: P({ aR: 18, eR: 122, aL: 14, eL: 8, headTilt: 7, lookY: 0.1 }) }], 0.6, "inout");
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.santai }, { t: cMute, v: EXPR.lega }, { t: cKedua, v: EXPR.senyum }, { t: cAdil, v: { ...EXPR.senyum, smile: 1, open: 0.3 } }], 0.4);
+  return (
+    <>
+      <Room id="e2d" t={t} minutes={150 + t} lamp tone={0} />
+      <SoftCard x={765} y={360} w={500} h={260} s={pop(t, 0.1, 0.5)}>
+        <g transform="translate(-170 -40)"><StoryRing r={42} t={t} seen={tog > 0.5} /></g>
+        <text x={-100} y={-34} fill="#F4F1FF" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>Mute story</text>
+        <rect x={110} y={-62} width={110} height={56} rx={28} fill={tog > 0.5 ? BROKI_GREEN : "#454B93"} />
+        <circle cx={138 + tog * 54} cy={-34} r={22} fill="#fff" />
+        <text x={0} y={84} textAnchor="middle" fill="#8FA0E8" fontFamily={FONT_SANS} fontWeight={600} fontSize={26}>{tog > 0.5 ? "story mantan disembunyikan" : "story mantan tampil"}</text>
+      </SoftCard>
+      <SoftCard x={765} y={700} w={500} h={260} s={card2} fill="#2A1D4A">
+        <g transform="translate(-170 -30)">
+          <circle r={44} fill="#6B6F99" />
+          <circle cy={-10} r={14} fill="#FFF6E5" />
+          <path d="M -26 30 Q 0 0 26 30 Z" fill="#FFF6E5" />
+          <rect x={-20} y={-14} width={40} height={10} rx={5} fill="#1A1B33" />
+        </g>
+        <text x={-100} y={-24} fill="#F4F1FF" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>akun kedua</text>
+        <text x={-100} y={16} fill="#8FA0E8" fontFamily={FONT_SANS} fontWeight={600} fontSize={24}>menyamar, lalu ngecek lagi</text>
+        <text x={0} y={90} textAnchor="middle" fill={BROKI_GREEN} fontFamily={FONT_SANS} fontWeight={800} fontSize={34} opacity={seg(t, cAdil - 0.3, cAdil + 0.2)}>"biar adil"</text>
+      </SoftCard>
+      <Stickman pose={pose} expr={ex} t={t} x={400} y={1226} scale={1.4} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
+      <Sfx at={cMute + 0.4} name="click" volume={0.03} />
+      <Sfx at={cKedua} name="whoosh" volume={0.025} />
+    </>
+  );
+};
+
+const Park: React.FC<{ id: string; t: number }> = ({ id, t }) => (
+  <g>
+    <defs>
+      <linearGradient id={`${id}-sky`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#FFB778" /><stop offset="0.6" stopColor="#FFD9A0" /><stop offset="1" stopColor="#FFF0CF" /></linearGradient>
+    </defs>
+    <rect width={W} height={1500} fill={`url(#${id}-sky)`} />
+    <circle cx={800} cy={420} r={120} fill="#FFF3C9" opacity={0.9} />
+    <path d="M 0 1000 Q 200 880 420 960 T 840 930 T 1080 980 V 1500 H 0 Z" fill="#9BC77A" />
+    <g transform="translate(0 40)">
+      <rect x={0} y={1280} width={W} height={640} fill="#6FAE5E" />
+      <path d="M 300 1920 L 460 1280 H 640 L 860 1920 Z" fill="#E3C99A" />
+    </g>
+    {[170, 900].map((x, i) => (
+      <g key={x} transform={`translate(${x} 1250)`}>
+        <rect x={-18} y={-260} width={36} height={270} fill="#7C4E36" />
+        <circle cy={-330} r={130} fill={i ? "#4F9A55" : "#5CAF5F"} transform={`rotate(${Math.sin(t * 1.2 + i) * 1.5})`} />
+        <circle cx={-80} cy={-280} r={90} fill="#4F9A55" />
+        <circle cx={80} cy={-290} r={95} fill="#5CAF5F" />
+      </g>
+    ))}
+  </g>
+);
+
+const Bk2Solusi: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cMute = cue("mute", 0.3);
+  const cTenang = cue("tenang", 3.0);
+  const cKesibukan = cue("kesibukan lain", 4.6);
+  const cJalan = cue("jalan sore", 6.2);
+  const cTelp = cue("telepon temen", 7.4);
+  const walk = seg(t, cKesibukan - 0.4, cKesibukan + 0.5);
+  const sw = Math.sin(t * 6.5) * 24 * walk;
+  const pose = P({ aL: 20 + sw * 0.8, eL: 20, aR: 20 - sw * 0.8, eR: 20, hL: sw, hR: -sw, kL: Math.max(0, -sw) * 0.8, kR: Math.max(0, sw) * 0.8, bob: Math.abs(Math.sin(t * 6.5)) * 6 * walk, headTilt: 2, lookY: -0.1 });
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.tenang }, { t: cTenang, v: EXPR.lega }, { t: cKesibukan, v: EXPR.senyum }], 0.5);
+  const icons = [
+    { at: cJalan, label: "jalan sore", draw: (<path d="M -30 20 Q -30 -20 0 -20 L 20 -20 Q 40 0 40 20 Z M -40 30 H 44" stroke="#fff" strokeWidth={8} fill="#E8743B" strokeLinecap="round" strokeLinejoin="round" />) },
+    { at: cTelp, label: "telepon temen", draw: (<path d="M -26 -26 Q -34 14 10 34 L 24 18 L 8 4 L -2 12 Q -14 4 -16 -10 L -6 -18 L -18 -34 Z" fill={BROKI_GREEN} stroke="#1E2A12" strokeWidth={4} strokeLinejoin="round" />) },
+  ];
+  return (
+    <>
+      <Park id="e2e" t={t} />
+      <SoftCard x={540} y={330} w={560} h={150} s={pop(t, cMute, 0.5)}>
+        <rect x={-230} y={-30} width={110} height={56} rx={28} fill={BROKI_GREEN} />
+        <circle cx={-148} cy={-2} r={22} fill="#fff" />
+        <text x={-90} y={10} fill="#F4F1FF" fontFamily={FONT_SANS} fontWeight={800} fontSize={36}>story di-mute</text>
+      </SoftCard>
+      {icons.map((ic, i) => {
+        const s = pop(t, ic.at, 0.5);
+        return (
+          <g key={i} transform={`translate(${300 + i * 480} 620) scale(${s})`} opacity={clamp01(s * 1.6)}>
+            <circle r={84} fill="#2B2E5C" stroke={BROKI_GREEN} strokeWidth={6} />
+            <g transform="scale(1.5)">{ic.draw}</g>
+            <text y={134} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={34} fill="#2B2E5C">{ic.label}</text>
+          </g>
+        );
+      })}
+      <Stickman pose={pose} expr={ex} t={t} x={540} y={1380} scale={1.3} shirt="#5DA678" shirtStyle="hoodie" pants="#4F6FC4" energy={0.5} />
+      <Sfx at={cMute + 0.1} name="click" volume={0.025} />
+      <Sfx at={cJalan} name="ding" volume={0.025} />
+      <Sfx at={cTelp} name="ding" volume={0.025} />
+    </>
+  );
+};
+
+const Bk2Tutup: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
+  const cMove = cue("Move on", 0.3);
+  const cNgecek = cue("berhenti ngecek", 2.6);
+  const cIsi = cue("isi kepala", 4.4);
+  const cJangan = cue("jangan sampai", 6.4);
+  const wave = Math.sin(t * 9) * 18 * seg(t, cJangan, cJangan + 0.4);
+  const pose = track(t, [{ t: 0, v: P({ aR: 18, eR: 20, aL: 14, eL: 8, lookY: 0, headTilt: 3 }) }, { t: cJangan + 0.5, v: P({ aR: 18, eR: 20, aL: 140, eL: -14, headTilt: 6, lean: -1, bob: -4 }) }], 0.6, "back");
+  const ex = track<Expr>(t, [{ t: 0, v: EXPR.tenang }, { t: cNgecek, v: EXPR.lega }, { t: cJangan, v: { ...EXPR.senyum, smile: 1, open: 0.45 } }], 0.5);
+  const card = pop(t, cNgecek, 0.5);
+  const icons = ["bulb", "cloud", "heart", "star", "chat"];
+  return (
+    <>
+      <Room id="e2f" t={t} minutes={7 * 60 + t * 0.5} tone={1} day={0.12 + t * 0.012} lamp={false} />
+      <g transform={`translate(765 430) scale(${card})`} opacity={clamp01(card * 1.6)}>
+        <rect x={-250} y={-130} width={500} height={260} rx={34} fill="#1A1D3D" stroke={BROKI_GREEN} strokeWidth={6} />
+        <text x={0} y={-30} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={38} fill="#FFF6E5">Move on bukan lupa</text>
+        <text x={0} y={34} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={44} fill={BROKI_GREEN}>berhenti ngecek</text>
+        <text x={0} y={90} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={600} fontSize={26} fill="#8FA0E8">satu hari, satu langkah</text>
+      </g>
+      {t > cIsi - 0.1
+        ? icons.map((n, i) => {
+            const s = pop(t, cIsi + i * 0.3, 0.5);
+            const ang = (i / icons.length) * Math.PI - Math.PI;
+            const cx = 400 + Math.cos(ang) * 230;
+            const cy = 800 + Math.sin(ang) * 150 + Math.sin(t * 2.2 + i) * 10;
+            return (
+              <g key={n} transform={`translate(${cx} ${cy}) scale(${s})`} opacity={clamp01(s)}>
+                <circle r={46} fill="#2B2E5C" stroke={BROKI_GREEN} strokeWidth={5} />
+                {n === "bulb" ? <path d="M 0 -22 C -22 -22 -22 6 -8 14 L -8 24 L 8 24 L 8 14 C 22 6 22 -22 0 -22 Z" fill="#FFE9A6" /> : null}
+                {n === "cloud" ? <path d="M -22 10 Q -30 -8 -10 -10 Q -4 -28 16 -18 Q 34 -14 28 10 Z" fill="#F3EEF9" /> : null}
+                {n === "heart" ? <path d="M 0 20 C -34 -4 -16 -26 0 -8 C 16 -26 34 -4 0 20 Z" fill="#FF5B7F" /> : null}
+                {n === "star" ? <path d="M 0 -24 L 7 -8 L 24 -8 L 10 3 L 15 20 L 0 10 L -15 20 L -10 3 L -24 -8 L -7 -8 Z" fill="#FFD166" /> : null}
+                {n === "chat" ? <path d="M -22 -14 H 22 V 8 H 4 L -8 20 V 8 H -22 Z" fill="#8BD450" /> : null}
+              </g>
+            );
+          })
+        : null}
+      <Stickman pose={{ ...pose, aL: pose.aL + wave * 0.6, eL: pose.eL + wave * 0.4 }} expr={ex} t={t} x={400} y={1226} scale={1.4} shirt="#E5B53C" shirtStyle="kemeja" pants="#4F6FC4" energy={0.4} />
+      <Sfx at={cNgecek} name="ding" volume={0.025} />
+      <Sfx at={cMove} name="whoosh" volume={0.02} />
+    </>
+  );
+};
+
 /* ---------------------------------------------------------------- tampilan + registrasi */
 
 export const BROKI_STAGES: Record<BrokiStageName, React.FC<{ t: number; cue: Cue }>> = {
@@ -1333,10 +1680,17 @@ export const BROKI_STAGES: Record<BrokiStageName, React.FC<{ t: number; cue: Cue
   bkTwist: BrokiTwist,
   bkSolusi: BrokiSolusi,
   bkTutup: BrokiTutup,
+  bk2Hook: Bk2Hook,
+  bk2Alasan: Bk2Alasan,
+  bk2Isi: Bk2Isi,
+  bk2Psiko: Bk2Psiko,
+  bk2Mute: Bk2Mute,
+  bk2Solusi: Bk2Solusi,
+  bk2Tutup: Bk2Tutup,
 };
 
-export const BROKI_DESIGN: Record<BrokiStageName, number> = { bkHook: 4.5, bkOtak: 7, bkKenyataan: 7, bkPsiko: 12, bkTwist: 9, bkSolusi: 10, bkTutup: 9 };
-export const BROKI_LT: Record<BrokiStageName, number[]> = { bkHook: [], bkOtak: [], bkKenyataan: [], bkPsiko: [], bkTwist: [], bkSolusi: [], bkTutup: [] };
+export const BROKI_DESIGN: Record<BrokiStageName, number> = { bkHook: 4.5, bkOtak: 7, bkKenyataan: 7, bkPsiko: 12, bkTwist: 9, bkSolusi: 10, bkTutup: 9, bk2Hook: 6.5, bk2Alasan: 9, bk2Isi: 7, bk2Psiko: 13, bk2Mute: 8, bk2Solusi: 10, bk2Tutup: 9 };
+export const BROKI_LT: Record<BrokiStageName, number[]> = { bkHook: [], bkOtak: [], bkKenyataan: [], bkPsiko: [], bkTwist: [], bkSolusi: [], bkTutup: [], bk2Hook: [], bk2Alasan: [], bk2Isi: [], bk2Psiko: [], bk2Mute: [], bk2Solusi: [], bk2Tutup: [] };
 
 export const BrokiStageView: React.FC<{ stage: BrokiStageName; captions?: Caption[] }> = ({ stage, captions }) => {
   useBrokiFonts();

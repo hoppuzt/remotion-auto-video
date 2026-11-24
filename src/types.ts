@@ -69,7 +69,7 @@ export const ATACAMA_STAGE_NAMES = [
 ] as const;
 export type AtacamaStageName = (typeof ATACAMA_STAGE_NAMES)[number];
 /** Adegan seri "Broki life" (src/BrokiStages.tsx), tokoh stickman Broki. */
-export const BROKI_STAGE_NAMES = ["bkHook", "bkOtak", "bkKenyataan", "bkPsiko", "bkTwist", "bkSolusi", "bkTutup"] as const;
+export const BROKI_STAGE_NAMES = ["bkHook", "bkOtak", "bkKenyataan", "bkPsiko", "bkTwist", "bkSolusi", "bkTutup", "bk2Hook", "bk2Alasan", "bk2Isi", "bk2Psiko", "bk2Mute", "bk2Solusi", "bk2Tutup"] as const;
 export type BrokiStageName = (typeof BROKI_STAGE_NAMES)[number];
 export const STAGE_NAMES = ["penasaran", "pertama", "goreng", "kemas", "rebus", "senang", ...PHONE_STAGE_NAMES, ...ISLANDIA_STAGE_NAMES, ...BHUTAN_STAGE_NAMES, ...ANTARTIKA_STAGE_NAMES, ...RAPANUI_STAGE_NAMES, ...ATACAMA_STAGE_NAMES, ...BROKI_STAGE_NAMES] as const;
 export type StageName = (typeof STAGE_NAMES)[number];

@@ -29,78 +29,81 @@
   "scenes": [
     {
       "type": "stage",
-      "stage": "bkHook",
+      "stage": "bk2Hook",
       "durationInSeconds": 5,
-      "narration": "Chat udah centang biru, tapi nggak dibales. Dan otak langsung bikin sinetron.",
+      "narration": "Jam dua pagi. Broki bilang cuma ngecek satu story mantan. Itu story yang kelima.",
       "highlight": [
-        "centang biru",
-        "sinetron"
+        "Jam dua pagi",
+        "kelima"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkOtak",
+      "stage": "bk2Alasan",
       "durationInSeconds": 5,
-      "narration": "Lima menit. Sepuluh menit. Sejam. Tiba-tiba Broki yakin: dia marah, dia bosan, dan dia lagi nonton drakor bareng orang lain.",
+      "narration": "Alasannya selalu sama, cuma pengen tahu dia baik-baik aja. Padahal yang dicari bukan kabar. Yang dicari tanda kalau dia juga masih kepikiran.",
       "highlight": [
-        "marah",
-        "bosan",
-        "drakor"
+        "baik-baik aja",
+        "tanda"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkKenyataan",
+      "stage": "bk2Isi",
       "durationInSeconds": 5,
-      "narration": "Padahal kenyataannya? HP-nya lagi dicas di kamar. Orangnya lagi nyuci piring sambil nyanyi.",
+      "narration": "Dan hasilnya? Foto kopi. Kucing. Mi instan. Nggak ada pesan rahasia buat Broki.",
       "highlight": [
-        "dicas",
-        "nyuci piring",
-        "nyanyi"
+        "kopi",
+        "Kucing",
+        "Mi instan",
+        "pesan rahasia"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkPsiko",
+      "stage": "bk2Psiko",
       "durationInSeconds": 5,
-      "narration": "Ini kerjaan otak. Dia benci ketidakpastian. Ada eksperimen yang nemuin, stres justru paling tinggi pas peluangnya fifty-fifty, bukan pas pasti kena. Jadi pas informasinya kosong, otak ngisinya pakai skenario terburuk.",
+      "narration": "Ada penelitian yang nemuin, orang yang rajin ngecek Facebook mantannya cenderung lebih tertekan setelah putus, lebih sering kangen, dan lebih susah berkembang. Ini baru hubungan, belum tentu sebab-akibat. Tapi lumayan jadi alasan buat berhenti ngecek.",
       "highlight": [
-        "ketidakpastian",
-        "fifty-fifty",
-        "skenario terburuk"
+        "tertekan",
+        "kangen",
+        "berkembang",
+        "hubungan"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkTwist",
+      "stage": "bk2Mute",
       "durationInSeconds": 5,
-      "narration": "Dan jujur aja, Broki juga sering gitu. Baca chat, mikir ntar aja deh bales, terus lupa hampir seharian. Di seberang sana, ada yang lagi bikin sinetron.",
+      "narration": "Broki udah mute. Terus buka lewat akun kedua. Katanya sih biar adil.",
       "highlight": [
-        "jujur",
-        "hampir seharian",
-        "sinetron"
+        "mute",
+        "akun kedua",
+        "adil"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkSolusi",
+      "stage": "bk2Solusi",
       "durationInSeconds": 5,
-      "narration": "Jadi sebelum nulis skenario di kepala, coba tanya aja. Satu kalimat singkat, bisa nyelametin dua malam tidur kamu.",
+      "narration": "Jadi mute dulu. Bukan buat pura-pura kuat, tapi biar perasaanmu sempat tenang. Abis itu cari kesibukan lain, jalan sore atau telepon temen, apa aja.",
       "highlight": [
-        "tanya aja",
-        "satu kalimat",
-        "dua malam"
+        "mute",
+        "tenang",
+        "kesibukan lain",
+        "jalan sore",
+        "telepon temen"
       ]
     },
     {
       "type": "stage",
-      "stage": "bkTutup",
+      "stage": "bk2Tutup",
       "durationInSeconds": 5,
-      "narration": "Diam itu bukan jawaban. Seringnya, orang cuma lagi hidup. Masih banyak isi kepala Broki yang lucu, jangan sampai ketinggalan episode berikutnya.",
+      "narration": "Move on itu bukan soal lupa. Cuma soal berhenti ngecek. Masih banyak isi kepala Broki yang lucu, jangan sampai ketinggalan episode berikutnya.",
       "highlight": [
-        "bukan jawaban",
-        "lagi hidup",
-        "episode berikutnya"
+        "Move on",
+        "berhenti ngecek",
+        "isi kepala"
       ]
     }
   ]
