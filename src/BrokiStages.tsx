@@ -1009,21 +1009,24 @@ const BrokiTwist: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
           dibaca, belum dibalas
         </text>
       </g>
-      {/* niat balas nanti */}
+      {/* isi pikiran Broki: gelembung pikiran kecil */}
       {t > cNtar - 0.1 ? (
-        <g transform={`translate(560 760) scale(${pop(t, cNtar, 0.5)})`}>
-          <rect x={-190} y={-44} width={380} height={88} rx={40} fill="#FFF6E5" />
-          <path d="M -90 44 L -110 80 L -50 44 Z" fill="#FFF6E5" />
-          <text x={0} y={12} textAnchor="middle" fill="#1A1B33" fontFamily={FONT_SANS} fontWeight={800} fontSize={32}>
-            ntar aja deh bales
-          </text>
+        <g>
+          {[0, 1].map((i) => (
+            <circle key={i} cx={470 + i * 38} cy={830 - i * 40} r={9 + i * 6} fill="#FFF6E5" opacity={clamp01(pop(t, cNtar + i * 0.08, 0.4))} />
+          ))}
+          <g transform={`translate(670 730) scale(${pop(t, cNtar + 0.1, 0.5)})`}>
+            <rect x={-170} y={-34} width={340} height={68} rx={34} fill="#FFF6E5" stroke="#E5CFAE" strokeWidth={3} />
+            <text x={0} y={9} textAnchor="middle" fill="#1A1B33" fontFamily={FONT_SANS} fontWeight={800} fontSize={25}>
+              ntar aja deh bales
+            </text>
+          </g>
         </g>
       ) : null}
-      {/* penanda waktu lewat */}
       {t > cHari - 0.2 ? (
-        <g transform={`translate(300 640) scale(${pop(t, cHari - 0.1, 0.5)})`}>
-          <rect x={-190} y={-36} width={380} height={72} rx={36} fill={BROKI_GREEN} />
-          <text x={0} y={11} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={34} fill="#1E2A12">
+        <g transform={`translate(670 640) scale(${pop(t, cHari - 0.1, 0.5)})`}>
+          <rect x={-150} y={-30} width={300} height={60} rx={30} fill="#FFF6E5" stroke={BROKI_GREEN} strokeWidth={5} />
+          <text x={0} y={8} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={25} fill="#2F5A12">
             hampir seharian
           </text>
         </g>
@@ -1035,7 +1038,7 @@ const BrokiTwist: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
         <rect x={-232} y={-232} width={464} height={464} rx={24} fill="#2A3366" />
         <rect x={-232} y={120} width={464} height={112} fill="#3A2D56" />
         <circle cx={150} cy={-150} r={26} fill="#FFF3C9" />
-        <Stickman pose={P({ aL: 70, eL: -140, aR: 14, eR: 8, headTilt: 6, lookY: 0.4 })} expr={EXPR.cemas} t={t} x={-20} y={30} scale={0.62} shirt="#4E8EF7" hair="cepak" hairColor="#2B1D18" shadow={false} />
+        <Stickman pose={P({ aL: 70, eL: -140, aR: 14, eR: 8, headTilt: 6, lookY: 0.4 })} expr={EXPR.cemas} t={t} x={-20} y={30} scale={0.62} shirt="#E8658A" hair="panjang" hairColor="#3A241C" shadow={false} />
         <g opacity={girlTv} transform={`translate(-20 ${-200 - Math.sin(t * 2) * 4}) scale(${girlTv})`}>
           <MiniTv x={0} y={0} s={0.8} t={t} />
         </g>
@@ -1182,12 +1185,16 @@ const BrokiSolusi: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
         <text x={-156} y={-100} fill="#F4F1FF" fontFamily={FONT_SANS} fontWeight={800} fontSize={30}>
           Sayang
         </text>
-        <rect x={-230} y={-10} width={460} height={84} rx={42} fill="#262A57" />
-        <text x={-196} y={44} fill="#FFF6E5" fontFamily={FONT_SANS} fontWeight={600} fontSize={32}>
-          {shown}
-          {typed < 1 && Math.floor(t * 3) % 2 === 0 ? "|" : ""}
-        </text>
-        <g opacity={sent ? 1 : 0} transform="translate(0 -4)">
+        {!sent ? (
+          <g>
+            <rect x={-230} y={-10} width={460} height={84} rx={42} fill="#262A57" />
+            <text x={-196} y={44} fill="#FFF6E5" fontFamily={FONT_SANS} fontWeight={600} fontSize={32}>
+              {shown}
+              {typed < 1 && Math.floor(t * 3) % 2 === 0 ? "|" : ""}
+            </text>
+          </g>
+        ) : null}
+        <g opacity={sent ? 1 : 0} transform="translate(0 70)">
           <rect x={-60} y={-70} width={300} height={72} rx={30} fill="#E8743B" />
           <text x={216} y={-24} textAnchor="end" fill="#FFF" fontFamily={FONT_SANS} fontWeight={600} fontSize={30}>
             {msg}
@@ -1380,6 +1387,8 @@ export const TypeCaptions: React.FC<{ captions?: Caption[]; highlight?: string[]
     <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 190 }}>
       <div
         style={{
+          boxSizing: "border-box",
+          position: "relative",
           maxWidth: 900,
           minWidth: 360,
           padding: "26px 40px",
@@ -1398,22 +1407,33 @@ export const TypeCaptions: React.FC<{ captions?: Caption[]; highlight?: string[]
           minHeight: 70,
         }}
       >
-        {words.slice(0, shown).map((w, i) => (
-          <span key={i} style={{ color: keys.has(norm(w)) ? BROKI_GREEN : "#FFF6E5", marginRight: "0.6ch" }}>
-            {w}
-          </span>
-        ))}
-        <span
-          style={{
-            display: "inline-block",
-            width: "0.55ch",
-            height: "1.05em",
-            marginLeft: 2,
-            verticalAlign: "text-bottom",
-            background: BROKI_GREEN,
-            opacity: blink ? 1 : 0,
-          }}
-        />
+        {/* lapisan tak terlihat: ukuran kotak ditentukan teks penuh, jadi kotak stabil dan teks turun ke bawah */}
+        <div style={{ visibility: "hidden", whiteSpace: "normal" }}>
+          {words.map((w, i) => (
+            <span key={i} style={{ marginRight: "0.6ch" }}>
+              {w}
+            </span>
+          ))}
+          <span style={{ display: "inline-block", width: "1.2ch" }} />
+        </div>
+        <div style={{ position: "absolute", left: 40, right: 40, top: 26, whiteSpace: "normal" }}>
+          {words.slice(0, shown).map((w, i) => (
+            <span key={i} style={{ color: keys.has(norm(w)) ? BROKI_GREEN : "#FFF6E5", marginRight: "0.6ch" }}>
+              {w}
+            </span>
+          ))}
+          <span
+            style={{
+              display: "inline-block",
+              width: "0.55ch",
+              height: "1.05em",
+              marginLeft: 2,
+              verticalAlign: "text-bottom",
+              background: BROKI_GREEN,
+              opacity: blink ? 1 : 0,
+            }}
+          />
+        </div>
       </div>
     </AbsoluteFill>
   );
