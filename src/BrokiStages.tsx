@@ -1466,11 +1466,11 @@ const Bk2Isi: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
       <Snap x={200} y={620} s={pop(t, cKopi, 0.5)} kind={0} t={t} />
       <Snap x={540} y={560} s={pop(t, cKucing, 0.5)} kind={1} t={t} />
       <Snap x={880} y={620} s={pop(t, cMi, 0.5)} kind={2} t={t} />
-      <g transform={`translate(540 900) rotate(-6) scale(${stamp})`} opacity={clamp01(stamp * 1.6)}>
+      <g transform={`translate(540 826) rotate(-5) scale(${stamp})`} opacity={clamp01(stamp * 1.6)}>
         <rect x={-300} y={-52} width={600} height={104} rx={20} fill="#FFF6E5" stroke="#E5534B" strokeWidth={8} />
         <text x={0} y={14} textAnchor="middle" fontFamily={FONT_SANS} fontWeight={800} fontSize={40} fill="#E5534B">pesan rahasia: tidak ada</text>
       </g>
-      <Stickman pose={pose} expr={ex} t={t} x={540} y={1326} scale={1.25} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
+      <Stickman pose={pose} expr={ex} t={t} x={540} y={1346} scale={1.2} shirt="#E8743B" pants="#4F6FC4" itemR={phone(pose)} energy={0.3} />
       <Sfx at={cKopi} name="click" volume={0.025} />
       <Sfx at={cRahasia + 0.2} name="ding" volume={0.03} />
     </>
@@ -1593,7 +1593,7 @@ const Bk2Solusi: React.FC<{ t: number; cue: Cue }> = ({ t, cue }) => {
   const cJalan = cue("jalan sore", 6.2);
   const cTelp = cue("telepon temen", 7.4);
   const walk = seg(t, cKesibukan - 0.4, cKesibukan + 0.5);
-  const sw = Math.sin(t * 6.5) * 24 * walk;
+  const sw = Math.sin(t * 6.5) * 15 * walk;
   const pose = P({ aL: 20 + sw * 0.8, eL: 20, aR: 20 - sw * 0.8, eR: 20, hL: sw, hR: -sw, kL: Math.max(0, -sw) * 0.8, kR: Math.max(0, sw) * 0.8, bob: Math.abs(Math.sin(t * 6.5)) * 6 * walk, headTilt: 2, lookY: -0.1 });
   const ex = track<Expr>(t, [{ t: 0, v: EXPR.tenang }, { t: cTenang, v: EXPR.lega }, { t: cKesibukan, v: EXPR.senyum }], 0.5);
   const icons = [
